@@ -1,10 +1,8 @@
 package thatdz.assignment.assigmentjava5.entity;
-
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,32 +20,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@Table(name = "CuaHang")
-public class CuaHang {
+
+@Table(name = "NSX")
+public class NSX {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id", columnDefinition = "uniqueidentifier")
-    public UUID id;
+    private UUID id;
     @NotBlank(message = "Mã không được trống!!!")
     @Column(name = "Ma")
-    public String ma;
-    
+    private String ma;
     @NotBlank(message = "Tên không được trống!!!")
     @Column(name = "Ten")
-    public String ten;
-
-    @NotBlank(message = "Địa chỉ không được trống!!!")
-    @Column(name = "DiaChi")
-    public String diaChi;
-
-    @NotBlank(message = "Thành Phố không được trống!!!")
-    @Column(name = "ThanhPho")
-    public String thanhPho;
-
-    @NotBlank(message = "Quốc Gia không được trống!!!")
-    @Column(name = "QuocGia")
-    public String quocGia;
+    private String ten;
     @Override
     public String toString() {
         return this.ten;

@@ -1,14 +1,21 @@
 package thatdz.assignment.assigmentjava5.entity;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,8 +29,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@Table(name = "CuaHang")
-public class CuaHang {
+@Table(name = "GioHang")
+public class GioHang {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -32,24 +39,40 @@ public class CuaHang {
     @NotBlank(message = "Mã không được trống!!!")
     @Column(name = "Ma")
     public String ma;
-    
+
     @NotBlank(message = "Tên không được trống!!!")
-    @Column(name = "Ten")
-    public String ten;
+    @Column(name = "TenNguoiNhan")
+    public String tenNguoiNhan;
+
+    @Column(name = "NgayTao")
+    public Date ngayTao;
+
+    @Column(name = "NgayThanhToan")
+    public Date ngayThanhToan;
 
     @NotBlank(message = "Địa chỉ không được trống!!!")
     @Column(name = "DiaChi")
     public String diaChi;
 
-    @NotBlank(message = "Thành Phố không được trống!!!")
-    @Column(name = "ThanhPho")
-    public String thanhPho;
+    @Column(name = "Sdt")
+    public String sdt;
 
-    @NotBlank(message = "Quốc Gia không được trống!!!")
-    @Column(name = "QuocGia")
-    public String quocGia;
+    @Column(name = "TinhTrang")
+    public int tinhTrang;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdMauSac", referencedColumnName = "Id")
+
+    private KhachHang khachHang;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdNV", referencedColumnName = "Id")
+    private NhanVien nhanVien;
+    
+    @ManyToMany
+    @JoinTable(name = "GioHangChiTiet", joinColumns = @JoinColumn(name = "IdChiTietSP"), inverseJoinColumns = @JoinColumn(name = "IdGioHang"))
+    List<ChiTietSanPham> chiTietSanPhams;
+
     @Override
     public String toString() {
-        return this.ten;
+        return this.tenNguoiNhan;
     }
 }
