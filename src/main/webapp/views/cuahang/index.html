@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa Hàng</title>
+</head>
+<body>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mã Cửa Hàng</th>
+                    <th scope="col">Tên Cửa Hàng</th>
+                    <th scope="col">Địa Chỉ</th>
+                    <th scope="col">Thành Phố</th>
+                    <th scope="col">Quốc Gia</th>
+                    <th scope="col">Funtion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cuahang : ${list}">
+                <td th:text="${cuahang.ma}"></td>
+                <td th:text="${cuahang.ten}"></td>
+                <td th:text="${cuahang.diaChi}"></td>
+                <td th:text="${cuahang.thanhPho}"></td>
+                <td th:text="${cuahang.quocGia}"></td>
+                <td>
+                    <a th:href="@{/cuahang/delete(id=${cuahang.id})}" class="btn">delete</a>
+                    <a th:href="@{/cuahang/edit(id=${cuahang.id})}" class="btn">update</a>
+                  </td>
+                  
+            </tr>
+        </tbody>
+    </table>
+    <a href="/cuahang/create">new </a>
+</body>
+</html>
