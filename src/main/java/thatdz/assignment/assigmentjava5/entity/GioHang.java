@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -66,10 +67,9 @@ public class GioHang {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdNV", referencedColumnName = "Id")
     private NhanVien nhanVien;
-    
-    @ManyToMany
-    @JoinTable(name = "GioHangChiTiet", joinColumns = @JoinColumn(name = "IdChiTietSP"), inverseJoinColumns = @JoinColumn(name = "IdGioHang"))
-    List<ChiTietSanPham> chiTietSanPhams;
+
+    @OneToMany(mappedBy = "gioHang")
+    List<GioHangChiTiet> gioHangChiTiets;
 
     @Override
     public String toString() {
