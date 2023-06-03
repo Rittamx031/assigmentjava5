@@ -13,14 +13,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@Table(name = "CuaHang")
+@Table(name = "ChucVu")
 public class ChucVu {
     @Id
     @GeneratedValue(generator = "uuid2")
