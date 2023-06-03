@@ -61,9 +61,9 @@ public class GioHang {
     @Column(name = "TinhTrang")
     public int tinhTrang;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IdMauSac", referencedColumnName = "Id")
-
+    @JoinColumn(name = "IdKH", referencedColumnName = "Id")
     private KhachHang khachHang;
+    
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdNV", referencedColumnName = "Id")
     private NhanVien nhanVien;
