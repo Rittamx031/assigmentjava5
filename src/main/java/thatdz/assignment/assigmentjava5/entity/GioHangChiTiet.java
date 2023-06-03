@@ -30,10 +30,10 @@ public class GioHangChiTiet {
     @MapsId("idGioHang")
     @JoinColumn(name = "IdGioHang")
     GioHang gioHang;
-    
+
     @ManyToOne
     @MapsId("idChiTietSanPham")
-    @JoinColumn(name = "IdChiTietSanPham")
+    @JoinColumn(name = "IdChiTietSP")
     ChiTietSanPham chiTietSanPham;
 
     @NotBlank(message = "Quốc Gia không được trống!!!")

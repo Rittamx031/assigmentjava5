@@ -1,5 +1,0 @@
-package thatdz.assignment.assigmentjava5.service;
-
-public class GioHangChiTiet {
-    
-}
