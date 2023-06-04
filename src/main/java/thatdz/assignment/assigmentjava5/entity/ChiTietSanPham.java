@@ -32,7 +32,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Component
 @ToString
-@Table(name = "ChiTietSanPham")
+@Table(name = "ChiTietSP")
 public class ChiTietSanPham {
     @Id
     @GeneratedValue(generator = "uuid2")
