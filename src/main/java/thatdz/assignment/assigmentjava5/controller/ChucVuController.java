@@ -17,7 +17,6 @@ import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.ChucVu;
 import thatdz.assignment.assigmentjava5.service.ChucVuService;
 
-
 @Controller
 @RequestMapping("chucvu")
 public class ChucVuController {
@@ -25,52 +24,61 @@ public class ChucVuController {
     private ChucVuService service;
     @Autowired
     private ChucVu chucvu;
+
     @GetMapping("index")
     public String getChucVuIndexpages(Model model) {
         List<ChucVu> list = service.getChucVus();
         model.addAttribute("list", list);
         return "manager/chucvu/index.html";
     }
+
     @ModelAttribute("chucvu")
     public ChucVu setSignUpForm() {
         return chucvu;
     }
+
     @GetMapping("create")
-        public String goToCreateForm(){
-            chucvu = new ChucVu();
+    public String goToCreateForm() {
+        chucvu = new ChucVu();
         return "manager/chucvu/form.html";
     }
+
     @GetMapping("delete")
-        public String deleteChucVu(Model model, @RequestParam("id") String id)
-    {
+    public String deleteChucVu(Model model, @RequestParam("id") String id) {
         service.deleteChucVu(UUID.fromString(id));
         List<ChucVu> listchucvu = service.getChucVus();
-        model.addAttribute("list",listchucvu);
+        model.addAttribute("list", listchucvu);
         return "manager/chucvu/index.html";
     }
+
     @GetMapping("edit")
-    public String editChucVu(Model model,@RequestParam("id") String id){
+    public String editChucVu(Model model, @RequestParam("id") String id) {
         model.addAttribute("chucvu", service.getChucVuById(UUID.fromString(id)));
         return "manager/chucvu/update.html";
     }
+
     @PostMapping("store")
-    public String storeChucVu(Model model,@Valid @ModelAttribute("chucvu") ChucVu chucvu, BindingResult theBindingResult){
+    public String storeChucVu(Model model, @Valid @ModelAttribute("chucvu") ChucVu chucvu,
+            BindingResult theBindingResult) {
         System.out.println(chucvu);
         if (theBindingResult.hasErrors()) {
             return "manager/chucvu/form.html";
         } else {
             service.saveChucVu(chucvu);
-            model.addAttribute("list",service.getChucVus());
-          return "manager/chucvu/index.html";
+            model.addAttribute("list", service.getChucVus());
+            chucvu = new ChucVu();
+            return "manager/chucvu/index.html";
         }
     }
+
     @PostMapping("update")
     public String update(@Valid @ModelAttribute("chucvu") ChucVu chucvu, BindingResult theBindingResult, Model model) {
         if (theBindingResult.hasErrors()) {
             return "manager/chucvu/update.html";
         }
         service.updateChucvu(chucvu);
-        model.addAttribute("list",service.getChucVus());
-        return "manager/chucvu/index.html"; 
+        model.addAttribute("list", service.getChucVus());
+        chucvu = new ChucVu();
+        return "manager/chucvu/index.html";
     }
 }

@@ -76,6 +76,7 @@ public class NhanVienController {
         } else {
             service.saveNhanVien(nhanvien);
             model.addAttribute("list", service.getNhanViens());
+            nhanvien = new NhanVien();
             return "manager/nhanvien/index.jsp";
         }
     }
@@ -88,6 +89,7 @@ public class NhanVienController {
         }
         service.updateNhanVien(nhanvien);
         model.addAttribute("list", service.getNhanViens());
+        nhanvien = new NhanVien();
         return "manager/nhanvien/index.jsp";
     }
 }

@@ -14,29 +14,19 @@
 </head>
 <body>
     <!-- Form to store new cuahang -->
-    <form th:action="@{/cuahang/store}" th:object="${cuahang}" method="post" class="form">
-        <label>Ten Cua Hang: </label>
+    <form th:action="@{/nhasanxuat/store}" th:object="${nsx}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
-        <input type="text" th:field="*{ten}" />
-        <div th:if="${#fields.hasErrors('ten')}" class="errors" th:errors="*{ten}"></div>
-        <br>
-        <label>Mã Cua Hang: </label>
-        <input type="text" th:field="*{ma}" />
-        <div th:if="${#fields.hasErrors('ma')}" class="errors" th:errors="*{ma}"></div>
-        <br>
-        <label>Địa chỉ: </label>
-        <input type="text" th:field="*{diaChi}" />
-        <div th:if="${#fields.hasErrors('diaChi')}" class="errors" th:errors="*{diaChi}"></div>
-        <br>
-        <label>Thành phố: </label>
-        <input type="text" th:field="*{thanhPho}" />
-        <div th:if="${#fields.hasErrors('thanhPho')}" class="errors" th:errors="*{thanhPho}"></div>
-        <br>
-        <label>Quốc gia: </label>
-        <input type="text" th:field="*{quocGia}" />
-        <div th:if="${#fields.hasErrors('quocGia')}" class="errors" th:errors="*{quocGia}"></div>
-        <br>
-        <input type="submit" value="Submit"/>
+        <div class="form-group">
+            <label>Mã Nhà sản xuất: </label>
+            <input type="text"  class="form-control"  th:field="*{ma}" />
+            <div th:if="${#fields.hasErrors('ma')}" class="errors text-danger form-text" th:errors="*{ma}"></div>
+        </div>
+        <div class="form-group">
+            <label>Ten Nhà sản xuất: </label>
+            <input type="text"  class="form-control"  th:field="*{ten}" />
+            <div th:if="${#fields.hasErrors('ten')}" class="errors text-danger form-text" th:errors="*{ten}"></div>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary" />
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"

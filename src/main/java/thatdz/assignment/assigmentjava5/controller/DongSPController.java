@@ -17,60 +17,68 @@ import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.DongSP;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
 
-
 @Controller
 @RequestMapping("dongsp")
 public class DongSPController {
-    @Autowired 
+    @Autowired
     private DongSPService service;
     @Autowired
     private DongSP dongsp;
+
     @GetMapping("index")
     public String getDongSPIndexpages(Model model) {
         List<DongSP> list = service.getDongSPs();
         model.addAttribute("list", list);
         return "manager/dongsanpham/index.html";
     }
+
     @ModelAttribute("dongsp")
     public DongSP setSignUpForm() {
         return dongsp;
     }
+
     @GetMapping("create")
-        public String goToCreateForm(){
-            dongsp = new DongSP();
+    public String goToCreateForm() {
+        dongsp = new DongSP();
         return "manager/dongsanpham/form.html";
     }
+
     @GetMapping("delete")
-        public String deleteDongSP(Model model, @RequestParam("id") String id)
-    {
+    public String deleteDongSP(Model model, @RequestParam("id") String id) {
         service.deleteDongSP(UUID.fromString(id));
         List<DongSP> listDongSP = service.getDongSPs();
-        model.addAttribute("list",listDongSP);
+        model.addAttribute("list", listDongSP);
         return "manager/dongsanpham/index.html";
     }
+
     @GetMapping("edit")
-    public String editDongSP(Model model,@RequestParam("id") String id){
+    public String editDongSP(Model model, @RequestParam("id") String id) {
         model.addAttribute("DongSP", service.getDongSPById(UUID.fromString(id)));
         return "manager/dongsanpham/update.html";
     }
+
     @PostMapping("store")
-    public String storeDongSP(Model model,@Valid @ModelAttribute("dongsp") DongSP dongsp, BindingResult theBindingResult){
+    public String storeDongSP(Model model, @Valid @ModelAttribute("dongsp") DongSP dongsp,
+            BindingResult theBindingResult) {
         System.out.println(dongsp);
         if (theBindingResult.hasErrors()) {
             return "manager/dongsanpham/form.html";
         } else {
             service.saveDongSP(dongsp);
-            model.addAttribute("list",service.getDongSPs());
-          return "manager/dongsanpham/index.html";
+            model.addAttribute("list", service.getDongSPs());
+            dongsp = new DongSP();
+            return "manager/dongsanpham/index.html";
         }
     }
+
     @PostMapping("update")
     public String update(@Valid @ModelAttribute("dongsp") DongSP dongsp, BindingResult theBindingResult, Model model) {
         if (theBindingResult.hasErrors()) {
             return "manager/dongsanpham/update.html";
         }
         service.updateDongSP(dongsp);
-        model.addAttribute("list",service.getDongSPs());
-        return "manager/dongsanpham/index.html"; 
+        model.addAttribute("list", service.getDongSPs());
+        dongsp = new DongSP();
+        return "manager/dongsanpham/index.html";
     }
 }

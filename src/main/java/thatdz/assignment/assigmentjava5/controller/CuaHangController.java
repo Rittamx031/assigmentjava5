@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import thatdz.assignment.assigmentjava5.entity.CuaHang;
 import thatdz.assignment.assigmentjava5.service.CuaHangService;
 
-
 @Controller
 @RequestMapping("cuahang")
 public class CuaHangController {
@@ -27,52 +26,62 @@ public class CuaHangController {
     public CuaHangService service;
     @Autowired
     public CuaHang cuahang;
+
     @GetMapping("index")
     public String getCuaHangIndexpages(Model model) {
         List<CuaHang> list = service.getCuaHangs();
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
     }
+
     @ModelAttribute("cuahang")
     public CuaHang setSignUpForm() {
         return cuahang;
     }
+
     @GetMapping("create")
-        public String goToCreateForm(){
-            cuahang = new CuaHang();
+    public String goToCreateForm() {
+        cuahang = new CuaHang();
         return "manager/cuahang/form.html";
     }
+
     @GetMapping("delete")
-        public String deleteCuaHang(Model model, @RequestParam("id") String id)
-    {
+    public String deleteCuaHang(Model model, @RequestParam("id") String id) {
         service.deleteCuaHang(UUID.fromString(id));
         List<CuaHang> listCuaHang = service.getCuaHangs();
-        model.addAttribute("list",listCuaHang);
+        model.addAttribute("list", listCuaHang);
         return "manager/cuahang/index.html";
     }
+
     @GetMapping("edit")
-    public String editCuaHang(Model model,@RequestParam("id") String id){
+    public String editCuaHang(Model model, @RequestParam("id") String id) {
         model.addAttribute("cuahang", service.getCuaHangById(UUID.fromString(id)));
         return "manager/cuahang/update.html";
     }
+
     @PostMapping("store")
-    public String storeCuaHang(Model model,@Valid @ModelAttribute("cuahang") CuaHang cuahang, BindingResult theBindingResult){
+    public String storeCuaHang(Model model, @Valid @ModelAttribute("cuahang") CuaHang cuahang,
+            BindingResult theBindingResult) {
         System.out.println(cuahang);
         if (theBindingResult.hasErrors()) {
             return "manager/cuahang/form.html";
         } else {
             service.saveCuaHang(cuahang);
-            model.addAttribute("list",service.getCuaHangs());
-          return "manager/cuahang/index.html";
+            model.addAttribute("list", service.getCuaHangs());
+            cuahang = new CuaHang();
+            return "manager/cuahang/index.html";
         }
     }
+
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("cuahang") CuaHang cuahang, BindingResult theBindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("cuahang") CuaHang cuahang, BindingResult theBindingResult,
+            Model model) {
         if (theBindingResult.hasErrors()) {
             return "manager/cuahang/update.html";
         }
         service.updateCuaHang(cuahang);
-        model.addAttribute("list",service.getCuaHangs());
-        return "manager/cuahang/index.html"; 
+        model.addAttribute("list", service.getCuaHangs());
+        cuahang = new CuaHang();
+        return "manager/cuahang/index.html";
     }
 }
