@@ -9,13 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import thatdz.assignment.assigmentjava5.entity.CuaHang;
 import thatdz.assignment.assigmentjava5.entity.NhanVien;
 import thatdz.assignment.assigmentjava5.service.CuaHangService;
@@ -33,7 +30,7 @@ public class NhanVienController {
     public String getnhanvienHomepage(Model model) {
         List<NhanVien> list = service.getNhanViens();
         model.addAttribute("list", list);
-        return "nhanvien/index.jsp";
+        return "manager/nhanvien/index.jsp";
     }
 
     @Autowired
@@ -53,7 +50,7 @@ public class NhanVienController {
     @GetMapping("create")
     public String goToCreateForm() {
         nhanvien = new NhanVien();
-        return "nhanvien/form.jsp";
+        return "manager/nhanvien/form.jsp";
     }
 
     @GetMapping("delete")
@@ -61,13 +58,13 @@ public class NhanVienController {
         service.deleteNhanVien(UUID.fromString(id));
         List<NhanVien> listNhanVien = service.getNhanViens();
         model.addAttribute("list", listNhanVien);
-        return "nhanvien/index.jsp";
+        return "manager/nhanvien/index.jsp";
     }
 
     @GetMapping("edit")
     public String editNhanVien(Model model, @RequestParam("id") String id) {
         model.addAttribute("nhanvien", service.getNhanVienById(UUID.fromString(id)));
-        return "nhanvien/update.jsp";
+        return "manager/nhanvien/update.jsp";
     }
 
     @PostMapping("store")
@@ -75,11 +72,11 @@ public class NhanVienController {
             BindingResult theBindingResult) {
         System.out.println(nhanvien.toString());
         if (theBindingResult.hasErrors()) {
-            return "nhanvien/form.jsp";
+            return "manager/nhanvien/form.jsp";
         } else {
             service.saveNhanVien(nhanvien);
             model.addAttribute("list", service.getNhanViens());
-            return "nhanvien/index.jsp";
+            return "manager/nhanvien/index.jsp";
         }
     }
 
@@ -87,10 +84,10 @@ public class NhanVienController {
     public String update(@Valid @ModelAttribute("nhanvien") NhanVien nhanvien, BindingResult theBindingResult,
             Model model) {
         if (theBindingResult.hasErrors()) {
-            return "nhanvien/update.jsp";
+            return "manager/nhanvien/update.jsp";
         }
         service.updateNhanVien(nhanvien);
         model.addAttribute("list", service.getNhanViens());
-        return "nhanvien/index.jsp";
+        return "manager/nhanvien/index.jsp";
     }
 }

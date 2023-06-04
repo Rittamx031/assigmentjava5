@@ -20,5 +20,4 @@ public class NSXController {
         }
         return "home/index.html";
     }
-    
 }
