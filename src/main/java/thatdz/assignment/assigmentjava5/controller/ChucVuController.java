@@ -31,14 +31,14 @@ public class ChucVuController {
         model.addAttribute("list", list);
         return "manager/chucvu/index.html";
     }
-    @ModelAttribute("ChucVu")
+    @ModelAttribute("chucvu")
     public ChucVu setSignUpForm() {
         return chucvu;
     }
     @GetMapping("create")
         public String goToCreateForm(){
             chucvu = new ChucVu();
-        return "manager/ChucVu/form.html";
+        return "manager/chucvu/form.html";
     }
     @GetMapping("delete")
         public String deleteChucVu(Model model, @RequestParam("id") String id)
@@ -46,7 +46,7 @@ public class ChucVuController {
         service.deleteChucVu(UUID.fromString(id));
         List<ChucVu> listchucvu = service.getChucVus();
         model.addAttribute("list",listchucvu);
-        return "manager/ChucVu/index.html";
+        return "manager/chucvu/index.html";
     }
     @GetMapping("edit")
     public String editChucVu(Model model,@RequestParam("id") String id){
