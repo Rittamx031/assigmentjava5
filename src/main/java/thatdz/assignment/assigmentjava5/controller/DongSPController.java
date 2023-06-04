@@ -18,7 +18,7 @@ import thatdz.assignment.assigmentjava5.entity.DongSP;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
 
 @Controller
-@RequestMapping("dongsp")
+@RequestMapping("manager/dongsp")
 public class DongSPController {
     @Autowired
     private DongSPService service;

@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Form to store new cuahang -->
-    <form th:action="@{/cuahang/store}" th:object="${cuahang}" method="post" class="form">
+    <form th:action="@{/cuahang/update}" th:object="${cuahang}" method="post" class="form">
         <label>Ten Cua Hang: </label>
         <input type="hidden" th:field="*{id}" />
         <input type="text" th:field="*{ten}" />

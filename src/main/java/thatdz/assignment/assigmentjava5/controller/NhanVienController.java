@@ -19,7 +19,7 @@ import thatdz.assignment.assigmentjava5.service.CuaHangService;
 import thatdz.assignment.assigmentjava5.service.NhanVienService;
 
 @Controller
-@RequestMapping("nhanvien")
+@RequestMapping("manager/nhanvien")
 public class NhanVienController {
     @Autowired
     public NhanVienService service;

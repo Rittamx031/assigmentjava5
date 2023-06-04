@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-@RequestMapping("chitietsanpham")
+@RequestMapping("manager/chitietsanpham")
 public class ChiTietSanPhamController {
     @Autowired
     public ChiTietSanPhamService service;

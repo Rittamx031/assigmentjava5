@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Form to store new cuahang -->
-    <form th:action="@{/dongsp/store}" th:object="${dongsp}" method="post" class="form">
+    <form th:action="@{/manager/dongsp/update}" th:object="${dongsp}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label>Mã Dòng Sản Phẩm: </label>

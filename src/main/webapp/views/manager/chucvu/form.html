@@ -15,7 +15,7 @@
 <body>
     <div class="container">
         <!-- Form to store new chucvu -->
-        <form th:action="@{/chucvu/store}" th:object="${chucvu}" method="post" class="form">
+        <form th:action="@{/manager/chucvu/store}" th:object="${chucvu}" method="post" class="form">
             <input type="hidden" th:field="*{id}" />
             <div class="form-group">
                 <label>Mã Chức Vụ: </label>

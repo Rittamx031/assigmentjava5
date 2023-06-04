@@ -18,7 +18,7 @@ import thatdz.assignment.assigmentjava5.entity.NSX;
 import thatdz.assignment.assigmentjava5.service.NSXService;
 
 @Controller
-@RequestMapping("nhasanxuat")
+@RequestMapping("manager/nhasanxuat")
 public class NSXController {
     @Autowired
     public NSXService service;

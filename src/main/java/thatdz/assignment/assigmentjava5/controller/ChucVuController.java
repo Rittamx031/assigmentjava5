@@ -18,7 +18,7 @@ import thatdz.assignment.assigmentjava5.entity.ChucVu;
 import thatdz.assignment.assigmentjava5.service.ChucVuService;
 
 @Controller
-@RequestMapping("chucvu")
+@RequestMapping("manager/chucvu")
 public class ChucVuController {
     @Autowired
     private ChucVuService service;

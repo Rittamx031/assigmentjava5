@@ -20,7 +20,7 @@ import thatdz.assignment.assigmentjava5.entity.CuaHang;
 import thatdz.assignment.assigmentjava5.service.CuaHangService;
 
 @Controller
-@RequestMapping("cuahang")
+@RequestMapping("manager/cuahang")
 public class CuaHangController {
     @Autowired
     public CuaHangService service;
