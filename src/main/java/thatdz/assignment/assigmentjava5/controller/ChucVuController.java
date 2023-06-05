@@ -58,27 +58,25 @@ public class ChucVuController {
     }
 
     @PostMapping("store")
-    public String storeChucVu(Model model, @Valid @ModelAttribute("chucvu") ChucVu chucvu,
+    public String storeChucVu(Model model, @Valid @ModelAttribute("chucvu") ChucVu chucvust,
             BindingResult theBindingResult) {
-        System.out.println(chucvu);
+        System.out.println(chucvust);
         if (theBindingResult.hasErrors()) {
             return "manager/chucvu/form.html";
         } else {
-            service.saveChucVu(chucvu);
+            service.saveChucVu(chucvust);
             model.addAttribute("list", service.getChucVus());
-            chucvu = new ChucVu();
             return "manager/chucvu/index.html";
         }
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("chucvu") ChucVu chucvu, BindingResult theBindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("chucvu") ChucVu chucvuud, BindingResult theBindingResult, Model model) {
         if (theBindingResult.hasErrors()) {
             return "manager/chucvu/update.html";
         }
-        service.updateChucvu(chucvu);
+        service.updateChucvu(chucvuud);
         model.addAttribute("list", service.getChucVus());
-        chucvu = new ChucVu();
         return "manager/chucvu/index.html";
     }
 }

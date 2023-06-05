@@ -1,12 +1,16 @@
 package thatdz.assignment.assigmentjava5.entity;
+import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -33,6 +37,11 @@ public class DongSP {
     @NotBlank(message = "Tên không được trống!!!")
     @Column(name = "Ten")
     private String ten;
+    @OneToMany(cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    @JoinColumn(mappedBy = "post",
+    )
+    private Set<ChiTietSanPham>  chiTietSanPhams;      
     @Override
     public String toString() {
         return this.ten;

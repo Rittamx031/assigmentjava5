@@ -16,39 +16,17 @@
     <div class="container">
 
         <!-- Form to store new cuahang -->
-        <form th:action="@{/manager/cuahang/store}" th:object="${cuahang}" method="post" class="form">
+        <form th:action="@{/manager/mausac/store}" th:object="${mausac}" method="post" class="form">
             <input type="hidden" th:field="*{id}" />
             <div class="form-group">
-
-                <label>Ten Cua Hang: </label>
-                <input type="text"  class="form-control"  th:field="*{ten}" />
-                <div th:if="${#fields.hasErrors('ten')}" class="errors text-danger form-text" th:errors="*{ten}"></div>
-            </div>
-            <div class="form-group">
-
-                <label>Mã Cua Hang: </label>
+                <label>Mã Chức Vụ: </label>
                 <input type="text"  class="form-control"  th:field="*{ma}" />
                 <div th:if="${#fields.hasErrors('ma')}" class="errors text-danger form-text" th:errors="*{ma}"></div>
             </div>
             <div class="form-group">
-
-                <label>Địa chỉ: </label>
-                <input type="text"  class="form-control"  th:field="*{diaChi}" />
-                <div th:if="${#fields.hasErrors('diaChi')}" class="errors text-danger form-text" th:errors="*{diaChi}">
-                </div>
-            </div>
-            <div class="form-group">
-
-                <label>Thành phố: </label>
-                <input type="text"  class="form-control"  th:field="*{thanhPho}" />
-                <div th:if="${#fields.hasErrors('thanhPho')}" class="errors text-danger form-text"
-                    th:errors="*{thanhPho}"></div>
-            </div>
-            <div class="form-group">
-                <label>Quốc gia: </label>
-                <input type="text"  class="form-control"  th:field="*{quocGia}" />
-                <div th:if="${#fields.hasErrors('quocGia')}" class="errors text-danger form-text" th:errors="*{quocGia}">
-                </div>
+                <label>Ten Chức Vụ: </label>
+                <input type="text"  class="form-control"  th:field="*{ten}" />
+                <div th:if="${#fields.hasErrors('ten')}" class="errors text-danger form-text" th:errors="*{ten}"></div>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary" />
         </form>
