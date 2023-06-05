@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Form to store new cuahang -->
-    <form th:action="@{/manager/nhanvien/store}" th:object="${nhanvien}" method="post" class="form">
+    <form th:action="@{/manager/nhanvien/update}" th:object="${nhanvien}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label>Mã: </label>
@@ -67,25 +67,28 @@
             <div th:if="${#fields.hasErrors('sdt')}" class="errors text-danger form-text" th:errors="*{sdt}"></div>
         </div>
         
-        <div class="form-group">
-            <label>Mật khẩu: </label>
-            <input type="password" class="form-control" th:field="*{matKhau}" />
-            <div th:if="${#fields.hasErrors('matKhau')}" class="errors text-danger form-text" th:errors="*{matKhau}"></div>
-        </div>
-        
+      
         <div class="form-group">
             <label>Chức vụ: </label>
-            <select class="form-control" th:field="*{idCV}">
-                <option value="">Select a position</option>
-                <!-- Add options for positions here -->
+            <select class="form-control" th:field="*{chucvu}">
+                <option value="">Select a store</option>
+                <option th:each="cv : ${listcv}"
+                        th:value="${{cv}}"
+                        th:text="${cv.ten}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('idCV')}" class="errors text-danger form-text" th:errors="*{idCV}"></div>
+            <div th:if="${#fields.hasErrors('chucvu')}" class="errors text-danger form-text" th:errors="*{chucvu}"></div>
         </div>
         
         <div class="form-group">
-            <label>GuiBC: </label>
-            <input type="text" class="form-control" th:field="*{idGuiBC}" />
-            <div th:if="${#fields.hasErrors('idGuiBC')}" class="errors text-danger form-text" th:errors="*{idGuiBC}"></div>
+            <label>Quản Lý: </label>
+            <select class="form-control" th:field="*{quanly}">
+                <option value="">Select a store</option>
+                <option th:each="ql : ${listnv}"
+                        th:value="${{ql}}"
+                        th:text="${ql.ten}">
+                </option>
+            <div th:if="${#fields.hasErrors('quanly')}" class="errors text-danger form-text" th:errors="*{quanly}"></div>
         </div>
         
         <div class="form-group">
@@ -96,13 +99,15 @@
         
         <div class="form-group">
             <label>Cửa hàng: </label>
-            <select class="form-control" th:field="*{cuahang.id}">
+            <select class="form-control" th:field="*{cuahang}">
                 <option value="">Select a store</option>
-                <!-- Add options for stores here -->
+                <option th:each="ch : ${listch}"
+                        th:value="${{ch}}"
+                        th:text="${ch.ten}">
+                </option>
             </select>
             <div th:if="${#fields.hasErrors('cuahang.id')}" class="errors text-danger form-text" th:errors="*{cuahang.id}"></div>
         </div>
-        
         <input type="submit" value="Submit" class="btn btn-primary" />
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

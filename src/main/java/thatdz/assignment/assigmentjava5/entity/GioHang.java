@@ -60,11 +60,11 @@ public class GioHang {
 
     @Column(name = "TinhTrang")
     public int tinhTrang;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdKH", referencedColumnName = "Id")
     private KhachHang khachHang;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdNV", referencedColumnName = "Id")
     private NhanVien nhanVien;
 

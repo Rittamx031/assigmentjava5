@@ -45,9 +45,8 @@ public class NhanVienService {
         existingNhanVien.setNgaySinh(NhanVien.getNgaySinh());
         existingNhanVien.setDiaChi(NhanVien.getDiaChi());
         existingNhanVien.setSdt(NhanVien.getSdt());
-        existingNhanVien.setMatKhau(NhanVien.getMatKhau());
-        existingNhanVien.setIdCV(NhanVien.getIdCV());
-        existingNhanVien.setIdGuiBC(NhanVien.getIdGuiBC());
+        existingNhanVien.setChucvu(NhanVien.getChucvu());
+        existingNhanVien.setQuanly(NhanVien.getQuanly());
         existingNhanVien.setTrangThai(NhanVien.getTrangThai());
         return repository.save(existingNhanVien);
     }

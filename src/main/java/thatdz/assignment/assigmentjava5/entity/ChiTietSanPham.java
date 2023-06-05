@@ -39,23 +39,23 @@ public class ChiTietSanPham {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id", columnDefinition = "uniqueidentifier")
     private UUID id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdSP", referencedColumnName = "Id")
     @NotNull(message = "Sản phẩm is required")
     private SanPham sanPham;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdNSX", referencedColumnName = "Id")
     @NotNull(message = "Nhà sản xuất is required")
     private NSX nsx;
 
     @NotNull(message = "Màu Sắc is required")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdMauSac", referencedColumnName = "Id")
     private MauSac mauSac;
     
     @NotNull(message = "Dòng sản phẩm is required")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdDongSP", referencedColumnName = "Id")
     private DongSP dongSP;
 

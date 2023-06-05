@@ -36,10 +36,10 @@ public class HoaDon {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id", columnDefinition = "uniqueidentifier")
     private UUID id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdKH",referencedColumnName = "Id")
     private KhachHang khachHang;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "IdNV",referencedColumnName = "Id")
     private NhanVien nhanVien;
     @Column(name = "Ma")

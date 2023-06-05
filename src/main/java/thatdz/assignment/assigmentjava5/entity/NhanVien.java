@@ -40,7 +40,7 @@ public class NhanVien {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id")
     public UUID id;
-   
+
     @NotBlank(message = "Ma không được để trống")
     @Column(name = "Ma")
     public String ma;
@@ -51,7 +51,7 @@ public class NhanVien {
 
     @Column(name = "TenDem")
     public String tenDem;
-    
+
     @NotBlank(message = "Họ không được để trống")
     @Column(name = "Ho")
     public String ho;
@@ -72,22 +72,24 @@ public class NhanVien {
     @Pattern(regexp = "\\d{10}", message = "Sdt must be a 10-digit number")
     @Column(name = "Sdt")
     public String sdt;
-
-    @NotBlank(message = "Mật Khẩu không được để trống")
-    @Column(name = "MatKhau")
-    public String matKhau;
+    
     @NotNull
-    @Column(name = "IdCV")
-    public UUID idCV;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "IdCV", referencedColumnName = "Id")
+    private ChucVu chucvu;
 
-    @NotNull
-    @Column(name = "IdGuiBC")
-    public UUID idGuiBC;
+    @ManyToOne(cascade  = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "IdGuiBC", referencedColumnName = "Id")
+    private NhanVien quanly;
 
     @Column(name = "TrangThai")
     public int trangThai;
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IdCH",referencedColumnName = "Id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "IdCH", referencedColumnName = "Id")
     private CuaHang cuahang;
+
+    public String getFullName(){
+        return this.ho +" "+ this.tenDem + " "+this.getTen();
+    }
 }

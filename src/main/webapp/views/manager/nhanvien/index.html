@@ -22,21 +22,44 @@
         </div>
         <table class="table">
             <thead>
-                <tr>
-                    <th scope="col">Mã Chức Vụ</th>
-                    <th scope="col">Tên Chức Vụ</th>
-                    <th scope="col">Funtion</th>
-                </tr>
+              <tr>
+                <th scope="col">Mã</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Tên Đệm</th>
+                <th scope="col">Họ</th>
+                <th scope="col">Giới Tính</th>
+                <th scope="col">Ngày Sinh</th>
+                <th scope="col">Địa Chỉ</th>
+                <th scope="col">Số Điện Thoại</th>
+                <th scope="col">Chức Vụ</th>
+                <th scope="col">Quản Lý</th>
+                <th scope="col">Trạng Thái</th>
+                <th scope="col">Cửa Hàng</th>
+                <th scope="col">Function</th>
+              </tr>
             </thead>
             <tbody>
-                <tr th:each="nhanvien : ${list}">
+              <tr th:each="nhanvien : ${list}">
                 <td th:text="${nhanvien.ma}"></td>
                 <td th:text="${nhanvien.ten}"></td>
+                <td th:text="${nhanvien.tenDem}"></td>
+                <td th:text="${nhanvien.ho}"></td>
+                <td th:text="${nhanvien.gioiTinh}"></td>
+                <td th:text="${nhanvien.ngaySinh}"></td>
+                <td th:text="${nhanvien.diaChi}"></td>
+                <td th:text="${nhanvien.sdt}"></td>
+                <td th:text="${nhanvien.chucvu.ten}"></td>
+                <td th:text="${nhanvien.quanly != null ? nhanvien.quanly.getFullName() : ''}"></td>
+                <td th:text="${nhanvien.trangThai}"></td>
+                <td th:text="${nhanvien.cuahang.ten}"></td>
                 <td>
-                    <a th:href="@{/manager/nhanvien/delete(id=${nhanvien.id})}" class="btn btn-danger">Delete</a>
-                    <a th:href="@{/manager/nhanvien/edit(id=${nhanvien.id})}" class="btn btn-success">Update</a>
-                  </td>
-            </tr>
+                  <a th:href="@{/manager/nhanvien/delete(id=${nhanvien.id})}" class="btn btn-danger">Delete</a>
+                  <a th:href="@{/manager/nhanvien/edit(id=${nhanvien.id})}" class="btn btn-success">Update</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
         </tbody>
     </table>
     <div class="text-center">
