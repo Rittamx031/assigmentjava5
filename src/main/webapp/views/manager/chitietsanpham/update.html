@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>create</title>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-            crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
     <style>
-        .errors { color: red; }
+        .errors {
+            color: red;
+        }
     </style>
 </head>
+
 <body>
     <!-- Form to store new cuahang -->
     <form th:action="@{/manager/chitietsanpham/update}" th:object="${chitietsanpham}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
-        
+
         <div class="form-group">
             <label for="sanPham">Sản Phẩm:</label>
-            <select id="sanPham" class="form-control" th:field="*{sanPham.id}">
-                <option th:each="sp : ${sanPhams}" th:value="${sp.id}" th:text="${sp.ten}"></option>
+            <select class="form-control" th:field="*{sanPham}">
+                <option value="">Chọn SanPham</option>
+                <option th:each="sp : ${sanPhams}" th:value="${{sp}}" th:text="${sp.ten}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('sanPham.id')}" class="errors text-danger form-text" th:errors="*{sanPham.id}"></div>
+            <div th:if="${#fields.hasErrors('sanPham')}" class="errors text-danger form-text" th:errors="*{sanPham}">
+            </div>
         </div>
-        
+
         <div class="form-group">
             <label for="nsx">Nhà Sản Xuất:</label>
-            <select id="nsx" class="form-control" th:field="*{nsx.id}">
-                <option th:each="nsx : ${nsxs}" th:value="${nsx.id}" th:text="${nsx.ten}"></option>
+            <select class="form-control" th:field="*{nsx}">
+                <option value="">Chọn Nhà Sản Xuất</option>
+                <option th:each="nsx : ${nsxs}" th:value="${{nsx}}" th:text="${nsx.ten}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('nsx.id')}" class="errors text-danger form-text" th:errors="*{nsx.id}"></div>
+            <div th:if="${#fields.hasErrors('nsx')}" class="errors text-danger form-text" th:errors="*{nsx}">
+            </div>
         </div>
-        
+
         <div class="form-group">
             <label for="mauSac">Màu Sắc:</label>
-            <select id="mauSac" class="form-control" th:field="*{mauSac.id}">
-                <option th:each="mauSac : ${mauSacs}" th:value="${mauSac.id}" th:text="${mauSac.ten}"></option>
+            <select class="form-control" th:field="*{mauSac}">
+                <option value="">Chọn Màu Sắc</option>
+                <option th:each="mauSac : ${mauSacs}" th:value="${{mauSac}}" th:text="${mauSac.ten}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('mauSac.id')}" class="errors text-danger form-text" th:errors="*{mauSac.id}"></div>
+            <div th:if="${#fields.hasErrors('mauSac')}" class="errors text-danger form-text" th:errors="*{mauSac}">
+            </div>
         </div>
-        
+
         <div class="form-group">
             <label for="dongSP">Dòng Sản Phẩm:</label>
-            <select id="dongSP" class="form-control" th:field="*{dongSP.id}">
-                <option th:each="dongSP : ${dongSPs}" th:value="${dongSP.id}" th:text="${dongSP.ten}"></option>
+            <select class="form-control" th:field="*{dongSP}">
+                <option value="">Chọn Dòng Sản Phẩm</option>
+                <option th:each="dongSP : ${dongSPs}" th:value="${{dongSP}}" th:text="${dongSP.ten}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('dongSP.id')}" class="errors text-danger form-text" th:errors="*{dongSP.id}"></div>
+            <div th:if="${#fields.hasErrors('dongSP')}" class="errors text-danger form-text" th:errors="*{dongSP}">
+            </div>
         </div>
-        
+
         <div class="form-group">
             <label for="namBH">Năm Bảo Hành:</label>
             <input type="number" class="form-control" id="namBH" th:field="*{namBH}" />
-            <div th:if="${#fields.hasErrors('namBH')}" class="errors text-danger form-text" th:errors="*{namBH}"></div>
+            <div th:if="${#fields.hasErrors('namBH')}" class="errors text-danger form-text" th:errors="*{namBH}">
+            </div>
         </div>
-        
+
         <div class="form-group">
             <label for="soLuongTon">Số Lượng Tồn:</label>
             <input type="number" class="form-control" id="soLuongTon" th:field="*{soLuongTon}" />
-            <div th:if="${#fields.hasErrors('soLuongTon')}" class="errors text-danger form-text" th:errors="*{soLuongTon}"></div>
+            <div th:if="${#fields.hasErrors('soLuongTon')}" class="errors text-danger form-text"
+                th:errors="*{soLuongTon}"></div>
         </div>
-        
+
         <div class="form-group">
             <label for="giaNhap">Giá Nhập:</label>
             <input type="number" step="0.01" class="form-control" id="giaNhap" th:field="*{giaNhap}" />
-            <div th:if="${#fields.hasErrors('giaNhap')}" class="errors text-danger form-text" th:errors="*{giaNhap}"></div>
+            <div th:if="${#fields.hasErrors('giaNhap')}" class="errors text-danger form-text" th:errors="*{giaNhap}">
+            </div>
         </div>
-        
+
         <div class="form-group">
             <label for="giaBan">Giá Bán:</label>
             <input type="number" step="0.01" class="form-control" id="giaBan" th:field="*{giaBan}" />
-            <div th:if="${#fields.hasErrors('giaBan')}" class="errors text-danger form-text" th:errors="*{giaBan}"></div>
+            <div th:if="${#fields.hasErrors('giaBan')}" class="errors text-danger form-text" th:errors="*{giaBan}">
+            </div>
         </div>
-        
         <input type="submit" value="Submit" class="btn btn-primary" />
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
@@ -85,4 +100,5 @@
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

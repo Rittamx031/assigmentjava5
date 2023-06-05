@@ -1,7 +1,6 @@
 package thatdz.assignment.assigmentjava5.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -74,17 +73,20 @@ public class NhanVien {
     @Column(name = "Sdt")
     public String sdt;
 
+    @NotBlank(message = "Mật Khẩu không được để trống")
     @Column(name = "MatKhau")
     public String matKhau;
+    @NotNull
     @Column(name = "IdCV")
     public UUID idCV;
 
+    @NotNull
     @Column(name = "IdGuiBC")
     public UUID idGuiBC;
 
     @Column(name = "TrangThai")
     public int trangThai;
-    
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdCH",referencedColumnName = "Id")
     private CuaHang cuahang;

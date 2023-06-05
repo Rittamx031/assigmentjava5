@@ -30,7 +30,7 @@ public class NhanVienController {
     public String getnhanvienHomepage(Model model) {
         List<NhanVien> list = service.getNhanViens();
         model.addAttribute("list", list);
-        return "manager/nhanvien/index.jsp";
+        return "manager/nhanvien/index.html";
     }
 
     @Autowired
@@ -50,7 +50,7 @@ public class NhanVienController {
     @GetMapping("create")
     public String goToCreateForm() {
         nhanvien = new NhanVien();
-        return "manager/nhanvien/form.jsp";
+        return "manager/nhanvien/form.html";
     }
 
     @GetMapping("delete")
@@ -58,13 +58,13 @@ public class NhanVienController {
         service.deleteNhanVien(UUID.fromString(id));
         List<NhanVien> listNhanVien = service.getNhanViens();
         model.addAttribute("list", listNhanVien);
-        return "manager/nhanvien/index.jsp";
+        return "manager/nhanvien/index.html";
     }
 
     @GetMapping("edit")
     public String editNhanVien(Model model, @RequestParam("id") String id) {
         model.addAttribute("nhanvien", service.getNhanVienById(UUID.fromString(id)));
-        return "manager/nhanvien/update.jsp";
+        return "manager/nhanvien/update.html";
     }
 
     @PostMapping("store")
@@ -72,12 +72,12 @@ public class NhanVienController {
             BindingResult theBindingResult) {
         System.out.println(nhanvien.toString());
         if (theBindingResult.hasErrors()) {
-            return "manager/nhanvien/form.jsp";
+            return "manager/nhanvien/form.html";
         } else {
             service.saveNhanVien(nhanvien);
             model.addAttribute("list", service.getNhanViens());
             nhanvien = new NhanVien();
-            return "manager/nhanvien/index.jsp";
+            return "manager/nhanvien/index.html";
         }
     }
 
@@ -85,11 +85,11 @@ public class NhanVienController {
     public String update(@Valid @ModelAttribute("nhanvien") NhanVien nhanvien, BindingResult theBindingResult,
             Model model) {
         if (theBindingResult.hasErrors()) {
-            return "manager/nhanvien/update.jsp";
+            return "manager/nhanvien/update.html";
         }
         service.updateNhanVien(nhanvien);
         model.addAttribute("list", service.getNhanViens());
         nhanvien = new NhanVien();
-        return "manager/nhanvien/index.jsp";
+        return "manager/nhanvien/index.html";
     }
 }

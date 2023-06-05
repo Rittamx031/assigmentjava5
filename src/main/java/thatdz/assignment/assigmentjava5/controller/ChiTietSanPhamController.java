@@ -101,18 +101,18 @@ public class ChiTietSanPhamController {
             service.saveChiTietSanPham(chitietsanphamst);
             model.addAttribute("list", service.getChiTietSanPhams());
             chitietsanpham = new ChiTietSanPham();
-            return "manager/ChiTietSanPham/index.html";
+            return "manager/chitietsanpham/index.html";
         }
     }
     @PostMapping("update")
     public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud, BindingResult theBindingResult, Model model) {
         System.out.println(chitietsanphamud.toString());
         if (theBindingResult.hasErrors()) {
-            return "manager/ChiTietSanPham/update.html";
+            return "manager/chitietsanpham/update.html";
         }
         service.updateChiTietSanPham(chitietsanphamud);
         model.addAttribute("list", service.getChiTietSanPhams());
         chitietsanpham = new ChiTietSanPham();
-        return "manager/ChiTietSanPham/index.html";
+        return "manager/chitietsanpham/index.html";
     }
 }

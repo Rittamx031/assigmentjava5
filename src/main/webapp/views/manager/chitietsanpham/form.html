@@ -21,38 +21,46 @@
 
             <div class="form-group">
                 <label for="sanPham">Sản Phẩm:</label>
-                <select id="sanPham" class="form-control" th:field="*{sanPham.id}">
-                    <option th:each="sp : ${sanPhams}" th:value="${sp.id}" th:text="${sp.ten}"></option>
+                <select class="form-control" th:field="*{sanPham}">
+                    <option value="">Chọn SanPham</option>
+                    <option th:each="sp : ${sanPhams}" th:value="${{sp}}" th:text="${sp.ten}">
+                    </option>
                 </select>
-                <div th:if="${#fields.hasErrors('sanPham.id')}" class="errors text-danger form-text"
-                    th:errors="*{sanPham.id}"></div>
+                <div th:if="${#fields.hasErrors('sanPham')}" class="errors text-danger form-text"
+                    th:errors="*{sanPham}"></div>
             </div>
 
             <div class="form-group">
                 <label for="nsx">Nhà Sản Xuất:</label>
-                <select id="nsx" class="form-control" th:field="*{nsx.id}">
-                    <option th:each="nsx : ${nsxs}" th:value="${nsx.id}" th:text="${nsx.ten}"></option>
+                <select class="form-control" th:field="*{nsx}">
+                    <option value="">Chọn Nhà Sản Xuất</option>
+                    <option th:each="nsx : ${nsxs}" th:value="${{nsx}}" th:text="${nsx.ten}">
+                    </option>
                 </select>
-                <div th:if="${#fields.hasErrors('nsx.id')}" class="errors text-danger form-text" th:errors="*{nsx.id}">
+                <div th:if="${#fields.hasErrors('nsx')}" class="errors text-danger form-text" th:errors="*{nsx}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="mauSac">Màu Sắc:</label>
-                <select id="mauSac" class="form-control" th:field="*{mauSac.id}">
-                    <option th:each="mauSac : ${mauSacs}" th:value="${mauSac.id}" th:text="${mauSac.ten}"></option>
+                <select class="form-control" th:field="*{mauSac}">
+                    <option value="">Chọn Màu Sắc</option>
+                    <option th:each="mauSac : ${mauSacs}" th:value="${{mauSac}}" th:text="${mauSac.ten}">
+                    </option>
                 </select>
-                <div th:if="${#fields.hasErrors('mauSac.id')}" class="errors text-danger form-text"
-                    th:errors="*{mauSac.id}"></div>
+                <div th:if="${#fields.hasErrors('mauSac')}" class="errors text-danger form-text" th:errors="*{mauSac}">
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="dongSP">Dòng Sản Phẩm:</label>
-                <select id="dongSP" class="form-control" th:field="*{dongSP.id}">
-                    <option th:each="dongSP : ${dongSPs}" th:value="${dongSP.id}" th:text="${dongSP.ten}"></option>
+                <select class="form-control" th:field="*{dongSP}">
+                    <option value="">Chọn Dòng Sản Phẩm</option>
+                    <option th:each="dongSP : ${dongSPs}" th:value="${{dongSP}}" th:text="${dongSP.ten}">
+                    </option>
                 </select>
-                <div th:if="${#fields.hasErrors('dongSP.id')}" class="errors text-danger form-text"
-                    th:errors="*{dongSP.id}"></div>
+                <div th:if="${#fields.hasErrors('dongSP')}" class="errors text-danger form-text" th:errors="*{dongSP}">
+                </div>
             </div>
 
             <div class="form-group">
@@ -82,11 +90,8 @@
                 <div th:if="${#fields.hasErrors('giaBan')}" class="errors text-danger form-text" th:errors="*{giaBan}">
                 </div>
             </div>
-
             <input type="submit" value="Submit" class="btn btn-primary" />
         </form>
-
     </div>
 </body>
-
 </html>
