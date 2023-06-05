@@ -1,4 +1,5 @@
 package thatdz.assignment.assigmentjava5.entity;
+
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +25,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Component
 @Table(name = "DongSp")
 public class DongSP {
@@ -37,11 +40,6 @@ public class DongSP {
     @NotBlank(message = "Tên không được trống!!!")
     @Column(name = "Ten")
     private String ten;
-    @OneToMany(cascade = CascadeType.ALL,
-    orphanRemoval = true)
-    @JoinColumn(mappedBy = "post",
-    )
-    private Set<ChiTietSanPham>  chiTietSanPhams;      
     @Override
     public String toString() {
         return this.ten;
