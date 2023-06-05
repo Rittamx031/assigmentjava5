@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,34 @@ public class CuaHangController {
     public CuaHangService service;
     @Autowired
     public CuaHang cuahang;
-
+    public int rowcount = 10;
+    @GetMapping("/getcountrow")
+    public String handleSubmit(Model model,@RequestParam("selectedValue") String selectedValue, HttpServletRequest request) {
+        for (int i : service.getPageNumber(10)) {
+            System.out.println(i);
+        }
+        List<CuaHang> list = service.getCuaHangs();
+        model.addAttribute("list", list);
+        return "manager/cuahang/index.html"; // Redirect back to the form page
+    }
     @GetMapping("index")
     public String getCuaHangIndexpages(Model model) {
         List<CuaHang> list = service.getCuaHangs();
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
     }
-
+    @GetMapping("pre")
+    public String getPrePages(Model model) {
+        List<CuaHang> list = service.getCuaHangs();
+        model.addAttribute("list", list);
+        return "manager/cuahang/index.html";
+    }
+    @GetMapping("first")
+    public String getFirstpages(Model model) {
+        List<CuaHang> list = service.getCuaHangs();
+        model.addAttribute("list", list);
+        return "manager/cuahang/index.html";
+    }
     @ModelAttribute("cuahang")
     public CuaHang setSignUpForm() {
         return cuahang;

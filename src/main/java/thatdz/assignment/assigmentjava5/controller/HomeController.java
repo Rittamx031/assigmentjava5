@@ -11,18 +11,18 @@ import thatdz.assignment.assigmentjava5.service.NhanVienService;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private KhachHangService kHangService;
-    @Autowired
-    private ChiTietSanPhamService chiTietSanPhamService;
-    @Autowired
-    private DongSPService dongSPService;
-    @Autowired
-    private GioHangController gioHangController;
-    @Autowired
-    private GioHangChiTietController gioHangChiTietController;
-    @Autowired
-    private NhanVienService nhanVienService;
+    // @Autowired
+    // private KhachHangService kHangService;
+    // @Autowired
+    // private ChiTietSanPhamService chiTietSanPhamService;
+    // @Autowired
+    // private DongSPService dongSPService;
+    // @Autowired
+    // private GioHangController gioHangController;
+    // @Autowired
+    // private GioHangChiTietController gioHangChiTietController;
+    // @Autowired
+    // private NhanVienService nhanVienService;
     
     @GetMapping("manager/home")
     public String getHomepage(){
