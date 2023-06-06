@@ -47,7 +47,7 @@ public class CuaHangController {
     }   
     @GetMapping("last")
     public String getLastPage(Model model) {
-        List<CuaHang> list = service.getCuaHangs();
+        List<CuaHang> list = service.getLastPage(rowcount,sortBy,sortDir);
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
     }

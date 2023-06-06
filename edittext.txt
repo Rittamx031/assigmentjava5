@@ -1,50 +1,28 @@
-('CH001', N'Cửa hàng A', N'Địa chỉ A', N'Thành phố A', N'Quốc gia A'),
-('CH002', N'Cửa hàng B', N'Địa chỉ B', N'Thành phố B', N'Quốc gia B'),
-('CH003', N'Cửa hàng C', N'Địa chỉ C', N'Thành phố C', N'Quốc gia C'),
-('CH004', N'Cửa hàng D', N'Địa chỉ D', N'Thành phố D', N'Quốc gia D'),
-('CH005', N'Cửa hàng E', N'Địa chỉ E', N'Thành phố E', N'Quốc gia E'),
-('CH006', N'Cửa hàng F', N'Địa chỉ F', N'Thành phố F', N'Quốc gia F'),
-('CH007', N'Cửa hàng G', N'Địa chỉ G', N'Thành phố G', N'Quốc gia G'),
-('CH008', N'Cửa hàng H', N'Địa chỉ H', N'Thành phố H', N'Quốc gia H'),
-('CH009', N'Cửa hàng I', N'Địa chỉ I', N'Thành phố I', N'Quốc gia I'),
-('CH010', N'Cửa hàng J', N'Địa chỉ J', N'Thành phố J', N'Quốc gia J'),
-('CH011', N'Cửa hàng K', N'Địa chỉ K', N'Thành phố K', N'Quốc gia K'),
-('CH012', N'Cửa hàng L', N'Địa chỉ L', N'Thành phố L', N'Quốc gia L'),
-('CH013', N'Cửa hàng M', N'Địa chỉ M', N'Thành phố M', N'Quốc gia M'),
-('CH014', N'Cửa hàng N', N'Địa chỉ N', N'Thành phố N', N'Quốc gia N'),
-('CH015', N'Cửa hàng O', N'Địa chỉ O', N'Thành phố O', N'Quốc gia O'),
-('CH016', N'Cửa hàng P', N'Địa chỉ P', N'Thành phố P', N'Quốc gia P'),
-('CH017', N'Cửa hàng Q', N'Địa chỉ Q', N'Thành phố Q', N'Quốc gia Q'),
-('CH018', N'Cửa hàng R', N'Địa chỉ R', N'Thành phố R', N'Quốc gia R'),
-('CH019', N'Cửa hàng S', N'Địa chỉ S', N'Thành phố S', N'Quốc gia S'),
-('CH020', N'Cửa hàng T', N'Địa chỉ T', N'Thành phố T', N'Quốc gia T'),
-('CH021', N'Cửa hàng U', N'Địa chỉ U', N'Thành phố U', N'Quốc gia U'),
-('CH022', N'Cửa hàng V', N'Địa chỉ V', N'Thành phố V', N'Quốc gia V'),
-('CH023', N'Cửa hàng W', N'Địa chỉ W', N'Thành phố W', N'Quốc gia W'),
-('CH024', N'Cửa hàng X', N'Địa chỉ X', N'Thành phố X', N'Quốc gia X'),
-('CH025', N'Cửa hàng Y', N'Địa chỉ Y', N'Thành phố Y', N'Quốc gia Y'),
-('CH026', N'Cửa hàng Z', N'Địa chỉ Z', N'Thành phố Z', N'Quốc gia Z'),
-('CH027', N'Cửa hàng AA', N'Địa chỉ AA', N'Thành phố AA', N'Quốc gia AA'),
-('CH028', N'Cửa hàng BB', N'Địa chỉ BB', N'Thành phố BB', N'Quốc gia BB'),
-('CH029', N'Cửa hàng CC', N'Địa chỉ CC', N'Thành phố CC', N'Quốc gia CC'),
-('CH030', N'Cửa hàng DD', N'Địa chỉ DD', N'Thành phố DD', N'Quốc gia DD'),
-('CH031', N'Cửa hàng EE', N'Địa chỉ EE', N'Thành phố EE', N'Quốc gia EE'),
-('CH032', N'Cửa hàng FF', N'Địa chỉ FF', N'Thành phố FF', N'Quốc gia FF'),
-('CH033', N'Cửa hàng GG', N'Địa chỉ GG', N'Thành phố GG', N'Quốc gia GG'),
-('CH034', N'Cửa hàng HH', N'Địa chỉ HH', N'Thành phố HH', N'Quốc gia HH'),
-('CH035', N'Cửa hàng II', N'Địa chỉ II', N'Thành phố II', N'Quốc gia II'),
-('CH036', N'Cửa hàng JJ', N'Địa chỉ JJ', N'Thành phố JJ', N'Quốc gia JJ'),
-('CH037', N'Cửa hàng KK', N'Địa chỉ KK', N'Thành phố KK', N'Quốc gia KK'),
-('CH038', N'Cửa hàng LL', N'Địa chỉ LL', N'Thành phố LL', N'Quốc gia LL'),
-('CH039', N'Cửa hàng MM', N'Địa chỉ MM', N'Thành phố MM', N'Quốc gia MM'),
-('CH040', N'Cửa hàng NN', N'Địa chỉ NN', N'Thành phố NN', N'Quốc gia NN'),
-('CH041', N'Cửa hàng OO', N'Địa chỉ OO', N'Thành phố OO', N'Quốc gia OO'),
-('CH042', N'Cửa hàng PP', N'Địa chỉ PP', N'Thành phố PP', N'Quốc gia PP'),
-('CH043', N'Cửa hàng QQ', N'Địa chỉ QQ', N'Thành phố QQ', N'Quốc gia QQ'),
-('CH044', N'Cửa hàng RR', N'Địa chỉ RR', N'Thành phố RR', N'Quốc gia RR'),
-('CH045', N'Cửa hàng SS', N'Địa chỉ SS', N'Thành phố SS', N'Quốc gia SS'),
-('CH046', N'Cửa hàng TT', N'Địa chỉ TT', N'Thành phố TT', N'Quốc gia TT'),
-('CH047', N'Cửa hàng UU', N'Địa chỉ UU', N'Thành phố UU', N'Quốc gia UU'),
-('CH048', N'Cửa hàng VV', N'Địa chỉ VV', N'Thành phố VV', N'Quốc gia VV'),
-('CH049', N'Cửa hàng WW', N'Địa chỉ WW', N'Thành phố WW', N'Quốc gia WW'),
-('CH050', N'Cửa hàng XX', N'Địa chỉ XX', N'Thành phố XX', N'Quốc gia XX')
+<div class="text-center">
+            <a href="/manager/urlll/first" class="btn btn-primary">first</a>
+            <a href="/manager/urlll/last" class="btn btn-primary">last</a>
+            <tr th:each="page : ${pagenumber}">
+                <a th:href="@{/manager/urlll/page(pageno=${page})}" th:text="${page}"></a>
+            </tr>
+        </div>
+
+
+
+
+        <a th:href="@{/manager/urlll/sort(sortBy=fiel1 ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/urlll/sort(sortBy=fiel2 ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a>
+
+    <script src="https://kit.fontawesome.com/e56307bebd.js" crossorigin="anonymous"></script>
+ 
+   <form action="#" th:action="@{/manager/urlll/getcountrow}" method="get">
+                Number of rows
+                <select name="selectedValue">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="ALL">ALL</option>
+                </select>
+                <input type="submit" value="Submit">
+            </form>

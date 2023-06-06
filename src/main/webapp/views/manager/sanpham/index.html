@@ -5,26 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e56307bebd.js" crossorigin="anonymous"></script>
     <title>Cửa Hàng</title>
 </head>
 <body>
     <div class="container my-4">
         <div class="text-lg-end">
-            <form action="" class="mx-2">
-                Number of rows 
-                <select>
+            <form action="#" th:action="@{/manager/sanpham/getcountrow}" method="get">
+                Number of rows
+                <select name="selectedValue">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                     <option value="ALL">ALL</option>
                 </select>
+                <input type="submit" value="Submit">
             </form>
         </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Mã Cửa Hàng</th>
-                    <th scope="col">Tên Cửa Hàng</th>
+                    <th scope="col">Mã Cửa Hàng <a th:href="@{/manager/sanpham/sort(sortBy=ma ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/sanpham/sort(sortBy=ma ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Tên Cửa Hàng <a th:href="@{/manager/sanpham/sort(sortBy=ten ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/sanpham/sort(sortBy=ten ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
                     <th scope="col">Funtion</th>
                 </tr>
             </thead>
@@ -40,8 +48,11 @@
         </tbody>
     </table>
     <div class="text-center">
-        <a href="/manager/sanpham/pre" class="btn btn-primary">&#60&#60</a>
-        <a href="/manager/sanpham/next" class="btn btn-primary">&#62&#62</a>
+        <a href="/manager/sanpham/first" class="btn btn-primary">first</a>
+        <a href="/manager/sanpham/last" class="btn btn-primary">last</a>
+        <tr th:each="page : ${pagenumber}">
+            <a th:href="@{/manager/sanpham/page(pageno=${page})}" th:text="${page}"></a>
+        </tr>
     </div>
     <a href="/manager/sanpham/create" class="btn btn-primary">New</a>
 </div>

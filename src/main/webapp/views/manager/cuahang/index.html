@@ -67,7 +67,7 @@
         </table>
         <div class="text-center">
             <a href="/manager/cuahang/first" class="btn btn-primary">first</a>
-            <a href="/manager/cuahang/pre" class="btn btn-primary">last</a>
+            <a href="/manager/cuahang/last" class="btn btn-primary">last</a>
             <tr th:each="page : ${pagenumber}">
                 <a th:href="@{/manager/cuahang/page(pageno=${page})}" th:text="${page}"></a>
             </tr>

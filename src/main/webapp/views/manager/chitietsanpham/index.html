@@ -7,34 +7,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e56307bebd.js" crossorigin="anonymous"></script>
     <title>Cửa Hàng</title>
 </head>
 
 <body>
     <div class="container my-4">
         <div class="text-lg-end">
-            <form action="" class="mx-2">
-                Number of rows
-                <select>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="ALL">ALL</option>
-                </select>
-            </form>
+            <div class="text-lg-end">
+                <form action="#" th:action="@{/manager/chitietsanpham/getcountrow}" method="get">
+                    Number of rows
+                    <select name="selectedValue">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="ALL">ALL</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                </form>
         </div>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Sản Phẩm</th>
-                    <th scope="col">Nhà Sản Xuất</th>
-                    <th scope="col">Màu Sắc</th>
-                    <th scope="col">Dòng Sản Phẩm</th>
-                    <th scope="col">Năm Bảo Hành</th>
-                    <th scope="col">Số Lượng Tồn</th>
-                    <th scope="col">Giá Nhập</th>
-                    <th scope="col">Giá Bán</th>
+                    <th scope="col">Sản Phẩm<a th:href="@{/manager/chitietsanpham/sort(sortBy=sanPham ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=sanPham ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Nhà Sản Xuất<a th:href="@{/manager/chitietsanpham/sort(sortBy=nsx ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=nsx ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Màu Sắc<a th:href="@{/manager/chitietsanpham/sort(sortBy=mauSac ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=mauSac ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Dòng Sản Phẩm<a th:href="@{/manager/chitietsanpham/sort(sortBy=dongSP ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=dongSP ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Năm Bảo Hành<a th:href="@{/manager/chitietsanpham/sort(sortBy=namBH ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=namBH ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Số Lượng Tồn<a th:href="@{/manager/chitietsanpham/sort(sortBy=soLuongTon ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=soLuongTon ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Giá Nhập<a th:href="@{/manager/chitietsanpham/sort(sortBy=giaNhap ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=giaNhap ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                    <th scope="col">Giá Bán<a th:href="@{/manager/chitietsanpham/sort(sortBy=giaBan ,sortDir=asc)}"><i
+                                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+                            th:href="@{/manager/chitietsanpham/sort(sortBy=giaBan ,sortDir=desc)}"><i
+                                class="fa-solid fa-sort-down fa-xs"></i></a></th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -58,15 +85,15 @@
                 </tr>
             </tbody>
         </table>
-
         <div class="text-center">
-            <a href="/manager/chitietsanpham/pre" class="btn btn-primary">&#60&#60</a>
-            <a href="/manager/chitietsanpham/next" class="btn btn-primary">&#62&#62</a>
+            <a href="/manager/chitietsanpham/first" class="btn btn-primary">first</a>
+            <a href="/manager/chitietsanpham/last" class="btn btn-primary">last</a>
+            <tr th:each="page : ${pagenumber}">
+                <a th:href="@{/manager/chitietsanpham/page(pageno=${page})}" th:text="${page}"></a>
+            </tr>
         </div>
-
         <a href="/manager/chitietsanpham/create" class="btn btn-primary">New</a>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>

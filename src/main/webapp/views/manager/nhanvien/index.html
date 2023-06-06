@@ -1,74 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Cửa Hàng</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e56307bebd.js" crossorigin="anonymous"></script>
+  <title>Cửa Hàng</title>
 </head>
+
 <body>
-    <div class="container my-4">
-        <div class="text-lg-end">
-            <form action="" class="mx-2">
-                Number of rows 
-                <select>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="ALL">ALL</option>
-                </select>
-            </form>
-        </div>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Mã</th>
-                <th scope="col">Tên</th>
-                <th scope="col">Tên Đệm</th>
-                <th scope="col">Họ</th>
-                <th scope="col">Giới Tính</th>
-                <th scope="col">Ngày Sinh</th>
-                <th scope="col">Địa Chỉ</th>
-                <th scope="col">Số Điện Thoại</th>
-                <th scope="col">Chức Vụ</th>
-                <th scope="col">Quản Lý</th>
-                <th scope="col">Trạng Thái</th>
-                <th scope="col">Cửa Hàng</th>
-                <th scope="col">Function</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="nhanvien : ${list}">
-                <td th:text="${nhanvien.ma}"></td>
-                <td th:text="${nhanvien.ten}"></td>
-                <td th:text="${nhanvien.tenDem}"></td>
-                <td th:text="${nhanvien.ho}"></td>
-                <td th:text="${nhanvien.gioiTinh}"></td>
-                <td th:text="${nhanvien.ngaySinh}"></td>
-                <td th:text="${nhanvien.diaChi}"></td>
-                <td th:text="${nhanvien.sdt}"></td>
-                <td th:text="${nhanvien.chucvu.ten}"></td>
-                <td th:text="${nhanvien.quanly != null ? nhanvien.quanly.getFullName() : ''}"></td>
-                <td th:text="${nhanvien.trangThai}"></td>
-                <td th:text="${nhanvien.cuahang.ten}"></td>
-                <td>
-                  <a th:href="@{/manager/nhanvien/delete(id=${nhanvien.id})}" class="btn btn-danger">Delete</a>
-                  <a th:href="@{/manager/nhanvien/edit(id=${nhanvien.id})}" class="btn btn-success">Update</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          
-        </tbody>
+  <div class="container-fluid my-4">
+    <div class="text-lg-end">
+      <form action="#" th:action="@{/manager/nhanvien/getcountrow}" method="get">
+        Number of rows
+        <select name="selectedValue">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="ALL">ALL</option>
+        </select>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Mã<a th:href="@{/manager/nhanvien/sort(sortBy=ma ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=ma ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Tên<a th:href="@{/manager/nhanvien/sort(sortBy=ten ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=ten ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Tên Đệm<a th:href="@{/manager/nhanvien/sort(sortBy=tenDem ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=tenDem ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Họ<a th:href="@{/manager/nhanvien/sort(sortBy=ho ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=ho ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Giới Tính<a th:href="@{/manager/nhanvien/sort(sortBy=gioiTinh ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=gioiTinh ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Ngày Sinh<a th:href="@{/manager/nhanvien/sort(sortBy=ngaySinh ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=ngaySinh ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Địa Chỉ<a th:href="@{/manager/nhanvien/sort(sortBy=diaChi ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=diaChi ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Số Điện Thoại<a th:href="@{/manager/nhanvien/sort(sortBy=sdt ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=sdt ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Chức Vụ<a th:href="@{/manager/nhanvien/sort(sortBy=chucvu ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=chucvu ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Quản Lý<a th:href="@{/manager/nhanvien/sort(sortBy=quanly ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=quanly ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Trạng Thái<a th:href="@{/manager/nhanvien/sort(sortBy=trangThai ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=trangThai ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Cửa Hàng<a th:href="@{/manager/nhanvien/sort(sortBy=cuahang ,sortDir=asc)}"><i
+                class="fa-solid fa-sort-up fa-xs"></i></i></a><a
+              th:href="@{/manager/nhanvien/sort(sortBy=cuahang ,sortDir=desc)}"><i
+                class="fa-solid fa-sort-down fa-xs"></i></a></th>
+          <th scope="col">Function</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="nhanvien : ${list}">
+          <td th:text="${nhanvien.ma}"></td>
+          <td th:text="${nhanvien.ten}"></td>
+          <td th:text="${nhanvien.tenDem}"></td>
+          <td th:text="${nhanvien.ho}"></td>
+          <td th:text="${nhanvien.gioiTinh}"></td>
+          <td th:text="${nhanvien.ngaySinh}"></td>
+          <td th:text="${nhanvien.diaChi}"></td>
+          <td th:text="${nhanvien.sdt}"></td>
+          <td th:text="${nhanvien.chucvu.ten}"></td>
+          <td th:text="${nhanvien.quanly != null ? nhanvien.quanly.getFullName() : ''}"></td>
+          <td th:text="${nhanvien.trangThai}"></td>
+          <td th:text="${nhanvien.cuahang.ten}"></td>
+          <td>
+            <a th:href="@{/manager/nhanvien/delete(id=${nhanvien.id})}" class="btn btn-danger">Delete</a>
+            <a th:href="@{/manager/nhanvien/edit(id=${nhanvien.id})}" class="btn btn-success">Update</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    </tbody>
     </table>
     <div class="text-center">
-        <a href="/manager/nhanvien/pre" class="btn btn-primary">&#60&#60</a>
-        <a href="/manager/nhanvien/next" class="btn btn-primary">&#62&#62</a>
-    </div>
+      <a href="/manager/nhanvien/first" class="btn btn-primary">first</a>
+      <a href="/manager/nhanvien/last" class="btn btn-primary">last</a>
+      <tr th:each="page : ${pagenumber}">
+          <a th:href="@{/manager/nhanvien/page(pageno=${page})}" th:text="${page}"></a>
+      </tr>
+  </div>
     <a href="/manager/nhanvien/create" class="btn btn-primary">New</a>
-</div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>

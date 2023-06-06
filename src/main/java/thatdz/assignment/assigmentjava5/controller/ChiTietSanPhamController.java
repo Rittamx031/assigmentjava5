@@ -25,7 +25,6 @@ import thatdz.assignment.assigmentjava5.service.MauSacService;
 import thatdz.assignment.assigmentjava5.service.NSXService;
 import thatdz.assignment.assigmentjava5.service.SanPhamService;
 
-
 @Controller
 @RequestMapping("manager/chitietsanpham")
 public class ChiTietSanPhamController {
@@ -41,19 +40,77 @@ public class ChiTietSanPhamController {
     public DongSPService dspservice;
     @Autowired
     private ChiTietSanPham chitietsanpham;
+    // sort and panigation
+    public int rowcount = 10;
+    public int[] pagenumbers;
+    public String sortBy = "sanPham", sortDir = "asc";
+
+    // panigation and sort
+    @GetMapping("/getcountrow")
+    public String handleSubmit(Model model, @RequestParam("selectedValue") String selectedValue) {
+        System.out.println(selectedValue);
+        if (selectedValue.equals("ALL")) {
+            rowcount = Integer.MAX_VALUE;
+        } else {
+            rowcount = Integer.parseInt(selectedValue);
+        }
+        pagenumbers = service.getPageNumber(rowcount);
+        List<ChiTietSanPham> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        model.addAttribute("list", list);
+        model.addAttribute("pagenumber", pagenumbers);
+        return "manager/chitietsanpham/index.html"; // Redirect back to the form page
+    }
+
+    @GetMapping("last")
+    public String getLastPage(Model model) {
+        List<ChiTietSanPham> list = service.getLastPage(rowcount, sortBy, sortDir);
+        model.addAttribute("list", list);
+        return "manager/chitietsanpham/index.html";
+    }
+
+    @GetMapping("sort")
+    public String getPageSort(Model model, @RequestParam("sortBy") String sortby,
+            @RequestParam("sortDir") String sordir) {
+        sortBy = sortby;
+        sortDir = sordir;
+        List<ChiTietSanPham> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        model.addAttribute("list", list);
+        model.addAttribute("pagenumber", pagenumbers);
+        return "manager/chitietsanpham/index.html";
+    }
+
+    @GetMapping("first")
+    public String getFirstPages(Model model) {
+        List<ChiTietSanPham> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
+        model.addAttribute("pagenumber", pagenumbers);
+        model.addAttribute("list", list);
+        return "manager/chitietsanpham/index.html";
+    }
+
+    @GetMapping("/page")
+    public String getPageNo(Model model, @RequestParam("pageno") int pageno) {
+        List<ChiTietSanPham> list = service.getPageNo(pageno - 1, rowcount, sortBy, sortDir);
+        model.addAttribute("pagenumber", pagenumbers);
+        model.addAttribute("list", list);
+        return "manager/chitietsanpham/index.html";
+    }
 
     @ModelAttribute("sanPhams")
     public List<SanPham> setCboSanPham() {
         return spservice.getSanPhams();
     }
+
     @ModelAttribute("nsxs")
     public List<NSX> setCboNSX() {
         return nsxservice.getNSXs();
     }
+
     @ModelAttribute("mauSacs")
     public List<MauSac> setCboMauSac() {
         return msservice.getMauSacs();
     }
+
     @ModelAttribute("dongSPs")
     public List<DongSP> setCboDongSP() {
         return dspservice.getDongSPs();
@@ -92,7 +149,8 @@ public class ChiTietSanPhamController {
     }
 
     @PostMapping("store")
-    public String storeChiTietSanPham(Model model, @Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamst,
+    public String storeChiTietSanPham(Model model,
+            @Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamst,
             BindingResult theBindingResult) {
         System.out.println(chitietsanphamst);
         if (theBindingResult.hasErrors()) {
@@ -104,8 +162,10 @@ public class ChiTietSanPhamController {
             return "manager/chitietsanpham/index.html";
         }
     }
+
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud, BindingResult theBindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud,
+            BindingResult theBindingResult, Model model) {
         System.out.println(chitietsanphamud.toString());
         if (theBindingResult.hasErrors()) {
             return "manager/chitietsanpham/update.html";
