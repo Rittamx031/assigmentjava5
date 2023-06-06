@@ -50,7 +50,7 @@ public class CuaHangService {
         existingCuaHang.setQuocGia(CuaHang.getQuocGia());
         return repository.save(existingCuaHang);
     }
-    
+    // sorting and panigation
     public List<CuaHang> getFirstPage(int pageSize, String sortBy, String sortDir) {
         List<CuaHang> cuahangs;
         cuahangs = new ArrayList<>();
@@ -58,17 +58,6 @@ public class CuaHangService {
                 : Sort.by(sortBy).descending();
         // Pageable object
         Pageable pageable = PageRequest.of(0, pageSize, sort);
-        // findAll method and pass pageable instance
-        Page<CuaHang> page = repository.findAll(pageable);
-        cuahangs = page.getContent();
-        return cuahangs;
-    }
-    public List<CuaHang> getPageNo(int pageNo, int pageSize, String sortBy, String sortDir) {
-        List<CuaHang> cuahangs;
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
-                : Sort.by(sortBy).descending();
-        // Pageable object
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         // findAll method and pass pageable instance
         Page<CuaHang> page = repository.findAll(pageable);
         cuahangs = page.getContent();
@@ -85,6 +74,18 @@ public class CuaHangService {
         cuahangs = page.getContent();
         return cuahangs;
     }
+    public List<CuaHang> getPageNo(int pageNo, int pageSize, String sortBy, String sortDir) {
+        List<CuaHang> cuahangs;
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        // Pageable object
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        // findAll method and pass pageable instance
+        Page<CuaHang> page = repository.findAll(pageable);
+        cuahangs = page.getContent();
+        return cuahangs;
+    }
+   
     public int[] getPageNumber(int rowcount){
         Pageable pageable = PageRequest.of(1, rowcount);
         Page<CuaHang> page = repository.findAll(pageable);

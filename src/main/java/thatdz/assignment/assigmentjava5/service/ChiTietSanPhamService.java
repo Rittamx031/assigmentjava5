@@ -1,9 +1,14 @@
 package thatdz.assignment.assigmentjava5.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
@@ -46,5 +51,50 @@ public class ChiTietSanPhamService {
         existingChiTietSanPham.setGiaNhap(chiTietSanPham.getGiaNhap());
         existingChiTietSanPham.setGiaBan(chiTietSanPham.getGiaBan());
         return repository.save(existingChiTietSanPham);
+    }
+    public List<ChiTietSanPham> getFirstPage(int pageSize, String sortBy, String sortDir) {
+        List<ChiTietSanPham> ChiTietSanPhams;
+        ChiTietSanPhams = new ArrayList<>();
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        // Pageable object
+        Pageable pageable = PageRequest.of(0, pageSize, sort);
+        // findAll method and pass pageable instance
+        Page<ChiTietSanPham> page = repository.findAll(pageable);
+        ChiTietSanPhams = page.getContent();
+        return ChiTietSanPhams;
+    }
+    public List<ChiTietSanPham> getLastPage(int pageSize, String sortBy, String sortDir) {
+        List<ChiTietSanPham> ChiTietSanPhams;
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        // Pageable object
+        Pageable pageable = PageRequest.of(getPageNumber(pageSize).length-1, pageSize, sort);
+        // findAll method and pass pageable instance
+        Page<ChiTietSanPham> page = repository.findAll(pageable);
+        ChiTietSanPhams = page.getContent();
+        return ChiTietSanPhams;
+    }
+    public List<ChiTietSanPham> getPageNo(int pageNo, int pageSize, String sortBy, String sortDir) {
+        List<ChiTietSanPham> ChiTietSanPhams;
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        // Pageable object
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        // findAll method and pass pageable instance
+        Page<ChiTietSanPham> page = repository.findAll(pageable);
+        ChiTietSanPhams = page.getContent();
+        return ChiTietSanPhams;
+    }
+   
+    public int[] getPageNumber(int rowcount){
+        Pageable pageable = PageRequest.of(1, rowcount);
+        Page<ChiTietSanPham> page = repository.findAll(pageable);
+        int totalPage = page.getTotalPages();
+        int[] nb= new int[totalPage] ;
+        for (int i = 0; i < totalPage; i++) {
+            nb[i] = i+1;
+        }
+        return nb;
     }
 }
