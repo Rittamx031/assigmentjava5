@@ -40,17 +40,50 @@ public class CuaHangService {
         return "CuaHang removed !! " + id;
     }
 
-    public List<CuaHang> getNextPage(int pageNo, int pageSize, String sortBy, String sortDir) {
-        List<CuaHang> products;
-        products = new ArrayList<>();
+    public CuaHang updateCuaHang(CuaHang CuaHang) {
+        CuaHang existingCuaHang = repository.findById(CuaHang.getId()).orElse(null);
+        existingCuaHang.setId(CuaHang.getId());
+        existingCuaHang.setMa(CuaHang.getMa());
+        existingCuaHang.setTen(CuaHang.getTen());
+        existingCuaHang.setDiaChi(CuaHang.getDiaChi());
+        existingCuaHang.setThanhPho(CuaHang.getThanhPho());
+        existingCuaHang.setQuocGia(CuaHang.getQuocGia());
+        return repository.save(existingCuaHang);
+    }
+    
+    public List<CuaHang> getFirstPage(int pageSize, String sortBy, String sortDir) {
+        List<CuaHang> cuahangs;
+        cuahangs = new ArrayList<>();
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        // Pageable object
+        Pageable pageable = PageRequest.of(0, pageSize, sort);
+        // findAll method and pass pageable instance
+        Page<CuaHang> page = repository.findAll(pageable);
+        cuahangs = page.getContent();
+        return cuahangs;
+    }
+    public List<CuaHang> getPageNo(int pageNo, int pageSize, String sortBy, String sortDir) {
+        List<CuaHang> cuahangs;
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
         // Pageable object
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         // findAll method and pass pageable instance
         Page<CuaHang> page = repository.findAll(pageable);
-        products = page.getContent();
-        return products;
+        cuahangs = page.getContent();
+        return cuahangs;
+    }
+    public List<CuaHang> getLastPage(int pageSize, String sortBy, String sortDir) {
+        List<CuaHang> cuahangs;
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        // Pageable object
+        Pageable pageable = PageRequest.of(getPageNumber(pageSize).length-1, pageSize, sort);
+        // findAll method and pass pageable instance
+        Page<CuaHang> page = repository.findAll(pageable);
+        cuahangs = page.getContent();
+        return cuahangs;
     }
     public int[] getPageNumber(int rowcount){
         Pageable pageable = PageRequest.of(1, rowcount);
@@ -61,58 +94,5 @@ public class CuaHangService {
             nb[i] = i+1;
         }
         return nb;
-    }
-    public void TestPagination() {
-        String sortBy = "ten";
-        String sortDir = "asc";
-        int pageNo = 1;
-        int pageSize = 5;
-
-        // Sort object
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
-                : Sort.by(sortBy).descending();
-
-        // Pageable object
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        // findAll method and pass pageable instance
-        Page<CuaHang> page = repository.findAll(pageable);
-
-        List<CuaHang> products = page.getContent();
-
-        products.forEach((p) -> {
-            System.out.println(p.toString());
-        });
-
-        // total pages
-        int totalPage = page.getTotalPages();
-        // total elements
-        long totalElements = page.getTotalElements();
-        // number of elements
-        int numberOfElements = page.getNumberOfElements();
-        // size
-        int size = page.getSize();
-
-        // last
-        boolean isLast = page.isLast();
-        // first
-        boolean isFirst = page.isFirst();
-        System.out.println("total page -> " + totalPage);
-        System.out.println("totalElements -> " + totalElements);
-        System.out.println("numberOfElements -> " + numberOfElements);
-        System.out.println(" size ->" + size);
-        System.out.println(" isLast -> " + isLast);
-        System.out.println(" isFirst -> " + isFirst);
-    }
-
-    public CuaHang updateCuaHang(CuaHang CuaHang) {
-        CuaHang existingCuaHang = repository.findById(CuaHang.getId()).orElse(null);
-        existingCuaHang.setId(CuaHang.getId());
-        existingCuaHang.setMa(CuaHang.getMa());
-        existingCuaHang.setTen(CuaHang.getTen());
-        existingCuaHang.setDiaChi(CuaHang.getDiaChi());
-        existingCuaHang.setThanhPho(CuaHang.getThanhPho());
-        existingCuaHang.setQuocGia(CuaHang.getQuocGia());
-        return repository.save(existingCuaHang);
     }
 }
