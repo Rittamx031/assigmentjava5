@@ -15,6 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Component
+
 public class Login {
     @NotBlank(message = "Mã không được trống!!!")
     private String ma;

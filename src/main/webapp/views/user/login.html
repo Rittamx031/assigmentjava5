@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Thatpee - Registration Form</title>
+    <title>Thatpee - Login</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <input type="hidden" id="user">
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
@@ -30,12 +31,12 @@
                         </a>
                     </div>
                     <!-- Left elements -->
+
                     <!-- Center elements -->
                     <div class="order-lg-last col-lg-5 col-sm-8 col-8">
                         <div class="d-flex float-end">
-                            <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                                class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
-                                target="_blank">
+                            <a href="/user/signup"
+                                class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
                                 <p class="d-none d-md-block mb-0">Sign Up</p>
                             </a>
                         </div>
@@ -66,7 +67,7 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
+                            <a class="nav-link text-dark" aria-current="page" href="/thatpee/index">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark mb-0" href="#" id="navbarDropdown"
@@ -116,114 +117,46 @@
         </nav>
         <!-- Navbar -->
     </header>
-        <div class="container my-5">
-            <div class="row justify-content-center align-items-center h-100">
-                <div class="col-12 col-lg-9 col-xl-7">
-                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                        <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Registration Form</h3>
-                            <form th:action>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <input type="text" id="firstName" class="form-control form-control-lg" />
-                                            <label class="form-label" for="firstName">Họ</label>
-                                        </div>
+    <div class="container my-5">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Login Form</h3>
+                        <form th:action="@{/user/login}" th:object="${login}" method="post" onsubmit="submitform()">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{ma}" id="username"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="username">Username</label>
                                     </div>
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <input type="text" id="firstName" class="form-control form-control-lg" />
-                                            <label class="form-label" for="firstName">Tên Đệm</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="firstName" class="form-control form-control-lg" />
-                                            <label class="form-label" for="firstName">Tên</label>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <input type="text" id="lastName" class="form-control form-control-lg" />
-                                            <label class="form-label" for="lastName">Username</label>
-                                        </div>
-                                    </div>
+                                    <div th:if="${#fields.hasErrors('ma')}" class="errors text-danger form-text"
+                                        th:errors="*{ma}"></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 d-flex align-items-center">
-                                        <div class="form-outline datepicker w-100">
-                                            <input type="date" class="form-control form-control-lg" id="birthdayDate" />
-                                            <label for="birthdayDate" class="form-label">Ngày Sinh</label>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{password}" id="password"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="password">Password</label>
                                     </div>
-                                    <div class="col-md-6 mb-4">
-                                        <h6 class="mb-2 pb-1">Gender: </h6>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="femaleGender" value="option1" checked />
-                                            <label class="form-check-label" for="femaleGender">Nữ</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="maleGender" value="option2" />
-                                            <label class="form-check-label" for="maleGender">Nam</label>
-                                        </div>
-                                    </div>
+                                    <div th:if="${#fields.hasErrors('password')}" class="errors text-danger form-text"
+                                        th:errors="*{password}"></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
-                                            <label class="form-label" for="phoneNumber">Số Điện Thoại</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <input type="text" id="address" class="form-control form-control-lg" />
-                                            <label class="form-label" for="address">Địa Chỉ</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <input type="text" id="city" class="form-control form-control-lg" />
-                                            <label class="form-label" for="city">Thành Phố</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <input type="text" id="country" class="form-control form-control-lg" />
-                                            <label class="form-label" for="country">Quốc Gia</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 mb-4">
-                                        <div class="form-outline">
-                                            <input type="password" id="password" class="form-control form-control-lg" />
-                                            <label class="form-label" for="password">Mật Khẩu</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-outline">
-                                            <input type="password" id="repeartpassword" class="form-control form-control-lg" />
-                                            <label class="form-label" for="repeartpassword">Nhập Lại Mật Khẩu</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-4 pt-2">
-                                    <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <h5 th:text="${loginstate}" class=" text-danger form-text"></h5>
+                            <input type="checkbox" id="saveme"><label for="saveme">Save Me</label>
+                            <div class="mt-4 pt-2">
+                                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
         <!-- Section: Social media -->
@@ -407,6 +340,7 @@
     <!-- MDB -->
     <script type="text/javascript" src="../../assets/js/mdb.min.js"></script>
     <!-- Custom scripts -->
+    <script src="../../assets/js/app.js"></script>
 </body>
 
 </html>

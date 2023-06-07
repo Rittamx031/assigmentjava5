@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Thatpee - Shop</title>
+    <title>Thatpee - Registration Form</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -30,13 +30,12 @@
                         </a>
                     </div>
                     <!-- Left elements -->
-
                     <!-- Center elements -->
                     <div class="order-lg-last col-lg-5 col-sm-8 col-8">
                         <div class="d-flex float-end">
-                            <a href="https://github.com/mdbootstrap/bootstrap-material-design"
+                            <a href="/user/login"
                                 class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
-                                target="_blank">
+                                >
                                 <p class="d-none d-md-block mb-0">Login</p>
                             </a>
                         </div>
@@ -61,13 +60,12 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
-
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
+                            <a class="nav-link text-dark" aria-current="page" href="/thatpee/index">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark mb-0" href="#" id="navbarDropdown"
@@ -76,8 +74,10 @@
                             </a>
                             <!-- Dropdown menu -->
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li  th:each="dongsp :${listdongsp}">
-                                    <a class="dropdown-item" th:href="@{/thatpee/dongsanpham(id=${dongsp.id})}"><p th:text="${dongsp.ten}"></p></a>
+                                <li th:each="dongsp :${listdongsp}">
+                                    <a class="dropdown-item" th:href="@{/thatpee/dongsanpham(id=${dongsp.id})}">
+                                        <p th:text="${dongsp.ten}"></p>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -90,16 +90,20 @@
                             <!-- Dropdown menu -->
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" target="_blank" href="https://www.facebook.com/profile.php?id=100032155839342">Facebook</a>
+                                    <a class="dropdown-item" target="_blank"
+                                        href="https://www.facebook.com/profile.php?id=100032155839342">Facebook</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" target="_blank" href="https://www.instagram.com/vuhungfa15/">Instagram</a>
+                                    <a class="dropdown-item" target="_blank"
+                                        href="https://www.instagram.com/vuhungfa15/">Instagram</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" target="_blank" href="https://github.com/Rittamx031">GitHub</a>
+                                    <a class="dropdown-item" target="_blank"
+                                        href="https://github.com/Rittamx031">GitHub</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" target="_blank" href="https://www.linkedin.com/in/vu-that-1a85a0232/">LinkIn</a>
+                                    <a class="dropdown-item" target="_blank"
+                                        href="https://www.linkedin.com/in/vu-that-1a85a0232/">LinkIn</a>
                                 </li>
                             </ul>
                         </li>
@@ -111,7 +115,148 @@
         </nav>
         <!-- Navbar -->
     </header>
+    <div class="container my-5">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Registration Form</h3>
+                        <form th:action="@{/user/signup}" th:object="${signup}" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{ho}" id="firstName"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="firstName">Họ</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('ho')}" class="errors text-danger form-text"
+                                        th:errors="*{ho}"></div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{tenDem}" id="firstName"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="firstName">Tên Đệm</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('tenDem')}" class="errors text-danger form-text"
+                                        th:errors="*{tenDem}"></div>
+                                </div>
+                                <div class="col-md-6 mb-4">
 
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{ten}" id="firstName"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="firstName">Tên</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('ten')}" class="errors text-danger form-text"
+                                        th:errors="*{ten}"></div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{ma}" id="lastName"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="lastName">Username</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('ma')}" class="errors text-danger form-text"
+                                        th:errors="*{ma}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker w-100">
+                                        <input type="date" th:field="*{ngaySinh}" class="form-control form-control-lg"
+                                            id="birthdayDate" />
+                                        <label for="birthdayDate" class="form-label">Ngày Sinh</label>
+                                    </div>
+                                </div>
+                                <div th:if="${#fields.hasErrors('ngaySinh')}" class="errors text-danger form-text"
+                                    th:errors="*{ngaySinh}"></div>
+                                <div class="col-md-6 mb-4">
+                                    <h6 class="mb-2 pb-1">Gender: </h6>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                            th:field="*{gioiTinh}" id="maleGender" value="true" />
+                                        <label class="form-check-label" for="maleGender">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" th:field="*{gioiTinh}"
+                                            name="inlineRadioOptions" id="femaleGender" value="false" checked />
+                                        <label class="form-check-label" for="femaleGender">Nữ</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('gioiTinh')}" class="errors text-danger form-text"
+                                        th:errors="*{gioiTinh}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="tel" th:field="*{sdt}" id="phoneNumber"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="phoneNumber">Số Điện Thoại</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('sdt')}" class="errors text-danger form-text"
+                                        th:errors="*{sdt}"></div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{diaChi}" id="address"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="address">Địa Chỉ</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('diaChi')}" class="errors text-danger form-text"
+                                        th:errors="*{diaChi}"></div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{thanhPho}" id="city"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="city">Thành Phố</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('thanhPho')}" class="errors text-danger form-text"
+                                        th:errors="*{thanhPho}"></div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="text" th:field="*{quocGia}" id="country"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="country">Quốc Gia</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('quocGia')}" class="errors text-danger form-text"
+                                        th:errors="*{quocGia}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <div class="form-outline">
+                                        <input type="password" th:field="*{matKhau}" id="password"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="password">Mật Khẩu</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('matKhau')}" class="errors text-danger form-text"
+                                        th:errors="*{matKhau}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-outline">
+                                        <input type="password" th:field="*{matKhaurepeat}" id="repeartpassword"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="repeartpassword">Nhập Lại Mật Khẩu</label>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('matKhaurepeat')}"
+                                        class="errors text-danger form-text" th:errors="*{matKhaurepeat}"></div>
+                                </div>
+                            </div>
+                            <h5 th:text="${signupstate}" class=" text-danger form-text"></h5>
+                            <div class="mt-4 pt-2">
+                                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
         <!-- Section: Social media -->
@@ -137,11 +282,14 @@
                     <div class="col-md-6 col-sm-12 float-center">
                         <div class="float-md-end">
                             <a class="btn btn-icon btn-light text-secondary px-3 border" title="Facebook"
-                                target="_blank" href="https://www.facebook.com/profile.php?id=100032155839342"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                target="_blank" href="https://www.facebook.com/profile.php?id=100032155839342"><i
+                                    class="fab fa-facebook-f fa-lg"></i></a>
                             <a class="btn btn-icon btn-light text-secondary px-3 border" title="Instagram"
-                                target="_blank" href="https://www.instagram.com/vuhungfa15/"><i class="fab fa-instagram fa-lg"></i></a>
+                                target="_blank" href="https://www.instagram.com/vuhungfa15/"><i
+                                    class="fab fa-instagram fa-lg"></i></a>
                             <a class="btn btn-icon btn-light text-secondary px-3 border" title="Youtube" target="_blank"
-                                href="https://www.youtube.com/channel/UC88ZVi99Es0StbBASXgCj2Q"><i class="fab fa-youtube fa-lg"></i></a>
+                                href="https://www.youtube.com/channel/UC88ZVi99Es0StbBASXgCj2Q"><i
+                                    class="fab fa-youtube fa-lg"></i></a>
                             <a class="btn btn-icon btn-light text-secondary px-3 border" title="Twitter" target="_blank"
                                 href="#"><i class="fab fa-twitter fa-lg"></i></a>
                         </div>
@@ -292,6 +440,6 @@
     <!-- MDB -->
     <script type="text/javascript" src="../../assets/js/mdb.min.js"></script>
     <!-- Custom scripts -->
+    <script src="../../assets/js/app.js"></script>
 </body>
-
 </html>

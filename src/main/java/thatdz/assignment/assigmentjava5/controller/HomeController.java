@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import thatdz.assignment.assigmentjava5.entity.DongSP;
+import thatdz.assignment.assigmentjava5.entity.KhachHang;
+import thatdz.assignment.assigmentjava5.entity.Login;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
 import thatdz.assignment.assigmentjava5.service.NhanVienService;
@@ -30,9 +32,17 @@ public class HomeController {
     private GioHangChiTietController gioHangChiTietController;
     @Autowired
     private NhanVienService nhanVienService;
+    @Autowired
+    private Login login;
+    @Autowired
+    public KhachHang khachHang;
     @ModelAttribute("listdongsp")
     public List<DongSP> getListDongSp(){
         return dongSPService.getDongSPs();
+    }
+    @ModelAttribute("loginable")
+    public boolean loginable(){
+        return login.getMa()!=null && login.getPassword()!=null;
     }
     @GetMapping("/manager/home")
     public String getHomepage(){
@@ -44,7 +54,11 @@ public class HomeController {
         return "shoppage/thatpee.html";
     }
         @GetMapping({"index","thatpee/dongsanpham/all"})
-    public String getShoppage(Model model){
+        public String getShoppage(Model model){
+        System.out.println(login.toString());
+        if(login.getMa()!=null && login.getPassword()!=null){
+
+        }
         model.addAttribute("listSanPham", chiTietSanPhamService.getChiTietSanPhams());
         return "shoppage/thatpee.html";
     }

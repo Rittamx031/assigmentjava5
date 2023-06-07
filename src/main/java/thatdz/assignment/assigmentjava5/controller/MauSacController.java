@@ -116,12 +116,11 @@ public class MauSacController {
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("mausac") MauSac mausacud, BindingResult theBindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("mausac") MauSac mausacud, BindingResult theBindingResult) {
         if (theBindingResult.hasErrors()) {
             return "manager/mausac/update.html";
         }
         service.updateMauSac(mausacud);
-        model.addAttribute("list", service.getMauSacs());
         return "redirect:index";
     }
 }

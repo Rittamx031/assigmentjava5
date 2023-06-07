@@ -1,6 +1,7 @@
 package thatdz.assignment.assigmentjava5.entity;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
@@ -18,24 +19,28 @@ import lombok.ToString;
 @ToString
 @Component
 public class SignUp {
-    @NotBlank(message = "Mã không được trống!!!")
+    @NotBlank(message = "Mã không không được trống!!!")
     public String ma;
-    @NotBlank(message = "Tên không được trống!!!")
+    @NotBlank(message = "Tên không không được trống!!!")
     public String ten;
     public String tenDem;
-    @NotBlank(message = "Họ được trống!!!")
+    @NotBlank(message = "Họ không được trống!!!")
     public String ho;
-    public Date ngaySinh;
-    @NotBlank(message = "Địa chỉ được trống!!!")
+    @NotNull(message = "Ngày Sinh không được trống!!!")
+    public LocalDate ngaySinh;
+    @NotBlank(message = "Địa chỉ không được trống!!!")
     public String diaChi;
-    @NotBlank(message = "Thành phố được trống!!!")
+    @NotBlank(message = "Thành phố không được trống!!!")
     public String thanhPho;
-    @NotBlank(message = "Quốc gia được trống!!!")
+    @NotBlank(message = "Quốc gia không được trống!!!")
     public String quocGia;
-    @NotBlank(message = "Mật khẩu được trống!!!")
+    @NotBlank(message = "Mật khẩu không được trống!!!")
     public String matKhau;
     @NotNull(message = "Giới Tính không đuợc để trống!!!")
     public boolean gioiTinh;
-    @NotNull(message = "Nhập lại mật khẩu không đuợc để trống!!!")
+    @NotBlank(message = "Số điện thoại không đuợc để trống!!!")
+    public String sdt;
+    @NotBlank(message = "Nhập lại mật khẩu không đuợc để trống!!!")
     public String matKhaurepeat;
+    public String image;
 }

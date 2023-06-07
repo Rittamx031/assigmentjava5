@@ -20,12 +20,14 @@ public class KhachHangService {
         khachHang.setHo(signup.getHo());
         khachHang.setTen(signup.getTen());
         khachHang.setTenDem(signup.getTenDem());
-        khachHang.setMa(signup.getHo());
+        khachHang.setMa(signup.getMa());
         khachHang.setMatKhau(signup.getMatKhau());
         khachHang.setNgaySinh(signup.getNgaySinh());
         khachHang.setDiaChi(signup.getDiaChi());
         khachHang.setQuocGia(signup.getQuocGia());
         khachHang.setThanhPho(signup.getThanhPho());
+        khachHang.setThanhPho(signup.getThanhPho());
+        khachHang.setSdt(signup.getSdt());
         return repository.save(khachHang);
     }
 }

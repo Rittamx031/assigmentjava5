@@ -1,17 +1,9 @@
-var app = angular.module("myApp", ["ngRoute"]);
-app.config(function($routeProvider,$locationProvider) {
-  $locationProvider.hashPrefix("");
-  $routeProvider
-  .when("/", {
-    templateUrl : "index.html"
-  })
-  .when("/nhanvien", {
-    templateUrl : "../../views/nhanvien/index.jsp"
-  })
-  .when("/cuahang", {
-    templateUrl : "../../views/cuahang/index.jsp"
-  })
-  .when("/chitietsanpham", {
-    templateUrl : "../../views/chitietsanpham/index.jsp"
-  });
-});
+document.getElementById("user").innerHTML = window.localStorage.getItem('user')
+function submitform() {
+  var saveme = document.getElementById("saveme").checked;
+  var username = document.getElementById("username").value;
+  if(saveme){
+      localStorage.removeItem('user')
+      localStorage.setItem("user",username);
+  }
+}

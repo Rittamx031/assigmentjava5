@@ -1,5 +1,6 @@
 package thatdz.assignment.assigmentjava5.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,7 +31,7 @@ import lombok.Setter;
 @NamedQueries({
     @NamedQuery(
         name = "KhachHang.login",
-        query = "SELECT kh FORM KhachHang kh WHERE kh.ma=:ma AND kh.matKhau=:matkhau"
+        query = "SELECT kh FROM KhachHang kh WHERE kh.ma = :ma AND kh.matKhau = :matkhau"
     )
 })
 public class KhachHang {
@@ -48,18 +48,22 @@ public class KhachHang {
     public String tenDem;
     @Column(name = "Ho")
     public String ho;
+    @Column(name = "Sdt")
+    public String sdt;
     @Column(name = "DiaChi")
     public String diaChi;
     @Column(name = "NgaySinh")
-    public Date ngaySinh;
+    public LocalDate ngaySinh;
     @Column(name = "ThanhPho")
     public String thanhPho;
     @Column(name = "QuocGia")
     public String quocGia;
     @Column(name = "MatKhau")
     public String matKhau;
+    @Column(name = "image")
+    public String image;
     @Override
     public String toString() {
-        return this.ten;
+        return this.ho+" "+this.tenDem +" "+ this.ten;
     }
 }
