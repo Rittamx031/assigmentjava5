@@ -44,6 +44,7 @@ public class DongSPService {
         existingDongSP.setId(dongSP.getId());
         existingDongSP.setMa(dongSP.getMa());
         existingDongSP.setTen(dongSP.getTen());
+        existingDongSP.setImageName(dongSP.getImageName());
         return repository.save(existingDongSP);
     }
     public List<DongSP> getFirstPage(int pageSize, String sortBy, String sortDir) {

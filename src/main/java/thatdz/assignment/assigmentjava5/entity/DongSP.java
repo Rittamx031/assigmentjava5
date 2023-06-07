@@ -37,6 +37,10 @@ public class DongSP {
     @NotBlank(message = "Tên không được trống!!!")
     @Column(name = "Ten")
     private String ten;
+
+    @Column(name = "ImageName")
+    private String imageName;
+
     @Override
     public String toString() {
         return this.ten;

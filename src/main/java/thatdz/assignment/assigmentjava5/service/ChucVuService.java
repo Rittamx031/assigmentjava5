@@ -37,8 +37,6 @@ public class ChucVuService {
         repository.deleteById(id);
         return "ChucVu removed !! " + id;
     }
-
-    
     public ChucVu updateChucvu(ChucVu chucvu) {
         ChucVu existingChucvu = repository.findById(chucvu.getId()).orElse(null);
         existingChucvu.setId(chucvu.getId());

@@ -1,11 +1,11 @@
-// package thatdz.assignment.assigmentjava5.repository.image;
+package thatdz.assignment.assigmentjava5.repository.image;
 
-// import java.util.UUID;
+import java.util.UUID;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import thatdz.assignment.assigmentjava5.entity.image.SanPhamImage;
+import thatdz.assignment.assigmentjava5.entity.image.SanPhamImage;
 
-// public interface SanPhamImageIRepo extends JpaRepository<SanPhamImage, UUID> {
+public interface SanPhamImageIRepo extends JpaRepository<SanPhamImage, UUID> {
     
-// }
+}

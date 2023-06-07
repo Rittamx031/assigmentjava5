@@ -1,5 +1,6 @@
 package thatdz.assignment.assigmentjava5.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.DongSP;
@@ -105,19 +107,23 @@ public class DongSPController {
     }
 
     @PostMapping("store")
-    public String storeDongSP(Model model, @Valid @ModelAttribute("dongsp") DongSP dongsp,
+    public String storeDongSP(Model model, @Valid @ModelAttribute("dongsp") DongSP dongsp,@RequestParam("imageFile") MultipartFile file,
             BindingResult theBindingResult) {
-        System.out.println(dongsp);
-        if (theBindingResult.hasErrors()) {
-            return "manager/dongsanpham/form.html";
-        } else {
-            service.saveDongSP(dongsp);
-            model.addAttribute("list", service.getDongSPs());
-            dongsp = new DongSP();
-            return "manager/dongsanpham/index.html";
-        }
+        // System.out.println(dongsp);
+        // if (theBindingResult.hasErrors()) {
+        //     return "manager/dongsanpham/form.html";
+        // } else {
+        //     service.saveDongSP(dongsp);
+        //     model.addAttribute("list", service.getDongSPs());
+        //     dongsp = new DongSP();
+        //     return "manager/dongsanpham/index.html";
+        // }
+        System.out.println(file.getOriginalFilename());
+        File file2 = new File("");
+            System.out.println(file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\dongsp");
+        return "manager/dongsanpham/form.html";
     }
-
+    
     @PostMapping("update")
     public String update(@Valid @ModelAttribute("dongsp") DongSP dongsp, BindingResult theBindingResult, Model model) {
         if (theBindingResult.hasErrors()) {
