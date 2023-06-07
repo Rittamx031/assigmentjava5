@@ -115,9 +115,7 @@ public class NhanVienController {
     @GetMapping("delete")
     public String deleteNhanVien(Model model, @RequestParam("id") String id) {
         service.deleteNhanVien(UUID.fromString(id));
-        List<NhanVien> listNhanVien = service.getNhanViens();
-        model.addAttribute("list", listNhanVien);
-        return "manager/nhanvien/index.html";
+        return "redirect:index";
     }
 
     @GetMapping("edit")
@@ -136,7 +134,7 @@ public class NhanVienController {
             service.saveNhanVien(nhanvien);
             model.addAttribute("list", service.getNhanViens());
             nhanvien = new NhanVien();
-            return "manager/nhanvien/index.html";
+            return "redirect:index";
         }
     }
 
@@ -149,6 +147,6 @@ public class NhanVienController {
         service.updateNhanVien(nhanvien);
         model.addAttribute("list", service.getNhanViens());
         nhanvien = new NhanVien();
-        return "manager/nhanvien/index.html";
+        return "redirect:index";
     }
 }

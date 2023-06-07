@@ -88,7 +88,7 @@ public class ChiTietSanPhamController {
         return "manager/chitietsanpham/index.html";
     }
 
-    @GetMapping("/page")
+    @GetMapping("page")
     public String getPageNo(Model model, @RequestParam("pageno") int pageno) {
         List<ChiTietSanPham> list = service.getPageNo(pageno - 1, rowcount, sortBy, sortDir);
         model.addAttribute("pagenumber", pagenumbers);
@@ -137,9 +137,7 @@ public class ChiTietSanPhamController {
     @GetMapping("delete")
     public String deleteChiTietSanPham(Model model, @RequestParam("id") String id) {
         service.deleteChiTietSanPham(UUID.fromString(id));
-        List<ChiTietSanPham> listChiTietSanPham = service.getChiTietSanPhams();
-        model.addAttribute("list", listChiTietSanPham);
-        return "manager/chitietsanpham/index.html";
+        return "redirect:index";
     }
 
     @GetMapping("edit")
@@ -159,7 +157,7 @@ public class ChiTietSanPhamController {
             service.saveChiTietSanPham(chitietsanphamst);
             model.addAttribute("list", service.getChiTietSanPhams());
             chitietsanpham = new ChiTietSanPham();
-            return "manager/chitietsanpham/index.html";
+            return "redirect:index";
         }
     }
 
@@ -173,6 +171,12 @@ public class ChiTietSanPhamController {
         service.updateChiTietSanPham(chitietsanphamud);
         model.addAttribute("list", service.getChiTietSanPhams());
         chitietsanpham = new ChiTietSanPham();
-        return "manager/chitietsanpham/index.html";
+        return "redirect:index";
+    }
+    //upload image
+    @GetMapping("uploadimg")
+    public String getUploadfileform(Model model, @RequestParam("id") String id){
+        model.addAttribute("chitietsanpham", service.getChiTietSanPhamById(UUID.fromString(id)));
+        return "manager/chitietsanpham/imagemanager/selectimg.html";
     }
 }

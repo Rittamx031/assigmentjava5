@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.DongSP;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
+import thatdz.assignment.assigmentjava5.uitls.ImageManager;
 
 @Controller
 @RequestMapping("manager/dongsp")
@@ -26,6 +27,8 @@ public class DongSPController {
     private DongSPService service;
     @Autowired
     private DongSP dongsp;
+    File file2 = new File("");
+    public String pathCopyF = file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\dongsp\\";
     public int rowcount = 10;
     public int[] pagenumbers;
     public String sortBy="ma", sortDir="asc";
@@ -95,43 +98,43 @@ public class DongSPController {
     @GetMapping("delete")
     public String deleteDongSP(Model model, @RequestParam("id") String id) {
         service.deleteDongSP(UUID.fromString(id));
-        List<DongSP> listDongSP = service.getDongSPs();
-        model.addAttribute("list", listDongSP);
-        return "manager/dongsanpham/index.html";
+        return "redirect:index";
     }
 
     @GetMapping("edit")
     public String editDongSP(Model model, @RequestParam("id") String id) {
-        model.addAttribute("DongSP", service.getDongSPById(UUID.fromString(id)));
+        model.addAttribute("dongsp", service.getDongSPById(UUID.fromString(id)));
         return "manager/dongsanpham/update.html";
     }
 
     @PostMapping("store")
-    public String storeDongSP(Model model, @Valid @ModelAttribute("dongsp") DongSP dongsp,@RequestParam("imageFile") MultipartFile file,
+    public String storeDongSP(Model model, @Valid @ModelAttribute("dongsp") DongSP dongsp1,@RequestParam("imageFile") MultipartFile file,
             BindingResult theBindingResult) {
-        // System.out.println(dongsp);
-        // if (theBindingResult.hasErrors()) {
-        //     return "manager/dongsanpham/form.html";
-        // } else {
-        //     service.saveDongSP(dongsp);
-        //     model.addAttribute("list", service.getDongSPs());
-        //     dongsp = new DongSP();
-        //     return "manager/dongsanpham/index.html";
-        // }
-        System.out.println(file.getOriginalFilename());
-        File file2 = new File("");
-            System.out.println(file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\dongsp");
-        return "manager/dongsanpham/form.html";
+        if (theBindingResult.hasErrors()) {
+            return "manager/dongsanpham/form.html";
+        } else {
+            dongsp1.setImageName(UUID.randomUUID()+".png");
+            ImageManager.copyFile(pathCopyF + dongsp1.getImageName(), file);
+            service.saveDongSP(dongsp1);
+            model.addAttribute("list", service.getDongSPs());
+            dongsp = new DongSP();
+            return "redirect:index";
+        }
     }
     
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("dongsp") DongSP dongsp, BindingResult theBindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("dongsp") DongSP dongsp1, BindingResult theBindingResult, Model model,@RequestParam("imageFile") MultipartFile file) {
         if (theBindingResult.hasErrors()) {
             return "manager/dongsanpham/update.html";
         }
-        service.updateDongSP(dongsp);
+        if(dongsp1.getImageName()==null || dongsp1.getImageName()=="null"){
+            dongsp1.setImageName(UUID.randomUUID()+".png");
+        }
+        System.out.println(dongsp1.getImageName());
+        ImageManager.copyFile(pathCopyF + dongsp1.getImageName(), file);
+        service.updateDongSP(dongsp1);
         model.addAttribute("list", service.getDongSPs());
         dongsp = new DongSP();
-        return "manager/dongsanpham/index.html";
+        return "redirect:index";
     }
 }

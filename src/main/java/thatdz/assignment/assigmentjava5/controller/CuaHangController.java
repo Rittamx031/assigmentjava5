@@ -29,57 +29,65 @@ public class CuaHangController {
     public CuaHang cuahang;
     public int rowcount = 10;
     public int[] pagenumbers;
-    public String sortBy="ma", sortDir="asc";
-    //panigation and sort
+    public String sortBy = "ma", sortDir = "asc";
+
+    // panigation and sort
     @GetMapping("/getcountrow")
-    public String handleSubmit(Model model,@RequestParam("selectedValue") String selectedValue, HttpServletRequest request) {
+    public String handleSubmit(Model model, @RequestParam("selectedValue") String selectedValue,
+            HttpServletRequest request) {
         System.out.println(selectedValue);
-        if (selectedValue.equals("ALL")){
+        if (selectedValue.equals("ALL")) {
             rowcount = Integer.MAX_VALUE;
-        }else{
+        } else {
             rowcount = Integer.parseInt(selectedValue);
         }
-        pagenumbers= service.getPageNumber(rowcount);
-        List<CuaHang> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
+        List<CuaHang> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/cuahang/index.html"; // Redirect back to the form page
-    }   
+    }
+
     @GetMapping("last")
     public String getLastPage(Model model) {
-        List<CuaHang> list = service.getLastPage(rowcount,sortBy,sortDir);
+        List<CuaHang> list = service.getLastPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
     }
+
     @GetMapping("sort")
-    public String getPageSort(Model model,@RequestParam("sortBy") String sortby,@RequestParam("sortDir") String sordir) {
+    public String getPageSort(Model model, @RequestParam("sortBy") String sortby,
+            @RequestParam("sortDir") String sordir) {
         sortBy = sortby;
-        sortDir= sordir;
-        List<CuaHang> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        sortDir = sordir;
+        List<CuaHang> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/cuahang/index.html";
     }
+
     @GetMapping("first")
     public String getFirstPages(Model model) {
-        List<CuaHang> list = service.getFirstPage(rowcount,sortBy,sortDir);
-        pagenumbers= service.getPageNumber(rowcount);
+        List<CuaHang> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
     }
+
     @GetMapping("/page")
-    public String getPageNo(Model model,@RequestParam("pageno") int pageno) {
-        List<CuaHang> list = service.getPageNo(pageno-1,rowcount,sortBy,sortDir);
+    public String getPageNo(Model model, @RequestParam("pageno") int pageno) {
+        List<CuaHang> list = service.getPageNo(pageno - 1, rowcount, sortBy, sortDir);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
     }
-    //crud 
+
+    // crud
     @GetMapping("index")
     public String getCuaHangIndexpages(Model model) {
-        List<CuaHang> list = service.getFirstPage(rowcount,sortBy,sortDir);
-        pagenumbers= service.getPageNumber(rowcount);
+        List<CuaHang> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/cuahang/index.html";
@@ -89,6 +97,7 @@ public class CuaHangController {
     public CuaHang setSignUpForm() {
         return cuahang;
     }
+
     @GetMapping("create")
     public String goToCreateForm() {
         cuahang = new CuaHang();
@@ -98,9 +107,8 @@ public class CuaHangController {
     @GetMapping("delete")
     public String deleteCuaHang(Model model, @RequestParam("id") String id) {
         service.deleteCuaHang(UUID.fromString(id));
-        List<CuaHang> listCuaHang = service.getCuaHangs();
-        model.addAttribute("list", listCuaHang);
-        return "manager/cuahang/index.html";
+
+        return "redirect:index";
     }
 
     @GetMapping("edit")
@@ -119,7 +127,7 @@ public class CuaHangController {
             service.saveCuaHang(cuahang);
             model.addAttribute("list", service.getCuaHangs());
             cuahang = new CuaHang();
-            return "manager/cuahang/index.html";
+            return "redirect:index";
         }
     }
 
@@ -132,6 +140,6 @@ public class CuaHangController {
         service.updateCuaHang(cuahang);
         model.addAttribute("list", service.getCuaHangs());
         cuahang = new CuaHang();
-        return "manager/cuahang/index.html";
+        return "redirect:index";
     }
 }

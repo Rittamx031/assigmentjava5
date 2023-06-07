@@ -30,5 +30,5 @@ public class HomeController {
     public String getShoppage(){
         return "shoppage/thatpee.html";
     }
-    
+
 }

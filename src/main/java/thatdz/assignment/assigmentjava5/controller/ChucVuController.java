@@ -93,9 +93,7 @@ public class ChucVuController {
     @GetMapping("delete")
     public String deleteChucVu(Model model, @RequestParam("id") String id) {
         service.deleteChucVu(UUID.fromString(id));
-        List<ChucVu> listchucvu = service.getChucVus();
-        model.addAttribute("list", listchucvu);
-        return "manager/chucvu/index.html";
+        return "redirect:index";
     }
 
     @GetMapping("edit")
@@ -113,14 +111,14 @@ public class ChucVuController {
         } else {
             service.saveChucVu(chucvust);
             model.addAttribute("list", service.getChucVus());
-            return "manager/chucvu/index.html";
+            return "redirect:index";
         }
     }
 
     @PostMapping("update")
     public String update(@Valid @ModelAttribute("chucvu") ChucVu chucvuud, BindingResult theBindingResult, Model model) {
         if (theBindingResult.hasErrors()) {
-            return "manager/chucvu/update.html";
+            return "redirect:index";
         }
         service.updateChucvu(chucvuud);
         model.addAttribute("list", service.getChucVus());

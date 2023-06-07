@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Form to store new cuahang -->
-    <form th:action="@{/manager/dongsp/update}" th:object="${dongsp}" method="post" class="form">
+    <form th:action="@{/manager/dongsp/update}" enctype="multipart/form-data"   th:object="${dongsp}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label>Mã Dòng Sản Phẩm: </label>
@@ -25,6 +25,12 @@
             <label>Ten Dòng Sản Phẩm: </label>
             <input type="text"  class="form-control"  th:field="*{ten}" />
             <div th:if="${#fields.hasErrors('ten')}" class="errors text-danger form-text" th:errors="*{ten}"></div>
+        </div>
+        Image:
+        <p th:text="${dongsp.imageName}"></p>
+        <img th:src="@{'../../../assets/img/dongsp/'+${dongsp.imageName}}" alt="dongsp.imageName" />
+        <div class="form-group">
+            <input type="file" name="imageFile" id="imageFile" required/>
         </div>
         <input type="submit" value="Submit" class="btn btn-primary" />
     </form>

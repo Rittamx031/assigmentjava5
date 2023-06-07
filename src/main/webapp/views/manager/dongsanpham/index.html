@@ -43,7 +43,7 @@
                 <tr th:each="dongsp : ${list}">
                     <td th:text="${dongsp.ma}"></td>
                     <td th:text="${dongsp.ten}"></td>
-                    <td><img th:src="@{'../../../assets/img/dongsp/'+${dongsp.imageName}}" alt="DSP 1" /></td>
+                    <td th:text="${dongsp.imageName}"></td>
                     <td>
                         <a th:href="@{/manager/dongsp/delete(id=${dongsp.id})}" class="btn btn-danger">Delete</a>
                         <a th:href="@{/manager/dongsp/edit(id=${dongsp.id})}" class="btn btn-success">Update</a>

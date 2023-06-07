@@ -93,9 +93,7 @@ public class MauSacController {
     @GetMapping("delete")
     public String deleteMauSac(Model model, @RequestParam("id") String id) {
         service.deleteMauSac(UUID.fromString(id));
-        List<MauSac> listMauSac = service.getMauSacs();
-        model.addAttribute("list", listMauSac);
-        return "manager/mausac/index.html";
+        return "redirect:index";
     }
 
     @GetMapping("edit")
@@ -113,7 +111,7 @@ public class MauSacController {
         } else {
             service.saveMauSac(mausacst);
             model.addAttribute("list", service.getMauSacs());
-            return "manager/mausac/index.html";
+            return "redirect:index";
         }
     }
 
@@ -124,6 +122,6 @@ public class MauSacController {
         }
         service.updateMauSac(mausacud);
         model.addAttribute("list", service.getMauSacs());
-        return "manager/mausac/index.html";
+        return "redirect:index";
     }
 }
