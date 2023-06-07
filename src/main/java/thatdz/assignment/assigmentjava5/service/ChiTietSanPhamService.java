@@ -29,6 +29,9 @@ public class ChiTietSanPhamService {
         return repository.findAll();
     }
 
+    public List<ChiTietSanPham> getChiTietSanPhamByDongSp(UUID dongSPId) {
+        return repository.findByDongSP(dongSPId);
+    }
     public ChiTietSanPham getChiTietSanPhamById(UUID id) {
         return repository.findById(id).orElse(null);
     }

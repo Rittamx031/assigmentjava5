@@ -176,7 +176,6 @@ public class ChiTietSanPhamController {
     //upload image
     @GetMapping("uploadimg")
     public String getUploadfileform(Model model, @RequestParam("id") String id){
-        model.addAttribute("chitietsanpham", service.getChiTietSanPhamById(UUID.fromString(id)));
-        return "manager/chitietsanpham/imagemanager/selectimg.html";
+        return "redirect:addimage?id="+id;
     }
 }

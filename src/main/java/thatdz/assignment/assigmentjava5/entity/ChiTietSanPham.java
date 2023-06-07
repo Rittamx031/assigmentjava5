@@ -13,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -33,6 +35,12 @@ import lombok.ToString;
 @Component
 @ToString
 @Table(name = "ChiTietSP")
+@NamedQueries({
+    @NamedQuery(
+        name = "ChiTietSanPham.findByDongSP",
+        query = "SELECT cts FROM ChiTietSanPham cts WHERE cts.dongSP.id = :dongSPId"
+    )
+})
 public class ChiTietSanPham {
     @Id
     @GeneratedValue(generator = "uuid2")

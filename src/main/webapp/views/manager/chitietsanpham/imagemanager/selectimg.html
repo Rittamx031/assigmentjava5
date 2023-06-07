@@ -9,20 +9,13 @@
 
 <body>
     <div class="container">
-        <form th:action="@{/manager/dongsp/update}" enctype="multipart/form-data"   th:object="${dongsp}" method="post" class="form">
+        <form th:action="@{/imagesp/saveimage}" enctype="multipart/form-data"   th:object="${sanPhamImage}" method="post" class="form">
             <input type="hidden" th:field="*{id}" />
             <div class="form-group">
-                <label>Mã Dòng Sản Phẩm: </label>
-                <input type="text"  class="form-control"  th:field="*{ma}" />
-                <div th:if="${#fields.hasErrors('ma')}" class="errors text-danger form-text" th:errors="*{ma}"></div>
-            </div>
-            <div class="form-group">
-                <label>Ten Dòng Sản Phẩm: </label>
-                <input type="text"  class="form-control"  th:field="*{ten}" />
-                <div th:if="${#fields.hasErrors('ten')}" class="errors text-danger form-text" th:errors="*{ten}"></div>
+                <label>Tên Sản Phẩm: </label><p th:text="${}"></p>
             </div>
             Image:
-            <p th:text="${dongsp.imageName}"></p>
+            <input type="text" disabled th:field="*{Imgurl}" />
             <img th:src="@{'../../../assets/img/dongsp/'+${dongsp.imageName}}" alt="dongsp.imageName" />
             <div class="form-group">
                 <input type="file" name="imageFile" id="imageFile" required/>

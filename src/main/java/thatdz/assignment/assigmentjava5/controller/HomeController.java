@@ -1,14 +1,23 @@
 package thatdz.assignment.assigmentjava5.controller;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import thatdz.assignment.assigmentjava5.entity.DongSP;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
 import thatdz.assignment.assigmentjava5.service.NhanVienService;
 
 @Controller
+@RequestMapping("thatpee")
 public class HomeController {
 
     @Autowired
@@ -21,14 +30,22 @@ public class HomeController {
     private GioHangChiTietController gioHangChiTietController;
     @Autowired
     private NhanVienService nhanVienService;
-    
-    @GetMapping("manager/home")
+    @ModelAttribute("listdongsp")
+    public List<DongSP> getListDongSp(){
+        return dongSPService.getDongSPs();
+    }
+    @GetMapping("/manager/home")
     public String getHomepage(){
         return "home/index.html";
     }
-    @GetMapping("shoppage")
-    public String getShoppage(){
+    @GetMapping("dongsanpham")
+    public String getSanPhamByDongSp(Model model,@RequestParam("id") UUID idDonSp){
+        model.addAttribute("listSanPham", chiTietSanPhamService.getChiTietSanPhamByDongSp(idDonSp));
         return "shoppage/thatpee.html";
     }
-
+        @GetMapping({"index","thatpee/dongsanpham/all"})
+    public String getShoppage(Model model){
+        model.addAttribute("listSanPham", chiTietSanPhamService.getChiTietSanPhams());
+        return "shoppage/thatpee.html";
+    }
 }
