@@ -55,10 +55,6 @@ public class HomeController {
     }
         @GetMapping({"index","thatpee/dongsanpham/all"})
         public String getShoppage(Model model){
-        System.out.println(login.toString());
-        if(login.getMa()!=null && login.getPassword()!=null){
-
-        }
         model.addAttribute("listSanPham", chiTietSanPhamService.getChiTietSanPhams());
         return "shoppage/thatpee.html";
     }
