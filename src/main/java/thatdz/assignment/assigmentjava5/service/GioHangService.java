@@ -1,5 +1,6 @@
 package thatdz.assignment.assigmentjava5.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import thatdz.assignment.assigmentjava5.entity.GioHang;
+import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.repository.GioHangIRepo;
 
 @Service
@@ -32,8 +34,21 @@ public class GioHangService {
         repository.deleteById(id);
         return "GioHang removed !! " + id;
     }
+    public GioHang getGioHangByIDKhachHang(UUID idKhachHang){
+        return repository.getGioHangbyKhachHang(idKhachHang);
+    }
+    public GioHang checkGioHang(KhachHang khachHang){
+        GioHang giohang = getGioHangByIDKhachHang(khachHang.getId());
+        if(giohang==null){
+            giohang = new GioHang();
+            giohang.setDiaChi(khachHang.getAddress());
+            giohang.setNgayTao(LocalDate.now());
+            giohang.setTenNguoiNhan(khachHang.getFullName());
+            giohang.setSdt(khachHang.getSdt());
+        }
+        return giohang;
+    }
 
-    
     public GioHang updateGioHang(GioHang gioHang) {
         GioHang existingGioHang = repository.findById(gioHang.getId()).orElse(null);
         existingGioHang.setId(gioHang.getId());

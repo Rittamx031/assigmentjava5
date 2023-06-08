@@ -8,8 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,25 +25,31 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Component
 @Table(name = "GioHangChiTiet")
+    @NamedQueries({
+        @NamedQuery(
+            name="GioHangChiTiet.getGioHangChiTietByGioHang",
+            query="SELECT ctgh FROM GioHangChiTiet ctgh WHERE ctgh.gioHang.id =: idgiohang"
+        )
+    })
 public class GioHangChiTiet {
     @EmbeddedId
     GioHangChiTietKey id;
-
+    
     @ManyToOne
     @MapsId("idGioHang")
     @JoinColumn(name = "IdGioHang")
     GioHang gioHang;
-
+    
     @ManyToOne
-    @MapsId("idChiTietSanPham")
+    @MapsId("idChiTietSP")
     @JoinColumn(name = "IdChiTietSP")
     ChiTietSanPham chiTietSanPham;
-
-    @NotBlank(message = "Quốc Gia không được trống!!!")
+    
     @Column(name = "SoLuong")
     public int soLuong;
     @Column(name = "DonGia")
-    public int donGia;
+    public double donGia;
     @Column(name = "DonGiaKhiGiam")
-    public int donGiaKhiGiam;
+    public double donGiaKhiGiam;
+    
 }

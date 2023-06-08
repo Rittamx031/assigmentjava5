@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Thatpee - Shop</title>
+    <title>Thatpee - Cart</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -25,7 +25,7 @@
                 <div class="row gy-3">
                     <!-- Left elements -->
                     <div class="col-lg-2 col-sm-4 col-4">
-                        <a href="/thatpee/manager/home" target="_blank" class="float-start">
+                        <a href="https://mdbootstrap.com/" target="_blank" class="float-start">
                             <img src="../../assets/img/logo.png" height="35" />
                         </a>
                     </div>
@@ -34,43 +34,15 @@
                     <!-- Center elements -->
                     <div class="order-lg-last col-lg-5 col-sm-8 col-8">
                         <div class="d-flex float-end">
-                            <a th:unless="${loginable}" href="/user/signup"
+                            <a href="/user/login"
                                 class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-                                <p class="d-none d-md-block mb-0">Sign in</p>
-                            </a>
-                            <a th:unless="${loginable}" href="/user/login"
-                                class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-                                <p class="d-none d-md-block mb-0">Login</p>
-                            </a>
-                            <a th:if="${loginable}" href="/user/login"
-                                class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-                                <img th:src="@{'../../assets/img/user/'+${khachHang.image}}" alt="avatar"
-                                    style="width: 20px;height: auto;">
-                                <p class="d-none d-md-block mb-0" th:text="${khachHang.ten}"></p>
-                            </a>
-                            <!-- <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                                class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
-                                target="_blank"> <i class="fas fa-heart m-1 me-md-2"></i>
-                                <p class="d-none d-md-block mb-0">Wishlist</p>
-                            </a> -->
-                            <a href="/user/cart" class="border rounded py-1 px-3 nav-link d-flex align-items-center"> <i
-                                    class="fas fa-shopping-cart m-1 me-md-2"></i>
-                                <p class="d-none d-md-block mb-0">My cart</p>
+                                <p class="d-none d-md-block mb-0">Sign Out</p>
                             </a>
                         </div>
                     </div>
                     <!-- Center elements -->
                     <!-- Right elements -->
                     <div class="col-lg-5 col-md-12 col-12">
-                        <div class="input-group float-center">
-                            <div class="form-outline">
-                                <input type="search" id="form1" class="form-control" />
-                                <label class="form-label" for="form1">Search</label>
-                            </div>
-                            <button type="button" class="btn btn-primary shadow-0">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
                     </div>
                     <!-- Right elements -->
                 </div>
@@ -94,21 +66,7 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark mb-0" href="#" id="navbarDropdown"
-                                role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                Loại Sản Phẩm
-                            </a>
-                            <!-- Dropdown menu -->
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li th:each="dongsp :${listdongsp}">
-                                    <a class="dropdown-item" th:href="@{/thatpee/dongsanpham(id=${dongsp.id})}">
-                                        <p th:text="${dongsp.ten}"></p>
-                                    </a>
-                                </li>
-                            </ul>
+                            <a class="nav-link text-dark" aria-current="page" href="/thatpee/index">Home</a>
                         </li>
                         <!-- Navbar dropdown -->
                         <li class="nav-item dropdown">
@@ -144,73 +102,106 @@
         </nav>
         <!-- Navbar -->
     </header>
-    <div class="alert alert-danger text-center" role="alert" th:text="${error}" th:if="${error}"></div>
-    <div class="alert alert-danger text-center" role="alert" th:text="${succes}" th:if="${succes}"></div>
-    <!-- category -->
-    <section>
-        <div class="container pt-5">
-            <nav class="row gy-4">
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1">
-                    <a href="/thatpee/dongsanpham/all" class="text-center d-flex flex-column justify-content-center">
-                        <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2"
-                            data-mdb-ripple-color="dark">
-                            <img src="../../assets/img/dongsp/all.png" alt="lỗi" style="width: 15px;height: auto;" />
-                        </button>
-                        <div class="text-dark">All</div>
-                    </a>
-                </div>
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1" th:each="dongsp :${listdongsp}">
-                    <a th:href="@{/thatpee/dongsanpham(id=${dongsp.id})}"
-                        class="text-center d-flex flex-column justify-content-center">
-                        <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2"
-                            data-mdb-ripple-color="dark">
-                            <img th:src="@{'../../assets/img/dongsp/'+${dongsp.imageName}}" alt="lỗi"
-                                style="width: 15px;height: auto;" />
-                        </button>
-                        <div class="text-dark" th:text="${dongsp.ten}"></div>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </section>
-    <!-- category -->
+    <!-- GioHangChiTiet -->
+    <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-12">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                            <h6 class="mb-0 text-muted"><span
+                                                    th:text="${listGioHangChiTiet.size()}"></span> items</h6>
+                                        </div>
+                                        <!-- Gio hang chi tiet detail -->
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center"
+                                            th:each="sanpham : ${listGioHangChiTiet}">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img th:src="@{'../../assets/img/sanpham/'+${sanpham.image}}"
+                                                    class="img-fluid rounded-3" th:alt="${sanpham.image}">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-black mb-0">Tên: <span
+                                                        th:text="${sanpham.tenSanpham}"></span></h6>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2">
+                                                <h6 class="mb-0">Tổng: <span th:text="${sanpham.getTongTien()}"></span>
+                                                    Vnd</h6>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
 
-    <!-- Products -->
-    <section>
-        <div class="container my-5">
-            <header class="mb-4">
-                <h3>Products</h3>
-            </header>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6" th:each="ctsanpham:${listSanPham}">
-                    <div class="card my-2 shadow-0">
-                        <a href="#" class="">
-                            <div class="mask" style="height: 50px;">
-                                <div class="d-flex justify-content-start align-items-start h-100 m-2">
-                                    <!-- <h6><span class="badge bg-danger pt-1">New</span></h6> -->
+                                                <input class="quantityInput form-control form-control-sm" min="0"
+                                                    name="quantity" th:value="${sanpham.soLuong}" type="number"
+                                                    th:attr="data-sanpham-id=${sanpham.id.idChiTietSP}" />
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <a th:href="@{/user/cart/remove(id=${sanpham.id.idChiTietSP})}"
+                                                    class="text-muted"><i class="fas fa-times"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- Gio hang chi tiet detail -->
+                                        <div class="pt-5">
+                                            <h6 class="mb-0"><a href="/thatpee/index" class="text-body"><i
+                                                        class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a>
+                                            </h6>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!-- <div class="col-lg-4 bg-grey">
+                      <div class="p-5">
+                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                        <hr class="my-4">
+      
+                        <div class="d-flex justify-content-between mb-4">
+                          <h5 class="text-uppercase">items 3</h5>
+                          <h5>€ 132.00</h5>
+                        </div>
+      
+                        <h5 class="text-uppercase mb-3">Shipping</h5>
+      
+                        <div class="mb-4 pb-2">
+                          <select class="select">
+                            <option value="1">Standard-Delivery- €5.00</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                          </select>
+                        </div>
+      
+                        <h5 class="text-uppercase mb-3">Give code</h5>
+      
+                        <div class="mb-5">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                          </div>
+                        </div>
+      
+                        <hr class="my-4">
+      
+                        <div class="d-flex justify-content-between mb-5">
+                          <h5 class="text-uppercase">Total price</h5>
+                          <h5>€ 137.00</h5>
+                        </div>
+      
+                        <button type="button" class="btn btn-dark btn-block btn-lg"
+                          data-mdb-ripple-color="dark">Register</button>
+      
+                      </div>
+                    </div> -->
                             </div>
-                            <img th:src="@{'../../assets/img/sanpham/'+${ctsanpham.image}}" alt="null"
-                                class="card-img-top rounded-2" style="aspect-ratio: 1 / 1">
-                        </a>
-                        <div class="card-body p-0 pt-3">
-                            <!-- <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i
-                                    class="fas fa-heart fa-lg px-1 text-secondary"></i></a> -->
-                            <a th:href="@{/user/addtocart(idsp=${ctsanpham.id})}"
-                                class="btn btn-light border px-2 pt-2 float-end icon-hover"><i
-                                    class="fas fa-shopping-cart m-1 me-md-2"></i></a>
-                            <h5 class="card-title">Giá: <span th:text="${ctsanpham.giaBan}"></span> Vnđ</h5>
-                            <p class="card-text mb-0" th:text="${ctsanpham.sanPham.ten}"></p>
-                            <p class="text-muted">
-                                Màu Sắc: <span th:text="${ctsanpham.mauSac.ten}"></span>
-                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Products -->
+
+    <!-- GioHangChiTiet -->
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
         <!-- Section: Social media -->
@@ -391,10 +382,42 @@
         </div>
     </footer>
     <!-- Footer -->
-    <!-- MDB -->
     <script type="text/javascript" src="../../assets/js/mdb.min.js"></script>
-    <script src="../../assets/js/app.js"></script>
     <!-- Custom scripts -->
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        var quantityInputs = document.getElementsByClassName("quantityInput");
+        for (var i = 0; i < quantityInputs.length; i++) {
+            (function () {
+                var quantityInput = quantityInputs[i];
+                var sanphamId = quantityInput.getAttribute("data-sanpham-id");
+
+                quantityInput.addEventListener("change", function () {
+                    var newQuantity = this.value;
+                    // Use sanphamId and newQuantity in the AJAX request
+                    console.log(sanphamId);
+                    // Send an AJAX request to update the quantity in Spring
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/user/cart/updateQuantity?id=" + sanphamId + "&quantity=" + newQuantity, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                // Quantity updated successfully
+                                console.log("Quantity updated successfully");
+                                location.reload();
+                            } else {
+                                // Error occurred while updating quantity
+                                console.log("Error occurred while updating quantity");
+                            }
+                        }
+                    };
+                    xhr.send();
+                });
+            })();
+        }
+    </script>
+
 </body>
 
 </html>

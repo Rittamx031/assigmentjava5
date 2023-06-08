@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
+import thatdz.assignment.assigmentjava5.entity.GioHang;
+import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.entity.Login;
 import thatdz.assignment.assigmentjava5.entity.SignUp;
+import thatdz.assignment.assigmentjava5.service.GioHangChiTietService;
+import thatdz.assignment.assigmentjava5.service.GioHangService;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;
 import thatdz.assignment.assigmentjava5.uitls.ImageManager;
 
@@ -32,6 +37,14 @@ public class UserController {
     public KhachHang khachHang;
     @Autowired
     public Login login;
+    @Autowired
+    public GioHang gioHang;
+    @Autowired
+    public GioHangChiTiet gioHangChiTiet;
+    @Autowired
+    public GioHangService gioHangService;
+    @Autowired
+    public GioHangChiTietService gioHangChiTietService;
     File file2 = new File("");
     public String pathCopyF = file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\user\\";
     @ModelAttribute("signup")
@@ -78,14 +91,12 @@ public class UserController {
             return "user/login.html";
         } else {
             System.out.println(login.toString());
-            KhachHang khachHang1 = service.login(login);
-            if (khachHang1 == null) {
+            khachHang = service.login(login);
+            if (khachHang == null) {
                 model.addAttribute("loginstate", "Login fail !!! user or password Incorrect!!!!");
             return "user/login.html";
             }
-            khachHang = khachHang1;
             return "redirect:/thatpee/index";
-            
         }
     }
 }

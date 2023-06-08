@@ -29,8 +29,6 @@ public class HomeController {
     @Autowired
     private GioHangController gioHangController;
     @Autowired
-    private GioHangChiTietController gioHangChiTietController;
-    @Autowired
     private NhanVienService nhanVienService;
     @Autowired
     private KhachHangService khachHangService;

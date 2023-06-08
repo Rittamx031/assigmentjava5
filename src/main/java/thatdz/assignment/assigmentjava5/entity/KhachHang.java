@@ -66,4 +66,13 @@ public class KhachHang {
     public String toString() {
         return this.ho+" "+this.tenDem +" "+ this.ten;
     }
+    public String getAddress(){
+        return this.getDiaChi()+", "+this.getThanhPho()+", "+this.getQuocGia();
+    }
+    public String getFullName(){
+        if(!this.getTen().equals("")){
+            return this.getHo()+" "+this.getTenDem()+" "+this.getTen();
+        }
+        return this.getHo()+" "+this.getTen();
+    }
 }

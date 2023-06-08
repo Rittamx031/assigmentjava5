@@ -1,6 +1,6 @@
 package thatdz.assignment.assigmentjava5.entity;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -85,5 +85,5 @@ public class ChiTietSanPham {
     @Column(name = "image")
     private String image;
     @OneToMany(mappedBy = "chiTietSanPham")
-    Set<GioHangChiTiet> gioHangChiTiets;
+    List<GioHangChiTiet> gioHangChiTiets;
 }

@@ -1,6 +1,7 @@
 package thatdz.assignment.assigmentjava5.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -15,21 +16,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class GioHangChiTietKey implements Serializable {
-
     @Column(name = "IdGioHang")
     UUID idGioHang;
-
-    @Column(name = "IdChiTietSanPham")
-    UUID idChiTietSanPham;
-    @Override
-    public int hashCode() {
-        
-        return super.hashCode();
-    }
+    
+    @Column(name = "IdChiTietSP")
+    UUID idChiTietSP;
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj) return true;
+        if (!(obj instanceof GioHangChiTietKey)) return false;
+        GioHangChiTietKey other = (GioHangChiTietKey) obj;
+        return Objects.equals(idGioHang, other.idGioHang) && Objects.equals(idChiTietSP, other.idChiTietSP);
     }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(idGioHang, idChiTietSP);
+    }
+    
+
 }

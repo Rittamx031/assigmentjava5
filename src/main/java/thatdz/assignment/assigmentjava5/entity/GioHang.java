@@ -1,5 +1,6 @@
 package thatdz.assignment.assigmentjava5.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -14,6 +15,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +34,13 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Component
 @Table(name = "GioHang")
+@NamedQueries({
+    @NamedQuery (
+        name ="GioHang.getGioHangbyKhachHang",
+        query = "SELECT gh FROM GioHang gh WHERE khachHang.id =:idKhachHang"
+    )
+    }
+)
 public class GioHang {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -46,10 +56,10 @@ public class GioHang {
     public String tenNguoiNhan;
 
     @Column(name = "NgayTao")
-    public Date ngayTao;
+    public LocalDate ngayTao;
 
     @Column(name = "NgayThanhToan")
-    public Date ngayThanhToan;
+    public LocalDate ngayThanhToan;
 
     @NotBlank(message = "Địa chỉ không được trống!!!")
     @Column(name = "DiaChi")
@@ -70,7 +80,7 @@ public class GioHang {
 
     @OneToMany(mappedBy = "gioHang")
     List<GioHangChiTiet> gioHangChiTiets;
-
+    
     @Override
     public String toString() {
         return this.tenNguoiNhan;
