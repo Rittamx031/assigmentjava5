@@ -75,6 +75,7 @@ public class UserController {
             }
             khachHang = khachHang1;
             return "redirect:/thatpee/index";
+            
         }
     }
 }
