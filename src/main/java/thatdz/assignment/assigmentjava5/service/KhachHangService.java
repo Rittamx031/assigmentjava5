@@ -27,6 +27,7 @@ public class KhachHangService {
         khachHang.setQuocGia(signup.getQuocGia());
         khachHang.setThanhPho(signup.getThanhPho());
         khachHang.setThanhPho(signup.getThanhPho());
+        khachHang.setImage(signup.getImage());
         khachHang.setSdt(signup.getSdt());
         return repository.save(khachHang);
     }

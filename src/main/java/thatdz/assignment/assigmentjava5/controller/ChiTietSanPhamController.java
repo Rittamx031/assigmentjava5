@@ -1,5 +1,6 @@
 package thatdz.assignment.assigmentjava5.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
@@ -24,6 +26,7 @@ import thatdz.assignment.assigmentjava5.service.DongSPService;
 import thatdz.assignment.assigmentjava5.service.MauSacService;
 import thatdz.assignment.assigmentjava5.service.NSXService;
 import thatdz.assignment.assigmentjava5.service.SanPhamService;
+import thatdz.assignment.assigmentjava5.uitls.ImageManager;
 
 @Controller
 @RequestMapping("manager/chitietsanpham")
@@ -40,6 +43,8 @@ public class ChiTietSanPhamController {
     public DongSPService dspservice;
     @Autowired
     private ChiTietSanPham chitietsanpham;
+    File file2 = new File("");
+    public String pathCopyF = file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\sanpham\\";
     // sort and panigation
     public int rowcount = 10;
     public int[] pagenumbers;
@@ -148,12 +153,13 @@ public class ChiTietSanPhamController {
 
     @PostMapping("store")
     public String storeChiTietSanPham(Model model,
-            @Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamst,
+            @Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamst,@RequestParam("imageFile") MultipartFile file,
             BindingResult theBindingResult) {
-        System.out.println(chitietsanphamst);
         if (theBindingResult.hasErrors()) {
             return "manager/chitietsanpham/form.html";
         } else {
+            chitietsanphamst.setImage(UUID.randomUUID()+".png");
+            ImageManager.copyFile(pathCopyF + chitietsanphamst.getImage(), file);
             service.saveChiTietSanPham(chitietsanphamst);
             model.addAttribute("list", service.getChiTietSanPhams());
             chitietsanpham = new ChiTietSanPham();
@@ -162,20 +168,18 @@ public class ChiTietSanPhamController {
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud,
+    public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud,@RequestParam("imageFile") MultipartFile file,
             BindingResult theBindingResult, Model model) {
         System.out.println(chitietsanphamud.toString());
         if (theBindingResult.hasErrors()) {
             return "manager/chitietsanpham/update.html";
         }
+        chitietsanphamud.setImage(UUID.randomUUID()+".png");
+        System.out.println();
+        ImageManager.copyFile(pathCopyF + chitietsanphamud.getImage(), file);
         service.updateChiTietSanPham(chitietsanphamud);
+        System.out.println(chitietsanphamud.toString());
         model.addAttribute("list", service.getChiTietSanPhams());
-        chitietsanpham = new ChiTietSanPham();
         return "redirect:index";
-    }
-    //upload image
-    @GetMapping("uploadimg")
-    public String getUploadfileform(Model model, @RequestParam("id") String id){
-        return "redirect:addimage?id="+id;
     }
 }

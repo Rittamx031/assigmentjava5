@@ -14,6 +14,7 @@
 </head>
 <body>
     <!-- Form to store new cuahang -->
+    <a href="/thatpee/manager/home" class="btn btn-primary">Manager</a>
     <form th:action="@{/manager/chucvu/update}" th:object="${chucvu}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">

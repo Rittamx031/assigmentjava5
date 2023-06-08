@@ -16,12 +16,12 @@ import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.entity.Login;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
+import thatdz.assignment.assigmentjava5.service.KhachHangService;
 import thatdz.assignment.assigmentjava5.service.NhanVienService;
 
 @Controller
 @RequestMapping("thatpee")
 public class HomeController {
-
     @Autowired
     private ChiTietSanPhamService chiTietSanPhamService;
     @Autowired
@@ -33,28 +33,40 @@ public class HomeController {
     @Autowired
     private NhanVienService nhanVienService;
     @Autowired
+    private KhachHangService khachHangService;
+    @Autowired
     private Login login;
     @Autowired
     public KhachHang khachHang;
+
     @ModelAttribute("listdongsp")
-    public List<DongSP> getListDongSp(){
+    public List<DongSP> getListDongSp() {
         return dongSPService.getDongSPs();
     }
+
     @ModelAttribute("loginable")
-    public boolean loginable(){
-        return login.getMa()!=null && login.getPassword()!=null;
+    public boolean loginable() {
+        return login.getMa() != null && login.getPassword() != null;
     }
+
+    @ModelAttribute("khachHang")
+    public KhachHang khachHang() {
+        khachHang = khachHangService.login(login);
+        return khachHang;
+    }
+
     @GetMapping("/manager/home")
-    public String getHomepage(){
+    public String getHomepage() {
         return "home/index.html";
     }
     @GetMapping("dongsanpham")
-    public String getSanPhamByDongSp(Model model,@RequestParam("id") UUID idDonSp){
+    public String getSanPhamByDongSp(Model model, @RequestParam("id") UUID idDonSp) {
         model.addAttribute("listSanPham", chiTietSanPhamService.getChiTietSanPhamByDongSp(idDonSp));
         return "shoppage/thatpee.html";
     }
-        @GetMapping({"index","thatpee/dongsanpham/all"})
-        public String getShoppage(Model model){
+
+    @GetMapping({ "index", "dongsanpham/all" })
+    public String getShoppage(Model model) {
         model.addAttribute("listSanPham", chiTietSanPhamService.getChiTietSanPhams());
         return "shoppage/thatpee.html";
     }

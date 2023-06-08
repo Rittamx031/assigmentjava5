@@ -1,5 +1,8 @@
 package thatdz.assignment.assigmentjava5.controller;
 
+import java.io.File;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,12 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.entity.Login;
 import thatdz.assignment.assigmentjava5.entity.SignUp;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;
+import thatdz.assignment.assigmentjava5.uitls.ImageManager;
 
 @Controller
 @RequestMapping("/user")
@@ -26,7 +32,8 @@ public class UserController {
     public KhachHang khachHang;
     @Autowired
     public Login login;
-
+    File file2 = new File("");
+    public String pathCopyF = file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\user\\";
     @ModelAttribute("signup")
     public SignUp signupatrr() {
         return signup;
@@ -43,13 +50,16 @@ public class UserController {
     }
 
     @PostMapping("signup")
-    public String Registration(@Valid @ModelAttribute("signup") SignUp signUp, BindingResult theBindingResult, Model model) {
+    public String Registration(@Valid @ModelAttribute("signup") SignUp signUp, BindingResult theBindingResult,
+            Model model,@RequestParam("imageFile") MultipartFile file) {
         if (theBindingResult.hasErrors()) {
             return "user/signup.html";
         } else {
-            if(signUp.getMatKhau().equals(signUp.getMatKhaurepeat())){
+            if (signUp.getMatKhau().equals(signUp.getMatKhaurepeat())) {
+                signUp.setImage(UUID.randomUUID() + ".png");
+                ImageManager.copyFile(pathCopyF + signUp.getImage(), file);
                 service.signUp(signUp);
-            }else{
+            } else {
                 model.addAttribute("signupstate", "password and password reapet not match!!!");
                 return "user/signup.html";
             }

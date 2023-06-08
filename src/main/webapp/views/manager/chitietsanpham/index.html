@@ -13,6 +13,7 @@
 
 <body>
     <div class="container my-4">
+        <a href="/thatpee/manager/home" class="btn btn-primary">Manager</a>
         <div class="text-lg-end">
             <div class="text-lg-end">
                 <form action="#" th:action="@{/manager/chitietsanpham/getcountrow}" method="get">
@@ -70,6 +71,7 @@
                                     class="fa-solid fa-sort-up fa-xs"></i></i></a><a
                                 th:href="@{/manager/chitietsanpham/sort(sortBy=giaBan ,sortDir=desc)}"><i
                                     class="fa-solid fa-sort-down fa-xs"></i></a></th>
+                        <th scope="col">Image</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -84,13 +86,12 @@
                         <td th:text="${chitietsanpham.soLuongTon}"></td>
                         <td th:text="${chitietsanpham.giaNhap}"></td>
                         <td th:text="${chitietsanpham.giaBan}"></td>
+                        <td><img th:src="@{'../../../assets/img/sanpham/'+${chitietsanpham.image}}" alt="null" style="width: 40px;height: auto;"></td>
                         <td>
                             <a th:href="@{/manager/chitietsanpham/delete(id=${chitietsanpham.id})}"
                                 class="btn btn-danger">Delete</a>
                             <a th:href="@{/manager/chitietsanpham/edit(id=${chitietsanpham.id})}"
                                 class="btn btn-success">Update</a>
-                            <a th:href="@{/manager/chitietsanpham/uploadimg(id=${chitietsanpham.id})}"
-                                class="btn btn-success">Image</a>
                         </td>
                     </tr>
                 </tbody>
@@ -111,5 +112,4 @@
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
 </body>
-
 </html>

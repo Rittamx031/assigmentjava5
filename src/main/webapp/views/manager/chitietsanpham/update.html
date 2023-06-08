@@ -13,8 +13,9 @@
 </head>
 
 <body>
+    <a href="/thatpee/manager/home" class="btn btn-primary">Manager</a>
     <!-- Form to store new cuahang -->
-    <form th:action="@{/manager/chitietsanpham/update}" th:object="${chitietsanpham}" method="post" class="form">
+    <form enctype="multipart/form-data" th:action="@{/manager/chitietsanpham/update}" th:object="${chitietsanpham}" method="post" class="form">
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-group">
@@ -87,6 +88,9 @@
             <input type="number" step="0.01" class="form-control" id="giaBan" th:field="*{giaBan}" />
             <div th:if="${#fields.hasErrors('giaBan')}" class="errors text-danger form-text" th:errors="*{giaBan}">
             </div>
+        </div>
+        <div class="form-group">
+            <input type="file" name="imageFile" id="imageFile" required />
         </div>
         <input type="submit" value="Submit" class="btn btn-primary" />
     </form>

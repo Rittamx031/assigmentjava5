@@ -44,7 +44,8 @@
                             </a>
                             <a th:if="${loginable}" href="/user/login"
                                 class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center">
-                                <p class="d-none d-md-block mb-0">Sign Out</p>
+                                <img th:src="@{'../../assets/img/user/'+${khachHang.image}}"  alt="avatar" style="width: 20px;height: auto;">
+                                <p class="d-none d-md-block mb-0" th:text="${khachHang.ten}"></p>
                             </a>
                             <!-- <a href="https://github.com/mdbootstrap/bootstrap-material-design"
                                 class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
@@ -188,8 +189,7 @@
                                     <!-- <h6><span class="badge bg-danger pt-1">New</span></h6> -->
                                 </div>
                             </div>
-                            <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/1.webp"
-                                class="card-img-top rounded-2" style="aspect-ratio: 1 / 1" />
+                            <img th:src="@{'../../assets/img/sanpham/'+${ctsanpham.image}}" alt="null" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1" >
                         </a>
                         <div class="card-body p-0 pt-3">
                             <!-- <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i

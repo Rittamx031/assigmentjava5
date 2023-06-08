@@ -82,7 +82,8 @@ public class ChiTietSanPham {
     @Min(value = 0, message = "Giá bán must be greater than or equal to 0")
     @Column(name = "GiaBan")
     private double giaBan;
-
+    @Column(name = "image")
+    private String image;
     @OneToMany(mappedBy = "chiTietSanPham")
     Set<GioHangChiTiet> gioHangChiTiets;
 }

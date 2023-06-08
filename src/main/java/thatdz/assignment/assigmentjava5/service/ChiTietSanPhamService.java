@@ -53,6 +53,7 @@ public class ChiTietSanPhamService {
         existingChiTietSanPham.setSoLuongTon(chiTietSanPham.getSoLuongTon());
         existingChiTietSanPham.setGiaNhap(chiTietSanPham.getGiaNhap());
         existingChiTietSanPham.setGiaBan(chiTietSanPham.getGiaBan());
+        existingChiTietSanPham.setImage(chiTietSanPham.getImage());
         return repository.save(existingChiTietSanPham);
     }
     public List<ChiTietSanPham> getFirstPage(int pageSize, String sortBy, String sortDir) {

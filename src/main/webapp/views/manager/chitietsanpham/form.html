@@ -14,9 +14,9 @@
 
 <body>
     <div class="container">
-
+        <a href="/thatpee/manager/home" class="btn btn-primary">Manager</a>
         <!-- Form to store new cuahang -->
-        <form th:action="@{/manager/chitietsanpham/store}" th:object="${chitietsanpham}" method="post" class="form">
+        <form enctype="multipart/form-data" th:action="@{/manager/chitietsanpham/store}" th:object="${chitietsanpham}" method="post" class="form">
             <input type="hidden" th:field="*{id}" />
 
             <div class="form-group">
@@ -48,10 +48,11 @@
                     <option th:each="mauSac : ${mauSacs}" th:value="${{mauSac}}" th:text="${mauSac.ten}">
                     </option>
                 </select>
+
                 <div th:if="${#fields.hasErrors('mauSac')}" class="errors text-danger form-text" th:errors="*{mauSac}">
                 </div>
             </div>
-
+           
             <div class="form-group">
                 <label for="dongSP">Dòng Sản Phẩm:</label>
                 <select class="form-control" th:field="*{dongSP}">
@@ -90,8 +91,12 @@
                 <div th:if="${#fields.hasErrors('giaBan')}" class="errors text-danger form-text" th:errors="*{giaBan}">
                 </div>
             </div>
+            <div class="form-group">
+                <input type="file" name="imageFile" id="imageFile" required />
+            </div>
             <input type="submit" value="Submit" class="btn btn-primary" />
         </form>
     </div>
 </body>
+
 </html>

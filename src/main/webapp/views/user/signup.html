@@ -121,7 +121,7 @@
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-1 pb-md-0 mb-md-5">Registration Form</h3>
-                        <form th:action="@{/user/signup}" th:object="${signup}" method="post">
+                        <form enctype="multipart/form-data" th:action="@{/user/signup}" th:object="${signup}" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
@@ -238,7 +238,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="form-outline">
+                                    <div class="form-outline mb-3">
                                         <input type="password" th:field="*{matKhaurepeat}" id="repeartpassword"
                                             class="form-control form-control-lg" />
                                         <label class="form-label" for="repeartpassword">Nhập Lại Mật Khẩu</label>
@@ -247,6 +247,7 @@
                                         class="errors text-danger form-text" th:errors="*{matKhaurepeat}"></div>
                                 </div>
                             </div>
+                            <input type="file" name="imageFile" id="imageFile" required/>
                             <h5 th:text="${signupstate}" class=" text-danger form-text"></h5>
                             <div class="mt-4 pt-2">
                                 <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
