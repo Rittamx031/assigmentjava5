@@ -12,7 +12,6 @@ import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
 import thatdz.assignment.assigmentjava5.entity.GioHangViewModel;
-import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.repository.GioHangChiTietIRepo;
 
 @Service
@@ -62,7 +61,6 @@ public class GioHangChiTietService {
         repository.deleteById(id);
         return "GioHangChiTiet removed !! " + id;
     }
-
     public List<GioHangViewModel> getGioHangViewModel(GioHang gioHang) {
         List<GioHangChiTiet> list = repository.getGioHangChiTietByGioHang(gioHang.getId());
         List<GioHangViewModel> listmd = new ArrayList<>();
@@ -79,14 +77,12 @@ public class GioHangChiTietService {
         }
         return listmd;
     }
-
     public GioHangChiTiet updateQuality(GioHang gioHang, UUID idSanPham, int soLuong) {
         GioHangChiTiet ghct = getGioHangChiTietById(new GioHangChiTietKey(gioHang.getId(), idSanPham));
         ghct.setSoLuong(soLuong);
         ghct.setDonGia(ghct.getSoLuong() * ghct.getChiTietSanPham().getGiaBan());
         return repository.save(ghct);
     }
-
     public String deleteGioHangChiTiet(GioHang gioHang, UUID idSanPham) {
         repository.deleteById(new GioHangChiTietKey(gioHang.getId(), idSanPham));
         return "GioHangChiTiet removed !! ";
@@ -95,7 +91,6 @@ public class GioHangChiTietService {
     public List<GioHangChiTiet> getGioHangChiTietbyKhachHang() {
         return repository.findAll();
     }
-
     public GioHangChiTiet updateGioHangChiTiet(GioHangChiTiet gioHangChiTiet) {
         GioHangChiTiet existingGioHangChiTiet = repository.findById(gioHangChiTiet.getId()).orElse(null);
         existingGioHangChiTiet.setId(gioHangChiTiet.getId());
