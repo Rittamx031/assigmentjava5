@@ -78,7 +78,7 @@ public class ChucVuService {
         ChucVus = page.getContent();
         return ChucVus;
     }
-   
+    
     public int[] getPageNumber(int rowcount){
         Pageable pageable = PageRequest.of(1, rowcount);
         Page<ChucVu> page = repository.findAll(pageable);

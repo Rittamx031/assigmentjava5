@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,11 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Component
 @Table(name = "CuaHang")
+@NamedQuery(
+    
+        name ="CuaHang.search",
+        query ="SELECT ch FROM CuaHang ch Where ten LIKE CONCAT('%',:query, '%') OR ma LIKE CONCAT('%',:query, '%')"
+)
 public class CuaHang {
     @Id
     @GeneratedValue(generator = "uuid2")

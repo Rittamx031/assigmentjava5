@@ -2,6 +2,7 @@ package thatdz.assignment.assigmentjava5.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class CuaHangService {
 
     public CuaHang saveCuaHang(CuaHang cuaHang) {
         return repository.save(cuaHang);
+    }
+
+    public List<CuaHang> searchCuaHangs(String query) {
+        return repository.search(query);
     }
 
     public List<CuaHang> saveCuaHangs(List<CuaHang> CuaHangs) {
@@ -50,6 +55,24 @@ public class CuaHangService {
         existingCuaHang.setQuocGia(CuaHang.getQuocGia());
         return repository.save(existingCuaHang);
     }
+
+    public CuaHang updateCuaHangByRest(CuaHang cuahang) {
+        Optional<CuaHang> cuahangDb = this.repository.findById(cuahang.getId());
+        if (cuahangDb.isPresent()) {
+            CuaHang chupdate = cuahangDb.get();
+            chupdate.setId(cuahang.getId());
+            chupdate.setMa(cuahang.getMa());
+            chupdate.setTen(cuahang.getTen());
+            chupdate.setDiaChi(cuahang.getDiaChi());
+            chupdate.setThanhPho(cuahang.getThanhPho());
+            chupdate.setQuocGia(cuahang.getQuocGia());
+            return chupdate;
+        } else {
+            System.out.println("not found !!!!");
+            return null;
+        }
+    }
+
     // sorting and panigation
     public List<CuaHang> getFirstPage(int pageSize, String sortBy, String sortDir) {
         List<CuaHang> cuahangs;
@@ -63,17 +86,19 @@ public class CuaHangService {
         cuahangs = page.getContent();
         return cuahangs;
     }
+
     public List<CuaHang> getLastPage(int pageSize, String sortBy, String sortDir) {
         List<CuaHang> cuahangs;
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
         // Pageable object
-        Pageable pageable = PageRequest.of(getPageNumber(pageSize).length-1, pageSize, sort);
+        Pageable pageable = PageRequest.of(getPageNumber(pageSize).length - 1, pageSize, sort);
         // findAll method and pass pageable instance
         Page<CuaHang> page = repository.findAll(pageable);
         cuahangs = page.getContent();
         return cuahangs;
     }
+
     public List<CuaHang> getPageNo(int pageNo, int pageSize, String sortBy, String sortDir) {
         List<CuaHang> cuahangs;
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
@@ -85,14 +110,14 @@ public class CuaHangService {
         cuahangs = page.getContent();
         return cuahangs;
     }
-   
-    public int[] getPageNumber(int rowcount){
+
+    public int[] getPageNumber(int rowcount) {
         Pageable pageable = PageRequest.of(1, rowcount);
         Page<CuaHang> page = repository.findAll(pageable);
         int totalPage = page.getTotalPages();
-        int[] nb= new int[totalPage] ;
+        int[] nb = new int[totalPage];
         for (int i = 0; i < totalPage; i++) {
-            nb[i] = i+1;
+            nb[i] = i + 1;
         }
         return nb;
     }
