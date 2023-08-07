@@ -1,0 +1,10 @@
+<div class="bg-primary mt-3" xmlns:th="http://www.thymeleaf.org">
+    <div class="card  text-white">
+        <div class="card-header bg-primary">
+            <i class="bi bi-card-list"></i> <b>Danh mục</b>
+        </div>
+        <div class=" list-group">
+            <a th:each="c : ${cate}" th:text="${c.name}" th:href="@{|/product/list?cid=${c.id}|}" class="list-group-item"></a>
+        </div>
+    </div>
+</div>
