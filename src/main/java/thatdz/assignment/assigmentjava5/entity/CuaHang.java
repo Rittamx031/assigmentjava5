@@ -25,9 +25,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Component
-@Table(name = "CuaHang")
+@Table(name = "cua_hang")
 @NamedQuery(
-    
         name ="CuaHang.search",
         query ="SELECT ch FROM CuaHang ch Where ten LIKE CONCAT('%',:query, '%') OR ma LIKE CONCAT('%',:query, '%')"
 )
@@ -35,26 +34,33 @@ public class CuaHang {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "Id", columnDefinition = "uniqueidentifier")
+    @Column(name = "id", columnDefinition = "uniqueidentifier")
     public UUID id;
     @NotBlank(message = "Mã không được trống!!!")
-    @Column(name = "Ma")
+    @Column(name = "ma")
     public String ma;
-    
+//     SELECT TOP (1000) [id]
+//       ,[ma]
+//       ,[ten]
+//       ,[dia_chi]
+//       ,[thanh_pho]
+//       ,[quoc_gia]
+//   FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[cua_hang]
+
     @NotBlank(message = "Tên không được trống!!!")
-    @Column(name = "Ten")
+    @Column(name = "ten")
     public String ten;
 
     @NotBlank(message = "Địa chỉ không được trống!!!")
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     public String diaChi;
 
     @NotBlank(message = "Thành Phố không được trống!!!")
-    @Column(name = "ThanhPho")
+    @Column(name = "thanh_pho")
     public String thanhPho;
 
     @NotBlank(message = "Quốc Gia không được trống!!!")
-    @Column(name = "QuocGia")
+    @Column(name = "quoc_gia")
     public String quocGia;
     @Override
     public String toString() {

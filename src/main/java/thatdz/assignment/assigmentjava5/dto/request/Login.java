@@ -1,4 +1,4 @@
-package thatdz.assignment.assigmentjava5.entity;
+package thatdz.assignment.assigmentjava5.dto.request;
 
 import org.springframework.stereotype.Component;
 

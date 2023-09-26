@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import thatdz.assignment.assigmentjava5.dto.request.Login;
 import thatdz.assignment.assigmentjava5.entity.DongSP;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
-import thatdz.assignment.assigmentjava5.entity.Login;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;

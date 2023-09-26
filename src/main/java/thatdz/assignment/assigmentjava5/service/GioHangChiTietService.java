@@ -7,11 +7,11 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import thatdz.assignment.assigmentjava5.dto.request.GioHangViewModel;
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
-import thatdz.assignment.assigmentjava5.entity.GioHangViewModel;
 import thatdz.assignment.assigmentjava5.repository.GioHangChiTietIRepo;
 
 @Service

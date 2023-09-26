@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import thatdz.assignment.assigmentjava5.dto.request.GioHangViewModel;
+import thatdz.assignment.assigmentjava5.dto.request.Login;
+import thatdz.assignment.assigmentjava5.dto.request.SignUp;
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
-import thatdz.assignment.assigmentjava5.entity.GioHangViewModel;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
-import thatdz.assignment.assigmentjava5.entity.Login;
-import thatdz.assignment.assigmentjava5.entity.SignUp;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.GioHangChiTietService;
 import thatdz.assignment.assigmentjava5.service.GioHangService;

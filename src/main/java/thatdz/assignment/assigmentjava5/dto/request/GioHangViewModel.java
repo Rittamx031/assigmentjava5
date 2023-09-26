@@ -1,4 +1,4 @@
-package thatdz.assignment.assigmentjava5.entity;
+package thatdz.assignment.assigmentjava5.dto.request;
 
 import java.util.UUID;
 
@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
 
 /**
  * GioHangViewModel

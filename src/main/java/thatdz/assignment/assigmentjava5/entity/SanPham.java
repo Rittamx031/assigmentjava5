@@ -19,18 +19,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-@Table(name = "SanPham")
+@Table(name = "san_pham")
 public class SanPham {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "Id", columnDefinition = "uniqueidentifier")
+    @Column(name = "id", columnDefinition = "uniqueidentifier")
     private UUID id;
     @NotBlank(message = "Mã không được trống!!!")
-    @Column(name = "Ma")
+    @Column(name = "ma")
     private String ma;
     @NotBlank(message = "Tên không được trống!!!")
-    @Column(name = "Ten")
+    @Column(name = "ten")
     private String ten;
     @Override
     public String toString() {

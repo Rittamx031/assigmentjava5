@@ -27,12 +27,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Component
-@Table(name = "KhachHang")
+@Table(name = "khach_hang")
 @NamedQueries({
-    @NamedQuery(
-        name = "KhachHang.login",
-        query = "SELECT kh FROM KhachHang kh WHERE kh.ma = :ma AND kh.matKhau = :matkhau"
-    )
+        @NamedQuery(name = "KhachHang.login", query = "SELECT kh FROM KhachHang kh WHERE kh.ma = :ma AND kh.matKhau = :matkhau")
 })
 public class KhachHang {
     @Id
@@ -40,39 +37,54 @@ public class KhachHang {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id", columnDefinition = "uniqueidentifier")
     private UUID id;
-    @Column(name = "Ma")
+    @Column(name = "ma")
     public String ma;
-    @Column(name = "Ten")
+    @Column(name = "ten")
     public String ten;
-    @Column(name = "TenDem")
+    @Column(name = "ten_dem")
     public String tenDem;
-    @Column(name = "Ho")
+    @Column(name = "ho")
     public String ho;
+    // SELECT TOP (1000) [id]
+    // ,[ma]
+    // ,[ten]
+    // ,[ten_dem]
+    // ,[ho]
+    // ,[ngay_sinh]
+    // ,[sdt]
+    // ,[dia_chi]
+    // ,[thanh_pho]
+    // ,[quoc_gia]
+    // ,[mat_khau]
+    // FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[khach_hang]
     @Column(name = "Sdt")
     public String sdt;
     @Column(name = "DiaChi")
     public String diaChi;
-    @Column(name = "NgaySinh")
+    @Column(name = "ngay_sinh")
     public LocalDate ngaySinh;
-    @Column(name = "ThanhPho")
+    @Column(name = "thanh_pho")
     public String thanhPho;
-    @Column(name = "QuocGia")
+    @Column(name = "quoc_gia")
     public String quocGia;
-    @Column(name = "MatKhau")
+    @Column(name = "mat_khau")
     public String matKhau;
     @Column(name = "image")
     public String image;
+
     @Override
     public String toString() {
-        return this.ho+" "+this.tenDem +" "+ this.ten;
+        return this.ho + " " + this.tenDem + " " + this.ten;
     }
-    public String getAddress(){
-        return this.getDiaChi()+", "+this.getThanhPho()+", "+this.getQuocGia();
+
+    public String getAddress() {
+        return this.getDiaChi() + ", " + this.getThanhPho() + ", " + this.getQuocGia();
     }
-    public String getFullName(){
-        if(!this.getTen().equals("")){
-            return this.getHo()+" "+this.getTenDem()+" "+this.getTen();
+
+    public String getFullName() {
+        if (!this.getTen().equals("")) {
+            return this.getHo() + " " + this.getTenDem() + " " + this.getTen();
         }
-        return this.getHo()+" "+this.getTen();
+        return this.getHo() + " " + this.getTen();
     }
 }

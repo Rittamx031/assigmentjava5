@@ -45,37 +45,47 @@ public class GioHang {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "Id", columnDefinition = "uniqueidentifier")
+    @Column(name = "id", columnDefinition = "uniqueidentifier")
     public UUID id;
     @NotBlank(message = "Mã không được trống!!!")
-    @Column(name = "Ma")
+    @Column(name = "ma")
     public String ma;
 
     @NotBlank(message = "Tên không được trống!!!")
-    @Column(name = "TenNguoiNhan")
+    @Column(name = "ten_nguoi_nhan")
     public String tenNguoiNhan;
-
-    @Column(name = "NgayTao")
+    // SELECT TOP (1000) [id]
+//     ,[id_kh]
+//     ,[id_nv]
+//     ,[ma]
+//     ,[ngay_tao]
+//     ,[ngay_thanh_toan]
+//     ,[ten_nguoi_nhan]
+//     ,[dia_chi]
+//     ,[sdt]
+//     ,[tinh_trang]
+// FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[gio_hang]
+    @Column(name = "ngay_tao")
     public LocalDate ngayTao;
 
-    @Column(name = "NgayThanhToan")
+    @Column(name = "ngay_thanh_toan")
     public LocalDate ngayThanhToan;
 
     @NotBlank(message = "Địa chỉ không được trống!!!")
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     public String diaChi;
 
-    @Column(name = "Sdt")
+    @Column(name = "sdt")
     public String sdt;
 
-    @Column(name = "TinhTrang")
+    @Column(name = "tinh_trang")
     public int tinhTrang;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdKH", referencedColumnName = "Id")
+    @JoinColumn(name = "id_kh", referencedColumnName = "Id")
     private KhachHang khachHang;
     
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdNV", referencedColumnName = "Id")
+    @JoinColumn(name = "id_nv", referencedColumnName = "Id")
     private NhanVien nhanVien;
 
     @OneToMany(mappedBy = "gioHang")

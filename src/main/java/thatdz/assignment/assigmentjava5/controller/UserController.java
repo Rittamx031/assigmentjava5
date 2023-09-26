@@ -16,11 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
+import thatdz.assignment.assigmentjava5.dto.request.Login;
+import thatdz.assignment.assigmentjava5.dto.request.SignUp;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
-import thatdz.assignment.assigmentjava5.entity.Login;
-import thatdz.assignment.assigmentjava5.entity.SignUp;
 import thatdz.assignment.assigmentjava5.service.GioHangChiTietService;
 import thatdz.assignment.assigmentjava5.service.GioHangService;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;

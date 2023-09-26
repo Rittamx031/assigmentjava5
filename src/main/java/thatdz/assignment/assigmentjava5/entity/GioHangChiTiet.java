@@ -24,32 +24,35 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Component
-@Table(name = "GioHangChiTiet")
-    @NamedQueries({
-        @NamedQuery(
-            name="GioHangChiTiet.getGioHangChiTietByGioHang",
-            query="SELECT ctgh FROM GioHangChiTiet ctgh WHERE ctgh.gioHang.id =: idgiohang"
-        )
-    })
+@Table(name = "gio_hang_chi_tiet")
+@NamedQueries({
+        @NamedQuery(name = "GioHangChiTiet.getGioHangChiTietByGioHang", query = "SELECT ctgh FROM GioHangChiTiet ctgh WHERE ctgh.gioHang.id =: idgiohang")
+})
 public class GioHangChiTiet {
     @EmbeddedId
     GioHangChiTietKey id;
-    
+    // SELECT TOP (1000) [id_gio_hang]
+    // ,[id_chi_tiet_sp]
+    // ,[so_luong]
+    // ,[don_gia]
+    // ,[don_gia_khi_giam]
+    // FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[gio_hang_chi_tiet]
+
     @ManyToOne
     @MapsId("idGioHang")
-    @JoinColumn(name = "IdGioHang")
+    @JoinColumn(name = "id_gio_hang")
     GioHang gioHang;
-    
+
     @ManyToOne
     @MapsId("idChiTietSP")
-    @JoinColumn(name = "IdChiTietSP")
+    @JoinColumn(name = "id_chi_tiet_sp")
     ChiTietSanPham chiTietSanPham;
-    
-    @Column(name = "SoLuong")
+
+    @Column(name = "so_luong")
     public int soLuong;
-    @Column(name = "DonGia")
+    @Column(name = "don_gia")
     public double donGia;
-    @Column(name = "DonGiaKhiGiam")
+    @Column(name = "don_gia_khi_giam")
     public double donGiaKhiGiam;
-    
+
 }

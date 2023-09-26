@@ -3,9 +3,9 @@ package thatdz.assignment.assigmentjava5.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import thatdz.assignment.assigmentjava5.dto.request.Login;
+import thatdz.assignment.assigmentjava5.dto.request.SignUp;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
-import thatdz.assignment.assigmentjava5.entity.Login;
-import thatdz.assignment.assigmentjava5.entity.SignUp;
 import thatdz.assignment.assigmentjava5.repository.KhacHangIRepo;
 
 @Service

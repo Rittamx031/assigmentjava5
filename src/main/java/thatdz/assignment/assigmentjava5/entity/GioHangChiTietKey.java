@@ -17,10 +17,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GioHangChiTietKey implements Serializable {
-    @Column(name = "IdGioHang")
+    @Column(name = "id_gio_hang")
     UUID idGioHang;
     
-    @Column(name = "IdChiTietSP")
+    @Column(name = "id_chi_tiet_sp")
     UUID idChiTietSP;
     @Override
     public boolean equals(Object obj) {

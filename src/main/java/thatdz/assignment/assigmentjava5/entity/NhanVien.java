@@ -33,60 +33,73 @@ import lombok.ToString;
 @AllArgsConstructor
 @Component
 @ToString
-@Table(name = "NhanVien")
+@Table(name = "nhan_vien")
 public class NhanVien {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "Id")
+    @Column(name = "id")
     public UUID id;
 
     @NotBlank(message = "Ma không được để trống")
-    @Column(name = "Ma")
+    @Column(name = "ma")
     public String ma;
 
     @NotBlank(message = "Tên không được để trống")
-    @Column(name = "Ten")
+    @Column(name = "ten")
     public String ten;
 
-    @Column(name = "TenDem")
+    @Column(name = "ten_dem")
     public String tenDem;
 
     @NotBlank(message = "Họ không được để trống")
-    @Column(name = "Ho")
+    @Column(name = "ho")
     public String ho;
-
+    // [id]
+    // ,[ma]
+    // ,[ten]
+    // ,[ten_dem]
+    // ,[ho]
+    // ,[gioi_tinh]
+    // ,[ngay_sinh]
+    // ,[dia_chi]
+    // ,[sdt]
+    // ,[mat_khau]
+    // ,[id_ch]
+    // ,[id_cv]
+    // ,[id_gui_bc]
+    // ,[trang_thai]
     @NotNull(message = "Giới Tính Không được bỏ qua")
-    @Column(name = "GioiTinh")
+    @Column(name = "gioi_tinh")
     public Boolean gioiTinh;
 
     @NotNull(message = "Ngày Sinh Không được bỏ qua")
-    @Column(name = "NgaySinh")
+    @Column(name = "ngay_sinh")
     public LocalDate ngaySinh;
 
     @NotBlank(message = "Địa Chỉ không được để trống")
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     public String diaChi;
 
     @NotBlank(message = "Số Điện Thoại không được để trống")
     @Pattern(regexp = "\\d{10}", message = "Sdt must be a 10-digit number")
-    @Column(name = "Sdt")
+    @Column(name = "sdt")
     public String sdt;
     
     @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdCV", referencedColumnName = "Id")
+    @JoinColumn(name = "id_cv", referencedColumnName = "Id")
     private ChucVu chucvu;
 
     @ManyToOne(cascade  = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdGuiBC", referencedColumnName = "Id")
+    @JoinColumn(name = "id_gui_bc", referencedColumnName = "Id")
     private NhanVien quanly;
 
-    @Column(name = "TrangThai")
+    @Column(name = "trang_thai")
     public int trangThai;
     @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdCH", referencedColumnName = "Id")
+    @JoinColumn(name = "id_ch", referencedColumnName = "Id")
     private CuaHang cuahang;
 
     public String getFullName(){

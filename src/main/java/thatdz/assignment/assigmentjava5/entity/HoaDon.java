@@ -29,35 +29,35 @@ import lombok.ToString;
 @Component
 @ToString
 @EqualsAndHashCode
-@Table(name = "HoaDon")
+@Table(name = "hoa_don")
 public class HoaDon {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "Id", columnDefinition = "uniqueidentifier")
+    @Column(name = "id", columnDefinition = "uniqueidentifier")
     private UUID id;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdKH",referencedColumnName = "Id")
+    @JoinColumn(name = "id_kh",referencedColumnName = "Id")
     private KhachHang khachHang;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "IdNV",referencedColumnName = "Id")
+    @JoinColumn(name = "id_nv",referencedColumnName = "Id")
     private NhanVien nhanVien;
-    @Column(name = "Ma")
+    @Column(name = "ma")
     private String ma;
-    @Column(name = "TenNguoiNhan")
+    @Column(name = "ten_nguoi_nhan")
     private String tenNguoiNhan;
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     private String diaChi;
-    @Column(name = "Sdt")
+    @Column(name = "sdt")
     private String sdt;
-    @Column(name = "TinhTrang")
+    @Column(name = "tinh_trang")
     private int tinhTrang;
-    @Column(name = "NgayTao")
+    @Column(name = "ngay_tao")
     private Date ngayTao;
-    @Column(name = "NgayThanhToan")
+    @Column(name = "ngay_thanh_toan")
     private Date ngayThanhToan;
-    @Column(name = "NgayShip")
+    @Column(name = "ngay_ship")
     private Date ngayShip;
-    @Column(name = "NgayNhan")
+    @Column(name = "ngay_nhan")
     private Date ngayNhan;
 }
