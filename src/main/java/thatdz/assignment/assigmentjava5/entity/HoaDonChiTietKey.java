@@ -36,5 +36,4 @@ public class HoaDonChiTietKey {
   public int hashCode() {
     return Objects.hash(idHoaDon, idChiTietSP);
   }
-
 }

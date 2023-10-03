@@ -25,7 +25,7 @@
                     <option value="">Chọn SanPham</option>
                     <option th:each="sp : ${sanPhams}" th:value="${{sp}}" th:text="${sp.ten}">
                     </option>
-                </select>
+                </select>   
                 <div th:if="${#fields.hasErrors('sanPham')}" class="errors text-danger form-text"
                     th:errors="*{sanPham}"></div>
             </div>

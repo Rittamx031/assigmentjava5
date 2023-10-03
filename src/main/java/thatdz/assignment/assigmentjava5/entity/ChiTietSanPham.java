@@ -59,18 +59,6 @@ public class ChiTietSanPham {
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_mau_sac", referencedColumnName = "Id")
     private MauSac mauSac;
-    // SELECT TOP (1000) [id]
-    // ,[id_sp]
-    // ,[id_nsx]
-    // ,[id_mau_sac]
-    // ,[id_dong_sp]
-    // ,[nam_bh]
-    // ,[mo_ta]
-    // ,[so_luong_ton]
-    // ,[gia_nhap]
-    // ,[gia_ban]
-    // FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[chi_tiet_sp]
-
     @NotNull(message = "Dòng sản phẩm is required")
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_dong_sp", referencedColumnName = "Id")
@@ -93,6 +81,4 @@ public class ChiTietSanPham {
     private double giaBan;
     @Column(name = "image")
     private String image;
-    @OneToMany(mappedBy = "chiTietSanPham")
-    List<GioHangChiTiet> gioHangChiTiets;
 }

@@ -54,17 +54,7 @@ public class GioHang {
     @NotBlank(message = "Tên không được trống!!!")
     @Column(name = "ten_nguoi_nhan")
     public String tenNguoiNhan;
-    // SELECT TOP (1000) [id]
-//     ,[id_kh]
-//     ,[id_nv]
-//     ,[ma]
-//     ,[ngay_tao]
-//     ,[ngay_thanh_toan]
-//     ,[ten_nguoi_nhan]
-//     ,[dia_chi]
-//     ,[sdt]
-//     ,[tinh_trang]
-// FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[gio_hang]
+
     @Column(name = "ngay_tao")
     public LocalDate ngayTao;
 

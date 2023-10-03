@@ -45,21 +45,9 @@ public class KhachHang {
     public String tenDem;
     @Column(name = "ho")
     public String ho;
-    // SELECT TOP (1000) [id]
-    // ,[ma]
-    // ,[ten]
-    // ,[ten_dem]
-    // ,[ho]
-    // ,[ngay_sinh]
-    // ,[sdt]
-    // ,[dia_chi]
-    // ,[thanh_pho]
-    // ,[quoc_gia]
-    // ,[mat_khau]
-    // FROM [FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041].[dbo].[khach_hang]
     @Column(name = "Sdt")
     public String sdt;
-    @Column(name = "DiaChi")
+    @Column(name = "dia_chi")
     public String diaChi;
     @Column(name = "ngay_sinh")
     public LocalDate ngaySinh;

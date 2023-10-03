@@ -90,10 +90,10 @@
           <td th:text="${nhanvien.ngaySinh}"></td>
           <td th:text="${nhanvien.diaChi}"></td>
           <td th:text="${nhanvien.sdt}"></td>
-          <td th:text="${nhanvien.chucvu.ten}"></td>
-          <td th:text="${nhanvien.quanly != null ? nhanvien.quanly.getFullName() : ''}"></td>
+          <td th:text="${nhanvien?.chucvu?.ten}"></td>
+          <td th:text="${nhanvien?.quanly?.ten}"></td>
           <td th:text="${nhanvien.trangThai}"></td>
-          <td th:text="${nhanvien.cuahang.ten}"></td>
+          <td th:text="${nhanvien?.cuahang?.ten}"></td>
           <td>
             <a th:href="@{/manager/nhanvien/delete(id=${nhanvien.id})}" class="btn btn-danger">Delete</a>
             <a th:href="@{/manager/nhanvien/edit(id=${nhanvien.id})}" class="btn btn-success">Update</a>

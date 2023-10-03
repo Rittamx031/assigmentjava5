@@ -78,10 +78,10 @@
 
                 <tbody>
                     <tr th:each="chitietsanpham : ${list}">
-                        <td th:text="${chitietsanpham.sanPham.ten}"></td>
-                        <td th:text="${chitietsanpham.nsx.ten}"></td>
-                        <td th:text="${chitietsanpham.mauSac.ten}"></td>
-                        <td th:text="${chitietsanpham.dongSP.ten}"></td>
+                        <td th:text="${chitietsanpham?.sanPham?.ten}"></td>
+                        <td th:text="${chitietsanpham?.nsx?.ten}"></td>
+                        <td th:text="${chitietsanpham?.mauSac?.ten}"></td>
+                        <td th:text="${chitietsanpham?.dongSP?.ten}"></td>
                         <td th:text="${chitietsanpham.namBH}"></td>
                         <td th:text="${chitietsanpham.soLuongTon}"></td>
                         <td th:text="${chitietsanpham.giaNhap}"></td>
