@@ -83,8 +83,12 @@ public class ThanhToanController {
     return "redirect:/user/pay";
   }
 
-  @PostMapping("/user/pay")
+  @GetMapping("/user/payorder")
   public String ThanhToan(Model model, RedirectAttributes redirAttrs) {
+    if (cookieSevice.getValue("hoadonid") == null) {
+      redirAttrs.addFlashAttribute("error", "?????");
+      return "redirect:/thatpee/index";
+    }
     hoaDon = hoaDonService.getHoaDonById(UUID.fromString(cookieSevice.getValue("hoadonid")));
     if (khachHang == null || hoaDon == null) {
       redirAttrs.addFlashAttribute("error", "Đăng Nhập để xem giỏ hàng");

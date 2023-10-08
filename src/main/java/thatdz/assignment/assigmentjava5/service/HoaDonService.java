@@ -90,8 +90,9 @@ public class HoaDonService {
             HoaDon hoaDon = hoadonop.get();
             hoaDon.setTinhTrang(1);
             hoaDon.setNgayThanhToan(LocalDate.now());
+            return repository.save(hoaDon);
         }
-        return repository.save(null);
+        return null;
     }
 
     public HoaDon createHoaDone(UUID idKhachHang) {

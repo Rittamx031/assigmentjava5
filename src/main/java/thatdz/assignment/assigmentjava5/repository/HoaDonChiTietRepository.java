@@ -17,6 +17,6 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, Ho
 
   List<UUID> getListSanPham(@Param("idHoaDon") UUID id);
 
-  @Query("SELECT new thatdz.assignment.assigmentjava5.dto.response.ProductDetail(hdct.chiTietSanPham.image, hdct.chiTietSanPham.sanPham.id, hdct.soLuong, hdct.donGia) FROM HoaDonChiTiet hdct WHERE hdct.id.idHoaDon = :idHoaDon")
+  @Query("SELECT new thatdz.assignment.assigmentjava5.dto.response.ProductDetail(hdct.chiTietSanPham.image, hdct.chiTietSanPham.sanPham.ten, hdct.soLuong, hdct.donGia) FROM HoaDonChiTiet hdct WHERE hdct.id.idHoaDon = :idHoaDon")
   List<ProductDetail> getProductDetail(@Param("idHoaDon") UUID idHoaDon);
 }

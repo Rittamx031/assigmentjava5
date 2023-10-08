@@ -145,7 +145,8 @@
                             </div>
                             <div>
                               <div style="width: 39px;" class="text-center">
-                                <a th:href="@{/user/order/remove/__${sanpham.chiTietSanPham.id}__}" class="text-dark"><i class="fas fa-trash"></i></a>
+                                <a th:href="@{/user/order/remove/__${sanpham.chiTietSanPham.id}__}" class="text-dark"><i
+                                    class="fas fa-trash"></i></a>
                               </div>
                             </div>
                           </div>
@@ -156,7 +157,7 @@
                   <!-- list thanhtoan -->
                 </div>
                 <div class="col-lg-5">
-                  <form th:action="@{/user/pay}" th:object="${orderdetail}" method="post">
+                  <!-- <form th:action="@{/user/pay}" th:object="${orderdetail}" method="post">
                     <div class="card bg-primary text-white rounded-3">
                       <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -194,7 +195,40 @@
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </form> -->
+                  <div class="card bg-primary text-white rounded-3">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">Card details</h5>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" class="img-fluid rounded-3"
+                          style="width: 45px;" alt="Avatar">
+                      </div>
+                      <hr class="my-4">
+                      <div class="container">
+                        <div class="form-floating mb-3 text-dark mx-2">
+                          <input type="text" class="form-control" id="floatingInput" th:value="${orderdetail.tenNguoiNhan}" disabled>
+                          <label for="floatingInput">Tên Người Nhận</label>
+                        </div>
+                        <div class="form-floating mb-3  text-dark mx-2">
+                          <input type="text" class="form-control" id="floatingInput" th:value="${orderdetail.diaChi}" disabled>
+                          <label for="floatingInput">Địa Chỉ</label>
+                        </div>
+                        <div class="form-floating mb-3 text-dark mx-2">
+                          <input type="text" class="form-control" id="floatingInput" th:value="${orderdetail.sdt}" disabled>
+                          <label for="floatingInput">Số điện thoại</label>
+
+                        </div>
+                        <a href="/user/payorder">
+                          <button class="btn btn-info btn-block btn-lg">
+                            <div class="d-flex justify-content-between">
+                              <span class="text-white">$ <span th:text="${totalprice}"></span></span>
+                              <span>Checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                            </div>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
