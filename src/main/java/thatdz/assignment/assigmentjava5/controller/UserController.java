@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.dto.request.Login;
 import thatdz.assignment.assigmentjava5.dto.request.SignUp;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
+import thatdz.assignment.assigmentjava5.service.CookieSevice;
 import thatdz.assignment.assigmentjava5.service.GioHangChiTietService;
 import thatdz.assignment.assigmentjava5.service.GioHangService;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;
@@ -45,8 +44,11 @@ public class UserController {
     public GioHangService gioHangService;
     @Autowired
     public GioHangChiTietService gioHangChiTietService;
+    @Autowired
+    CookieSevice cookieSevice;
     File file2 = new File("");
-    public String pathCopyF = file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\user\\";
+    public String pathCopyF = file2.getAbsolutePath() + "\\src\\main\\webapp\\assets\\img\\user\\";
+
     @ModelAttribute("signup")
     public SignUp signupatrr() {
         return signup;
@@ -54,6 +56,7 @@ public class UserController {
 
     @ModelAttribute("login")
     public Login loginatr() {
+        cookieSevice.remove("userid");
         return login;
     }
 
@@ -64,7 +67,7 @@ public class UserController {
 
     @PostMapping("signup")
     public String Registration(@Valid @ModelAttribute("signup") SignUp signUp, BindingResult theBindingResult,
-            Model model,@RequestParam("imageFile") MultipartFile file) {
+            Model model, @RequestParam("imageFile") MultipartFile file) {
         if (theBindingResult.hasErrors()) {
             return "user/signup.html";
         } else {
@@ -94,8 +97,9 @@ public class UserController {
             khachHang = service.login(login);
             if (khachHang == null) {
                 model.addAttribute("loginstate", "Login fail !!! user or password Incorrect!!!!");
-            return "user/login.html";
+                return "user/login.html";
             }
+            cookieSevice.addCookie("userid", khachHang.getId().toString(), 30);
             return "redirect:/thatpee/index";
         }
     }

@@ -35,4 +35,5 @@ public class GioHangViewModel {
         tong = gia*soLuong;
         return tong;
     }
+    public boolean checked;
 }

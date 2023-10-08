@@ -10,6 +10,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -41,44 +42,42 @@ import lombok.ToString;
 
 public class ChiTietSanPham {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", columnDefinition = "uniqueidentifier")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    public UUID id;
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_sp", referencedColumnName = "Id")
     @NotNull(message = "Sản phẩm is required")
-    private SanPham sanPham;
+    public SanPham sanPham;
 
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_nsx", referencedColumnName = "Id")
     @NotNull(message = "Nhà sản xuất is required")
-    private NSX nsx;
+    public NSX nsx;
 
     @NotNull(message = "Màu Sắc is required")
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_mau_sac", referencedColumnName = "Id")
-    private MauSac mauSac;
+    public MauSac mauSac;
     @NotNull(message = "Dòng sản phẩm is required")
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_dong_sp", referencedColumnName = "Id")
-    private DongSP dongSP;
+    public DongSP dongSP;
 
     @Min(value = 1, message = "Năm bảo hành must be at least 1")
     @Column(name = "nam_bh")
-    private int namBH;
+    public int namBH;
 
     @Min(value = 0, message = "Số lượng tồn must be greater than or equal to 0")
     @Column(name = "so_luong_ton")
-    private int soLuongTon;
+    public int soLuongTon;
 
     @Min(value = 0, message = "Giá nhập must be greater than or equal to 0")
     @Column(name = "gia_nhap")
-    private double giaNhap;
+    public double giaNhap;
 
     @Min(value = 0, message = "Giá bán must be greater than or equal to 0")
     @Column(name = "gia_ban")
-    private double giaBan;
+    public double giaBan;
     @Column(name = "image")
-    private String image;
+    public String image;
 }

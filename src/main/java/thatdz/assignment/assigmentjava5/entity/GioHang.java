@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
+import groovy.transform.ToString;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,14 +34,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Component
-@Table(name = "GioHang")
+@ToString
+@Table(name = "gio_hang")
 @NamedQueries({
-    @NamedQuery (
-        name ="GioHang.getGioHangbyKhachHang",
-        query = "SELECT gh FROM GioHang gh WHERE khachHang.id =:idKhachHang"
-    )
-    }
-)
+        @NamedQuery(name = "GioHang.getGioHangbyKhachHang", query = "SELECT gh FROM GioHang gh WHERE gh.khachHang.id =:idKhachHang")
+})
 public class GioHang {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -70,17 +68,17 @@ public class GioHang {
 
     @Column(name = "tinh_trang")
     public int tinhTrang;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_kh", referencedColumnName = "Id")
     private KhachHang khachHang;
-    
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_nv", referencedColumnName = "Id")
     private NhanVien nhanVien;
 
     @OneToMany(mappedBy = "gioHang")
     List<GioHangChiTiet> gioHangChiTiets;
-    
+
     @Override
     public String toString() {
         return this.tenNguoiNhan;

@@ -121,81 +121,48 @@
                                         <div class="row mb-4 d-flex justify-content-between align-items-center"
                                             th:each="sanpham : ${listGioHangChiTiet}">
                                             <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img th:src="@{'../../assets/img/sanpham/'+${sanpham.image}}"
-                                                    class="img-fluid rounded-3" th:alt="${sanpham.image}">
+                                                <h6 class="text-black mb-0"><input type="checkbox" name="payable" id=""
+                                                        th:value="${sanpham.id.idChiTietSP}"
+                                                        th:checked="${sanpham.checked}"></h6>
                                             </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img th:src="@{'../../assets/img/sanpham/'+${sanpham?.image}}"
+                                                    class="img-fluid rounded-3" th:alt="${sanpham?.image}">
+                                            </div>
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
                                                 <h6 class="text-black mb-0">Tên: <span
-                                                        th:text="${sanpham.tenSanpham}"></span></h6>
+                                                        th:text="${sanpham?.tenSanpham}"></span></h6>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2">
-                                                <h6 class="mb-0">Tổng: <span th:text="${sanpham.getTongTien()}"></span>
+                                                <h6 class="mb-0">Tổng: <span th:text="${sanpham?.getTongTien()}"></span>
                                                     Vnd</h6>
                                             </div>
                                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-
                                                 <input class="quantityInput form-control form-control-sm" min="0"
-                                                    name="quantity" th:value="${sanpham.soLuong}" type="number"
-                                                    th:attr="data-sanpham-id=${sanpham.id.idChiTietSP}" />
+                                                    name="quantity" th:value="${sanpham?.soLuong}" type="number"
+                                                    th:attr="data-sanpham-id=${sanpham?.id?.idChiTietSP}" />
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a th:href="@{/user/cart/remove(id=${sanpham.id.idChiTietSP})}"
+                                                <a th:href="@{/user/cart/remove(id=${sanpham?.id?.idChiTietSP})}"
                                                     class="text-muted"><i class="fas fa-times"></i></a>
                                             </div>
                                         </div>
                                         <!-- Gio hang chi tiet detail -->
-                                        <div class="pt-5">
+                                        <div class="pt-5 d-flex justify-content-between">
                                             <h6 class="text-start"><a href="/thatpee/index" class="text-body"><i
                                                         class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a>
                                             </h6>
-                                            <h6 class="text-end"><a href="/user/hoadon" class="text-body">Go to pay <i
-                                                class="fas fa-long-arrow-alt-right me-2"></i></a>
+                                            <h6 class="text-end">
+                                                <p class="text-body"><a href="/user/pay" class="text-body"> Go to pay
+                                                        <i class="fas fa-long-arrow-alt-right me-2"></i></a>
                                             </h6>
+                                            <!-- <h6 class="text-end">
+                                                <p class="text-body"><button class="btn" id="sendDataButton"> Go to pay
+                                                        <i class="fas fa-long-arrow-alt-right me-2"></i></button></p>
+                                            </h6> -->
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-4 bg-grey">
-                      <div class="p-5">
-                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                        <hr class="my-4">
-      
-                        <div class="d-flex justify-content-between mb-4">
-                          <h5 class="text-uppercase">items 3</h5>
-                          <h5>€ 132.00</h5>
-                        </div>
-      
-                        <h5 class="text-uppercase mb-3">Shipping</h5>
-      
-                        <div class="mb-4 pb-2">
-                          <select class="select">
-                            <option value="1">Standard-Delivery- €5.00</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                            <option value="4">Four</option>
-                          </select>
-                        </div>
-      
-                        <h5 class="text-uppercase mb-3">Give code</h5>
-      
-                        <div class="mb-5">
-                          <div class="form-outline">
-                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                            <label class="form-label" for="form3Examplea2">Enter your code</label>
-                          </div>
-                        </div>
-      
-                        <hr class="my-4">
-      
-                        <div class="d-flex justify-content-between mb-5">
-                          <h5 class="text-uppercase">Total price</h5>
-                          <h5>€ 137.00</h5>
-                        </div>
-      
-                        <button type="button" class="btn btn-dark btn-block btn-lg"
-                          data-mdb-ripple-color="dark">Register</button>
-      
-                      </div>
-                    </div> -->
                             </div>
                         </div>
                     </div>
@@ -203,224 +170,95 @@
             </div>
         </div>
     </section>
-
     <!-- GioHangChiTiet -->
-    <!-- Footer -->
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <!-- Section: Social media -->
-        <section class="p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            <div class="container">
-                <div class="row d-flex">
-                    <!-- Left -->
-                    <div class="col-md-6 col-sm-12 mb-2 mb-md-0 d-flex justify-content-center justify-content-md-start">
-                        <div class="">
-                            <div class="input-group" style="max-width: 400px;">
-                                <input type="email" class="form-control border" placeholder="Email" aria-label="Email"
-                                    aria-describedby="button-addon2" />
-                                <button class="btn btn-light border" type="button" id="button-addon2"
-                                    data-mdb-ripple-color="dark">
-                                    Subscribe
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Left -->
+    <!-- <script>
+        // Add an event listener to the "sendDataButton"
+        document.getElementById("sendDataButton").addEventListener("click", function () {
+            // Collect the IDs of checked checkboxes
+            const checkedIds = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="payable"]:checked');
 
-                    <!-- Right -->
-                    <div class="col-md-6 col-sm-12 float-center">
-                        <div class="float-md-end">
-                            <a class="btn btn-icon btn-light text-secondary px-3 border" title="Facebook"
-                                target="_blank" href="https://www.facebook.com/profile.php?id=100032155839342"><i
-                                    class="fab fa-facebook-f fa-lg"></i></a>
-                            <a class="btn btn-icon btn-light text-secondary px-3 border" title="Instagram"
-                                target="_blank" href="https://www.instagram.com/vuhungfa15/"><i
-                                    class="fab fa-instagram fa-lg"></i></a>
-                            <a class="btn btn-icon btn-light text-secondary px-3 border" title="Youtube" target="_blank"
-                                href="https://www.youtube.com/channel/UC88ZVi99Es0StbBASXgCj2Q"><i
-                                    class="fab fa-youtube fa-lg"></i></a>
-                            <a class="btn btn-icon btn-light text-secondary px-3 border" title="Twitter" target="_blank"
-                                href="#"><i class="fab fa-twitter fa-lg"></i></a>
-                        </div>
-                    </div>
-                    <!-- Right -->
-                </div>
-            </div>
-        </section>
-        <!-- Section: Social media -->
+            checkboxes.forEach(function (checkbox) {
+                const sanphamId = checkbox.value; // Get the value of the checkbox directly
+                checkedIds.push(sanphamId);
+            });
 
-        <!-- Section: Links  -->
-        <section class="">
-            <div class="container text-center text-md-start mt-5 mb-4">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                    <!-- Grid column -->
-                    <div class="col-1 col-sm-4 col-md-3 6 col-lg-3 col-sm-12col-lg-2 col-xl-1">
-                        <!-- Content -->
-                        <a href="https://mdbootstrap.com/" target="_blank" class="ms-md-2">
-                            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="35" />
-                        </a>
-                        <p class="mt-3">
-                            © 2023 Copyright: MDBootstrap.com.
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-6 col-sm-4 col-lg-2">
-                        <!-- Links -->
-                        <h6 class="text-uppercase text-dark fw-bold mb-2">
-                            Store
-                        </h6>
-                        <ul class="list-unstyled mb-4">
-                            <li><a class="text-muted" href="#">About us</a></li>
-                            <li><a class="text-muted" href="#">Find store</a></li>
-                            <li><a class="text-muted" href="#">Categories</a></li>
-                            <li><a class="text-muted" href="#">Blogs</a></li>
-                        </ul>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-6 col-sm-4 col-lg-2">
-                        <!-- Links -->
-                        <h6 class="text-uppercase text-dark fw-bold mb-2">
-                            Information
-                        </h6>
-                        <ul class="list-unstyled mb-4">
-                            <li><a class="text-muted" href="#">Help center</a></li>
-                            <li><a class="text-muted" href="#">Money refund</a></li>
-                            <li><a class="text-muted" href="#">Shipping info</a></li>
-                            <li><a class="text-muted" href="#">Refunds</a></li>
-                        </ul>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-6 col-sm-4 col-lg-2">
-                        <!-- Links -->
-                        <h6 class="text-uppercase text-dark fw-bold mb-2">
-                            Support
-                        </h6>
-                        <ul class="list-unstyled mb-4">
-                            <li><a class="text-muted" href="#">Help center</a></li>
-                            <li><a class="text-muted" href="#">Documents</a></li>
-                            <li><a class="text-muted" href="#">Account restore</a></li>
-                            <li><a class="text-muted" href="#">My orders</a></li>
-                        </ul>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-1 col-sm-4 col-md-3 6 col-sm-12 col-lg-3col-lg-2 col-xl-1">
-                        <!-- Links -->
-                        <h6 class="text-uppercase text-dark fw-bold mb-2">Our apps</h6>
-                        <a href="#" class="mb-2 d-inline-block"> <img
-                                src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/misc/btn-appstore.webp"
-                                height="38" /></a>
-                        <a href="#" class="mb-2 d-inline-block"> <img
-                                src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/misc/btn-market.webp"
-                                height="38" /></a>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
-            </div>
-        </section>
-        <!-- Section: Links  -->
-        <div class="container">
-            <div class="py-4 border-top">
-                <div class="d-flex justify-content-between">
-                    <!--- payment --->
-                    <div class="text-dark">
-                        <i class="fab fa-lg fa-cc-visa"></i>
-                        <i class="fab fa-lg fa-cc-amex"></i>
-                        <i class="fab fa-lg fa-cc-mastercard"></i>
-                        <i class="fab fa-lg fa-cc-paypal"></i>
-                    </div>
-                    <!--- payment --->
-
-                    <!--- language selector --->
-                    <div class="dropdown dropup">
-                        <a class="dropdown-toggle text-dark" href="#" id="Dropdown" role="button"
-                            data-mdb-toggle="dropdown" aria-expanded="false"> <i
-                                class="flag-united-kingdom flag m-0"></i> English </a>
-
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English <i
-                                        class="fa fa-check text-success ms-2"></i></a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--- language selector --->
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer -->
+            // Create a JSON object with the correct format
+            const requestBody = {
+                allID: checkedIds,
+            };
+            console.log(requestBody);
+            // Send the JSON object to the controller via an AJAX request
+            fetch("/user/paypage", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody), // Send the JSON object as the request body
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        // Handle the success response here
+                        console.log("IDs sent successfully.");
+                        window.location.href=`/paypage`
+                    } else {
+                        // Handle any errors that occur during the request
+                        console.error("Error sending IDs.");
+                    }
+                })
+                .catch((error) => {
+                    // Handle network errors here
+                    console.error("Network error:", error);
+                });
+        });
+    </script> -->
     <script type="text/javascript" src="../../assets/js/mdb.min.js"></script>
     <!-- Custom scripts -->
-    <script src="../../assets/js/app.js"></script>
-    <script>
-        var quantityInputs = document.getElementsByClassName("quantityInput");
-        for (var i = 0; i < quantityInputs.length; i++) {
-            (function () {
-                var quantityInput = quantityInputs[i];
-                var sanphamId = quantityInput.getAttribute("data-sanpham-id");
+    <!-- <script src="../../assets/js/app.js"></script> -->
+    <!-- <script>// 1. Add an event listener to a button or trigger
+        document.getElementById("sendDataButton").addEventListener("click", function () {
+            // 2. Get all the radio inputs with the name "payable"
+            const radioInputs = document.querySelectorAll('input[name="payable"]:checked');
 
-                quantityInput.addEventListener("change", function () {
-                    var newQuantity = this.value;
-                    // Use sanphamId and newQuantity in the AJAX request
-                    console.log(sanphamId);
-                    // Send an AJAX request to update the quantity in Spring
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/user/cart/updateQuantity?id=" + sanphamId + "&quantity=" + newQuantity, true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                // Quantity updated successfully
-                                console.log("Quantity updated successfully");
-                                location.reload();
-                            } else {
-                                // Error occurred while updating quantity
-                                console.log("Error occurred while updating quantity");
-                            }
-                        }
-                    };
-                    xhr.send();
+            // 3. Create an array to store the IDs of checked radio inputs
+            const checkedIds = [];
+
+            // 4. Iterate through the checked radio inputs and push their values (IDs) into the array
+            radioInputs.forEach(function (input) {
+                checkedIds.push(input.value);
+            });
+
+            // 5. Send the list of IDs to the controller via AJAX
+            // You can use a library like Axios or the fetch API to send the request to your controller.
+            // Example using fetch API:
+            fetch('/your/controller/endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ checkedIds }),
+            })
+                .then((response) => {
+                    // Handle the response from the controller here
+                })
+                .catch((error) => {
+                    // Handle any errors that occur during the request
                 });
-            })();
-        }
+        });
     </script>
-
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script>
+        var stompClient = Stomp.over(new SockJS('/ws'));
+        stompClient.connect({}, function (frame) {
+            console.log('Connected to WebSocket');
+            stompClient.subscribe('/cart/cartUpdate', function (updatedCartData) {
+                // Handle the updated cart data and update the cart contents in your HTML using JavaScript/Thymeleaf
+                var cartContents = JSON.parse(updatedCartData.body);
+                // Update the cart display using Thymeleaf or JavaScript DOM manipulation
+            });
+        });
+    </script> -->
 </body>
 
 </html>

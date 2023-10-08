@@ -147,7 +147,9 @@ public class ChiTietSanPhamController {
 
     @GetMapping("edit")
     public String editChiTietSanPham(Model model, @RequestParam("id") String id) {
+        System.out.println(id);
         model.addAttribute("chitietsanpham", service.getChiTietSanPhamById(UUID.fromString(id)));
+
         return "manager/chitietsanpham/update.html";
     }
 

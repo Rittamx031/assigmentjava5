@@ -25,13 +25,13 @@ public class SanPham {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", columnDefinition = "uniqueidentifier")
-    private UUID id;
+    public UUID id;
     @NotBlank(message = "Mã không được trống!!!")
     @Column(name = "ma")
-    private String ma;
+    public String ma;
     @NotBlank(message = "Tên không được trống!!!")
     @Column(name = "ten")
-    private String ten;
+    public String ten;
     @Override
     public String toString() {
         return this.ten;

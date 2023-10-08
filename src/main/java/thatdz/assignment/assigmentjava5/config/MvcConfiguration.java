@@ -16,7 +16,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
 
   @Override
   public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
-    viewControllerRegistry.addViewController("/admin").setViewName("redirect:manager/home");
+    viewControllerRegistry.addViewController("/admin").setViewName("redirect:thatpee/manager/home");
     viewControllerRegistry.addViewController("/").setViewName("redirect:thatpee/index");
   }
 

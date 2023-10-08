@@ -1,8 +1,11 @@
 package thatdz.assignment.assigmentjava5.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
+import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.repository.GioHangChiTietIRepo;
 
 @Service
@@ -61,6 +65,7 @@ public class GioHangChiTietService {
         repository.deleteById(id);
         return "GioHangChiTiet removed !! " + id;
     }
+
     public List<GioHangViewModel> getGioHangViewModel(GioHang gioHang) {
         List<GioHangChiTiet> list = repository.getGioHangChiTietByGioHang(gioHang.getId());
         List<GioHangViewModel> listmd = new ArrayList<>();
@@ -73,24 +78,28 @@ public class GioHangChiTietService {
             model.setGia(ghct.getChiTietSanPham().getGiaBan());
             model.setSoLuong(ghct.getSoLuong());
             model.setTong(ghct.getDonGia());
+            model.setChecked(true);
             listmd.add(model);
         }
         return listmd;
     }
+
     public GioHangChiTiet updateQuality(GioHang gioHang, UUID idSanPham, int soLuong) {
         GioHangChiTiet ghct = getGioHangChiTietById(new GioHangChiTietKey(gioHang.getId(), idSanPham));
         ghct.setSoLuong(soLuong);
         ghct.setDonGia(ghct.getSoLuong() * ghct.getChiTietSanPham().getGiaBan());
         return repository.save(ghct);
     }
+
     public String deleteGioHangChiTiet(GioHang gioHang, UUID idSanPham) {
         repository.deleteById(new GioHangChiTietKey(gioHang.getId(), idSanPham));
         return "GioHangChiTiet removed !! ";
     }
 
-    public List<GioHangChiTiet> getGioHangChiTietbyKhachHang() {
+    public List<GioHangChiTiet> getGioHangChiTietbyKhachHang(UUID id) {
         return repository.findAll();
     }
+
     public GioHangChiTiet updateGioHangChiTiet(GioHangChiTiet gioHangChiTiet) {
         GioHangChiTiet existingGioHangChiTiet = repository.findById(gioHangChiTiet.getId()).orElse(null);
         existingGioHangChiTiet.setId(gioHangChiTiet.getId());
@@ -101,4 +110,12 @@ public class GioHangChiTietService {
         return repository.save(existingGioHangChiTiet);
     }
 
+    public boolean xoaGioHangChiTiet(List<UUID> listSp, UUID idKhachHang) {
+        List<GioHangChiTiet> listremove = repository.getGioHangChiTietByGioHang(idKhachHang).stream()
+                .filter((giohangct) -> {
+                    return listSp.contains(giohangct.getChiTietSanPham().getId());
+                }).collect(Collectors.toList());
+        repository.deleteAll(listremove);
+        return true;
+    }
 }

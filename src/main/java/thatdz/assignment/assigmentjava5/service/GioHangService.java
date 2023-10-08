@@ -15,9 +15,11 @@ import thatdz.assignment.assigmentjava5.repository.GioHangIRepo;
 public class GioHangService {
     @Autowired
     public GioHangIRepo repository;
+
     public GioHang saveGioHang(GioHang gioHang) {
         return repository.save(gioHang);
     }
+
     public List<GioHang> saveGioHangs(List<GioHang> GioHangs) {
         return repository.saveAll(GioHangs);
     }
@@ -34,19 +36,24 @@ public class GioHangService {
         repository.deleteById(id);
         return "GioHang removed !! " + id;
     }
-    public GioHang getGioHangByIDKhachHang(UUID idKhachHang){
+
+    public GioHang getGioHangByIDKhachHang(UUID idKhachHang) {
         return repository.getGioHangbyKhachHang(idKhachHang);
     }
-    public GioHang checkGioHang(KhachHang khachHang){
+    
+    public GioHang checkGioHang(KhachHang khachHang) {
         GioHang giohang = getGioHangByIDKhachHang(khachHang.getId());
-        if(giohang==null){
+        if (giohang == null) {
             giohang = new GioHang();
-            giohang.setDiaChi(khachHang.getAddress());
+            // giohang.setDiaChi(khachHang.getAddress());
             giohang.setNgayTao(LocalDate.now());
+            giohang.setKhachHang(khachHang);
+            giohang.setDiaChi(khachHang.getDiaChi());
+            giohang.setMa(khachHang.getMa()+"GH");
             giohang.setTenNguoiNhan(khachHang.getFullName());
             giohang.setSdt(khachHang.getSdt());
         }
-        return giohang;
+        return repository.save(giohang);
     }
 
     public GioHang updateGioHang(GioHang gioHang) {
