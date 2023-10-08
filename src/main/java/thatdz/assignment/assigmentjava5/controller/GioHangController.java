@@ -3,7 +3,6 @@ package thatdz.assignment.assigmentjava5.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +17,11 @@ import thatdz.assignment.assigmentjava5.dto.request.SignUp;
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
-import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.GioHangChiTietService;
 import thatdz.assignment.assigmentjava5.service.GioHangService;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;
-import thatdz.assignment.assigmentjava5.service.SanPhamService;
 
 @Controller
 public class GioHangController {

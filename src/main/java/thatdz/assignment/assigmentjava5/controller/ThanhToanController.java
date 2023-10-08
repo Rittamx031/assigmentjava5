@@ -1,6 +1,5 @@
 package thatdz.assignment.assigmentjava5.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -94,8 +93,8 @@ public class ThanhToanController {
       hoaDonService.thanhToan(hoaDon.getId());
       gioHangChiTietService.xoaGioHangChiTiet(hoaDonChiTietService.getListSanPhamInHoaDon(hoaDon.getId()),
           hoaDon.getKhachHang().getId());
+      model.addAttribute("orderdetail", hoaDonService.getOrderDetail(hoaDon.getId()));
       cookieSevice.remove("hoadonid");
-      model.addAttribute("orderdetail", hoaDon);
       return "user/orderdetail.html";
     }
   }

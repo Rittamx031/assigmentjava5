@@ -1,19 +1,12 @@
 package thatdz.assignment.assigmentjava5.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
-import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.entity.HoaDonChiTiet;

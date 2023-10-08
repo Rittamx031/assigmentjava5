@@ -1,8 +1,6 @@
 package thatdz.assignment.assigmentjava5.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -15,7 +13,6 @@ import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
-import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.repository.GioHangChiTietIRepo;
 
 @Service

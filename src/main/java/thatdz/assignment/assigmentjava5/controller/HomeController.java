@@ -17,7 +17,6 @@ import thatdz.assignment.assigmentjava5.entity.KhachHang;
 import thatdz.assignment.assigmentjava5.service.ChiTietSanPhamService;
 import thatdz.assignment.assigmentjava5.service.DongSPService;
 import thatdz.assignment.assigmentjava5.service.KhachHangService;
-import thatdz.assignment.assigmentjava5.service.NhanVienService;
 
 @Controller
 @RequestMapping("thatpee")
@@ -26,10 +25,7 @@ public class HomeController {
     private ChiTietSanPhamService chiTietSanPhamService;
     @Autowired
     private DongSPService dongSPService;
-    @Autowired
-    private GioHangController gioHangController;
-    @Autowired
-    private NhanVienService nhanVienService;
+
     @Autowired
     private KhachHangService khachHangService;
     @Autowired

@@ -6,11 +6,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import thatdz.assignment.assigmentjava5.dto.response.OrderDetail;
+import thatdz.assignment.assigmentjava5.dto.response.ProductDetail;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
+import thatdz.assignment.assigmentjava5.repository.HoaDonChiTietRepository;
 import thatdz.assignment.assigmentjava5.repository.HoaDonIRepo;
 import thatdz.assignment.assigmentjava5.repository.KhacHangIRepo;
 
@@ -22,6 +24,8 @@ public class HoaDonService {
     public KhacHangIRepo khacHangrepository;
     @Autowired
     public GioHangChiTietService gioHangChiTietService;
+    @Autowired
+    public HoaDonChiTietRepository hoaDonChiTietRepository;
 
     public HoaDon saveHoaDon(HoaDon hoaDon) {
         return repository.save(hoaDon);
@@ -44,6 +48,26 @@ public class HoaDonService {
         return "HoaDon removed !! " + id;
     }
 
+    public OrderDetail getOrderDetail(UUID idHoaDon) {
+        Optional<HoaDon> hoadonOp = repository.findById(idHoaDon);
+        if (hoadonOp.isPresent()) {
+            OrderDetail orderDetail = new OrderDetail();
+            List<ProductDetail> listproduct = hoaDonChiTietRepository.getProductDetail(idHoaDon);
+            orderDetail.setListhdct(listproduct);
+            HoaDon hoaDon = hoadonOp.get();
+            orderDetail.setTotalPrice(
+                    hoaDonChiTietRepository.getHoaDonChiTietByHoaDon(hoaDon.getId()).stream()
+                            .mapToDouble(chiTietHoaDon -> chiTietHoaDon.getDonGia()).sum());
+            orderDetail.setPhoneNumber(hoaDon.getSdt());
+            orderDetail.setAddress(hoaDon.getDiaChi());
+            orderDetail.setName(hoaDon.getTenNguoiNhan());
+            orderDetail.setNgayTao(hoaDon.getNgayTao());
+            orderDetail.setNgayThanhToan(hoaDon.getNgayThanhToan());
+            return orderDetail;
+        }
+        return null;
+    }
+
     public HoaDon updateHoaDon(HoaDon hoaDon) {
         HoaDon existingHoaDon = repository.findById(hoaDon.getId()).orElse(null);
         existingHoaDon.setId(hoaDon.getId());
@@ -59,9 +83,10 @@ public class HoaDonService {
         existingHoaDon.setSdt(hoaDon.getSdt());
         return repository.save(existingHoaDon);
     }
+
     public HoaDon thanhToan(UUID idHoaDon) {
         Optional<HoaDon> hoadonop = repository.findById(idHoaDon);
-        if(hoadonop.isPresent()){
+        if (hoadonop.isPresent()) {
             HoaDon hoaDon = hoadonop.get();
             hoaDon.setTinhTrang(1);
             hoaDon.setNgayThanhToan(LocalDate.now());
