@@ -56,10 +56,6 @@ public class HoaDonChiTietService {
 
   public List<HoaDonChiTiet> getHoaDonChiTiets(HoaDon hoaDon) {
     List<HoaDonChiTiet> hoaDonChiTiets = repository.getHoaDonChiTietByHoaDon(hoaDon.getId());
-    for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {
-      System.out.println(hoaDonChiTiet.getChiTietSanPham().getImage());
-      System.out.println(hoaDonChiTiet.getChiTietSanPham().getSanPham().getTen());
-    }
     return hoaDonChiTiets;
   }
 }

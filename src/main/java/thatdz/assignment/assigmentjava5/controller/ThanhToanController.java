@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.entity.HoaDonChiTiet;
 import thatdz.assignment.assigmentjava5.entity.KhachHang;
@@ -90,13 +91,14 @@ public class ThanhToanController {
       return "redirect:/thatpee/index";
     }
     hoaDon = hoaDonService.getHoaDonById(UUID.fromString(cookieSevice.getValue("hoadonid")));
-    if (khachHang == null || hoaDon == null) {
+    if (khachHang == null || hoaDon == null || cookieSevice.getValue("userid") == null) {
       redirAttrs.addFlashAttribute("error", "Đăng Nhập để xem giỏ hàng");
       return "redirect:/thatpee/index";
     } else {
       hoaDonService.thanhToan(hoaDon.getId());
+      GioHang gioHang = gioHangService.getGioHangByIDKhachHang(UUID.fromString(cookieSevice.getValue("userid")));
       gioHangChiTietService.xoaGioHangChiTiet(hoaDonChiTietService.getListSanPhamInHoaDon(hoaDon.getId()),
-          hoaDon.getKhachHang().getId());
+        gioHang.getId());
       model.addAttribute("orderdetail", hoaDonService.getOrderDetail(hoaDon.getId()));
       cookieSevice.remove("hoadonid");
       return "user/orderdetail.html";

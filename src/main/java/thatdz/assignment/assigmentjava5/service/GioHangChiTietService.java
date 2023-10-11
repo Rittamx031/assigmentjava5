@@ -107,10 +107,15 @@ public class GioHangChiTietService {
         return repository.save(existingGioHangChiTiet);
     }
 
-    public boolean xoaGioHangChiTiet(List<UUID> listSp, UUID idKhachHang) {
-        List<GioHangChiTiet> listremove = repository.getGioHangChiTietByGioHang(idKhachHang).stream()
+    public boolean xoaGioHangChiTiet(List<UUID> listSp, UUID idGiohang) {
+        List<GioHangChiTiet> listremove = repository.getGioHangChiTietByGioHang(idGiohang).stream()
                 .filter((giohangct) -> {
-                    return listSp.contains(giohangct.getChiTietSanPham().getId());
+                    for (UUID uuid : listSp) {
+                        if(uuid.equals(giohangct.getChiTietSanPham().getId())){
+                            return true;
+                        }
+                    }
+                    return false;
                 }).collect(Collectors.toList());
         repository.deleteAll(listremove);
         return true;
