@@ -121,7 +121,7 @@ public class ChiTietSanPhamController {
         return dspservice.getDongSPs();
     }
 
-    @GetMapping("index")
+    @GetMapping({"index",""})
     public String getChiTietSanPhamIndexpages(Model model) {
         List<ChiTietSanPham> list = service.getChiTietSanPhams();
         model.addAttribute("list", list);

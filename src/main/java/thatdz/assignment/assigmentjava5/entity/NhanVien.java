@@ -55,20 +55,6 @@ public class NhanVien {
     @NotBlank(message = "Họ không được để trống")
     @Column(name = "ho")
     public String ho;
-    // [id]
-    // ,[ma]
-    // ,[ten]
-    // ,[ten_dem]
-    // ,[ho]
-    // ,[gioi_tinh]
-    // ,[ngay_sinh]
-    // ,[dia_chi]
-    // ,[sdt]
-    // ,[mat_khau]
-    // ,[id_ch]
-    // ,[id_cv]
-    // ,[id_gui_bc]
-    // ,[trang_thai]
     @NotNull(message = "Giới Tính Không được bỏ qua")
     @Column(name = "gioi_tinh")
     public Boolean gioiTinh;

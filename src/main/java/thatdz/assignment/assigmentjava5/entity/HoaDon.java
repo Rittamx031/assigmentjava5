@@ -42,7 +42,7 @@ public class HoaDon {
     @JoinColumn(name = "id_kh", referencedColumnName = "id")
     private KhachHang khachHang;
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "id_nv", referencedColumnName = "id")
+    @JoinColumn(name = "id_nv")
     private NhanVien nhanVien;
     @Column(name = "ma")
     private String ma;
