@@ -25,7 +25,6 @@ public class HoaDonController {
   private HoaDonService service;
   @Autowired
   private HoaDon voucherRequest;
-  private HoaDon voucherResponse;
   public int rowcount = 10;
   public int[] pagenumbers;
   public String sortBy = "ngayTao";
@@ -113,9 +112,7 @@ public class HoaDonController {
 
   @GetMapping("create")
   public String goToCreateForm(Model model) {
-    voucherRequest = new HoaDon();
-    model.addAttribute("voucherRequest", voucherRequest);
-    return "/admin/pages/voucher/form-voucher.html";
+    return "manager/hoadon/createhoadon.html";
   }
 
   @GetMapping("delete")

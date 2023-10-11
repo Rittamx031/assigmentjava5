@@ -24,6 +24,17 @@ a {
   text-decoration: none;
 }
 
+.reset-header {
+  width: 50%;
+  z-index: 1 !important;
+  height: max-content !important;
+  box-shadow: none !important;
+  background-color: transparent  !important;
+  padding-left: 20px !important;
+}
+.reset-header .search-bar {
+  padding:0px !important;
+}
 a:hover {
   color: #717ff5;
   text-decoration: none;
