@@ -1,12 +1,14 @@
 package thatdz.assignment.assigmentjava5.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.entity.HoaDonChiTiet;
@@ -41,8 +43,46 @@ public class HoaDonChiTietService {
     return repository.saveAll(list);
   }
 
-  public void deleteHoaDonChiTiet(UUID hoaDon, UUID setIdChiTietSP) {
-    repository.deleteById(new HoaDonChiTietKey(hoaDon, setIdChiTietSP));
+  public void deleteHoaDonChiTiet(UUID hoaDon, UUID idCTSP) {
+    repository.deleteById(new HoaDonChiTietKey(hoaDon, idCTSP));
+  }
+
+  public HoaDonChiTiet addSanPhamInHoaDon(UUID hoaDon, UUID idCTSP) {
+    Optional<ChiTietSanPham> ctsOptional = ctsprepository.findById(idCTSP);
+    Optional<HoaDon> hdOptional = hoaDonrepository.findById(hoaDon);
+    HoaDonChiTiet hdct = new HoaDonChiTiet();
+    if (hdOptional.isPresent()) {
+      hdct.setHoaDon(hdOptional.get());
+      if (ctsOptional.isPresent()) {
+        hdct.setChiTietSanPham(ctsOptional.get());
+        hdct.setSoLuong(1);
+        hdct.setDonGia(ctsOptional.get().getGiaBan());
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+    return repository.save(hdct);
+  }
+
+  public HoaDonChiTiet updateSanPhamInHoaDon(int quantity, UUID hoaDon, UUID idCTSP) {
+    Optional<ChiTietSanPham> ctsOptional = ctsprepository.findById(idCTSP);
+    Optional<HoaDon> hdOptional = hoaDonrepository.findById(hoaDon);
+    HoaDonChiTiet hdct = new HoaDonChiTiet();
+    if (hdOptional.isPresent()) {
+      hdct.setHoaDon(hdOptional.get());
+      if (ctsOptional.isPresent()) {
+        hdct.setChiTietSanPham(ctsOptional.get());
+        hdct.setSoLuong(quantity);
+        hdct.setDonGia(ctsOptional.get().getGiaBan() * quantity);
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+    return repository.save(hdct);
   }
 
   public double getTotalPrice(HoaDon hoaDon) {
