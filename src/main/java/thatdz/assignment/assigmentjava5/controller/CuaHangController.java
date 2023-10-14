@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -105,9 +106,12 @@ public class CuaHangController {
     }
 
     @GetMapping("delete")
-    public String deleteCuaHang(Model model, @RequestParam("id") String id) {
-        service.deleteCuaHang(UUID.fromString(id));
-
+    public String deleteCuaHang(Model model, @RequestParam("id") String id, RedirectAttributes redirAttrs) {
+        try {
+            service.deleteCuaHang(UUID.fromString(id));
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+        }
         return "redirect:index";
     }
 

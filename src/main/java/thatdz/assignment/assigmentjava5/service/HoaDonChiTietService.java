@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
+import thatdz.assignment.assigmentjava5.entity.GioHang;
 import thatdz.assignment.assigmentjava5.entity.GioHangChiTiet;
+import thatdz.assignment.assigmentjava5.entity.GioHangChiTietKey;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.entity.HoaDonChiTiet;
 import thatdz.assignment.assigmentjava5.entity.HoaDonChiTietKey;
@@ -50,39 +52,48 @@ public class HoaDonChiTietService {
   public HoaDonChiTiet addSanPhamInHoaDon(UUID hoaDon, UUID idCTSP) {
     Optional<ChiTietSanPham> ctsOptional = ctsprepository.findById(idCTSP);
     Optional<HoaDon> hdOptional = hoaDonrepository.findById(hoaDon);
+    Optional<HoaDonChiTiet> hdctopl  =repository.findById(new HoaDonChiTietKey(hdOptional.get().getId(), ctsOptional.get().getId())); 
     HoaDonChiTiet hdct = new HoaDonChiTiet();
     if (hdOptional.isPresent()) {
       hdct.setHoaDon(hdOptional.get());
       if (ctsOptional.isPresent()) {
+        if (hdctopl.isPresent()) {
+          hdct = hdctopl.get();
+          hdct.setSoLuong(hdctopl.get().getSoLuong() +1 );
+          hdct.setDonGia(ctsOptional.get().getGiaBan() *(hdctopl.get().getSoLuong() +1));
+          return repository.save(hdct);
+        }
+        hdct.setId(new HoaDonChiTietKey(hdOptional.get().getId(), ctsOptional.get().getId()));
         hdct.setChiTietSanPham(ctsOptional.get());
         hdct.setSoLuong(1);
         hdct.setDonGia(ctsOptional.get().getGiaBan());
+        return repository.save(hdct);
       } else {
         return null;
       }
     } else {
       return null;
     }
-    return repository.save(hdct);
   }
 
+  // public GioHangChiTiet updateQuality(GioHang gioHang, UUID idSanPham, int
+  // soLuong) {
+  // GioHangChiTiet ghct = getGioHangChiTietById(new
+  // GioHangChiTietKey(gioHang.getId(), idSanPham));
+  // ghct.setSoLuong(soLuong);
+  // ghct.setDonGia(ghct.getSoLuong() * ghct.getChiTietSanPham().getGiaBan());
+  // return repository.save(ghct);
+  // }
   public HoaDonChiTiet updateSanPhamInHoaDon(int quantity, UUID hoaDon, UUID idCTSP) {
-    Optional<ChiTietSanPham> ctsOptional = ctsprepository.findById(idCTSP);
-    Optional<HoaDon> hdOptional = hoaDonrepository.findById(hoaDon);
-    HoaDonChiTiet hdct = new HoaDonChiTiet();
-    if (hdOptional.isPresent()) {
-      hdct.setHoaDon(hdOptional.get());
-      if (ctsOptional.isPresent()) {
-        hdct.setChiTietSanPham(ctsOptional.get());
-        hdct.setSoLuong(quantity);
-        hdct.setDonGia(ctsOptional.get().getGiaBan() * quantity);
-      } else {
-        return null;
-      }
+    Optional<HoaDonChiTiet> hoadonChitiet = repository.findById(new HoaDonChiTietKey(hoaDon, idCTSP));
+    if (hoadonChitiet.isPresent()) {
+      HoaDonChiTiet hdct = hoadonChitiet.get();
+      hdct.setSoLuong(quantity);
+      hdct.setDonGia(hdct.getChiTietSanPham().getGiaBan() * quantity);
+      return repository.save(hdct);
     } else {
       return null;
     }
-    return repository.save(hdct);
   }
 
   public double getTotalPrice(HoaDon hoaDon) {

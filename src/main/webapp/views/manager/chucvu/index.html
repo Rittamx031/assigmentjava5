@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{home/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Chức Vụ</title>
 </head>
@@ -8,7 +9,7 @@
 <body>
     <section layout:fragment="content">
         <div class="container my-4">
-            <a href="/thatpee/manager/home" class="btn btn-primary">Manager</a>
+            <div class="alert alert-danger text-center" role="alert" th:text="${message}" th:if="${message}"></div>
             <div class="text-lg-end">
                 <form action="#" th:action="@{/manager/chucvu/getcountrow}" method="get">
                     Number of rows

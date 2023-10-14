@@ -51,6 +51,7 @@ public class GioHangController {
         khachHang = khachHangservice.login(login);
         return khachHang;
     }
+
     @GetMapping("user/cart")
     public String Cart(Model model, RedirectAttributes redirAttrs) {
         if (khachHang == null) {
@@ -66,24 +67,30 @@ public class GioHangController {
     @PostMapping("/user/cart/updateQuantity")
     public String updateQuantity(@RequestParam("id") UUID id,
             @RequestParam("quantity") Integer quantity) {
-                gioHangChiTietService.updateQuality(gioHang, id, quantity);
+        gioHangChiTietService.updateQuality(gioHang, id, quantity);
         return "redirect:/user/cart";
     }
+
     @GetMapping("/user/cart/remove")
-    public String removeSP(@RequestParam("id") UUID id) {
-                gioHangChiTietService.deleteGioHangChiTiet(gioHang, id);
+    public String removeSP(@RequestParam("id") UUID id, RedirectAttributes redirAttrs) {
+        try {
+            gioHangChiTietService.deleteGioHangChiTiet(gioHang, id);
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+        }
         return "redirect:/user/cart";
     }
+
     @GetMapping("/user/addtocart")
-    public String addToCart(@RequestParam("idsp") UUID id,RedirectAttributes redirAttrs) {
-        ChiTietSanPham ctsh =  ctspService.getChiTietSanPhamById(id);
-            if(khachHang == null){
-                redirAttrs.addFlashAttribute("error", "Đăng Nhập để thêm sản phẩm vào giỏ !!!");
-                return "redirect:/thatpee/index";
-            }else{
-                GioHang gh = service.checkGioHang(khachHang);
-                redirAttrs.addFlashAttribute("succes", gioHangChiTietService.checkSanPhamExists(gh,ctsh));
-                return "redirect:/thatpee/index";
-            }
+    public String addToCart(@RequestParam("idsp") UUID id, RedirectAttributes redirAttrs) {
+        ChiTietSanPham ctsh = ctspService.getChiTietSanPhamById(id);
+        if (khachHang == null) {
+            redirAttrs.addFlashAttribute("error", "Đăng Nhập để thêm sản phẩm vào giỏ !!!");
+            return "redirect:/thatpee/index";
+        } else {
+            GioHang gh = service.checkGioHang(khachHang);
+            redirAttrs.addFlashAttribute("succes", gioHangChiTietService.checkSanPhamExists(gh, ctsh));
+            return "redirect:/thatpee/index";
+        }
     }
 }

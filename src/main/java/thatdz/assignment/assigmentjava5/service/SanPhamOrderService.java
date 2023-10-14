@@ -19,7 +19,7 @@ import thatdz.assignment.assigmentjava5.entity.HoaDon;
 import thatdz.assignment.assigmentjava5.entity.HoaDonCho;
 import thatdz.assignment.assigmentjava5.entity.NhanVien;
 import thatdz.assignment.assigmentjava5.repository.ChiTietSanPhamIRepo;
-import thatdz.assignment.assigmentjava5.repository.HoaDonChoIReop;
+import thatdz.assignment.assigmentjava5.repository.HoaDonChoIRepository;
 import thatdz.assignment.assigmentjava5.repository.HoaDonIRepo;
 import thatdz.assignment.assigmentjava5.repository.NhanVienIRepo;
 
@@ -32,7 +32,7 @@ public class SanPhamOrderService {
   @Autowired
   public NhanVienIRepo nvrepository;
   @Autowired
-  public HoaDonChoIReop hdcrepository;
+  public HoaDonChoIRepository hdcrepository;
 
   public ChiTietSanPham saveChiTietSanPham(ChiTietSanPham sanPham) {
     return repository.save(sanPham);
@@ -128,13 +128,24 @@ public class SanPhamOrderService {
     }
     hoaDon.setTinhTrang(0);
     HoaDon hoadonSave = hdrepository.save(hoaDon);
-    HoaDonCho hDonCho = new HoaDonCho();
-    hDonCho.setIdHoaDon(hoadonSave.getId());
-    hDonCho.setIdNguoiTao(hoadonSave.getNhanVien().getId());
-    hDonCho.setRoles("EMP");
-    hDonCho.setNote("Hóa Đơn: " + hoadonSave.getMa() + " Được tạo ngày:  " + hoadonSave.getNgayTao()
-        + "Chưa thành công vui lòng check <3");
+    if (!hdcrepository.getHoaDonChiTietByIDHoaDon(hoadonSave.getId()).isPresent()) {
+      HoaDonCho hDonCho = new HoaDonCho();
+      hDonCho.setHoaDon(hoadonSave);
+      hDonCho.setIdNguoiTao(hoadonSave.getNhanVien().getId());
+      hDonCho.setRoles("EMP");
+      hDonCho.setNote("Hóa Đơn: " + hoadonSave.getMa() + " Được tạo ngày:  " + hoadonSave.getNgayTao()
+          + "Chưa thành công vui lòng check <3");
+      hdcrepository.save(hDonCho);
+    }
     return hoadonSave.getId().toString();
+  }
+
+  public int totalHoaDonCho() {
+    return hdcrepository.findAll().size();
+  }
+
+  public List<HoaDonCho> getHoaDonChos() {
+    return hdcrepository.findAll();
   }
 
   public UUID thanhToanHoaDon(UUID idHoaDon) {
@@ -153,5 +164,4 @@ public class SanPhamOrderService {
     return null;
   }
   // end process hoa don
-
 }

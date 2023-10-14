@@ -156,10 +156,6 @@
                                                 <p class="text-body"><a href="/user/pay" class="text-body"> Go to pay
                                                         <i class="fas fa-long-arrow-alt-right me-2"></i></a>
                                             </h6>
-                                            <!-- <h6 class="text-end">
-                                                <p class="text-body"><button class="btn" id="sendDataButton"> Go to pay
-                                                        <i class="fas fa-long-arrow-alt-right me-2"></i></button></p>
-                                            </h6> -->
                                         </div>
                                     </div>
                                 </div>
@@ -170,95 +166,39 @@
             </div>
         </div>
     </section>
-    <!-- GioHangChiTiet -->
-    <!-- <script>
-        // Add an event listener to the "sendDataButton"
-        document.getElementById("sendDataButton").addEventListener("click", function () {
-            // Collect the IDs of checked checkboxes
-            const checkedIds = [];
-            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="payable"]:checked');
-
-            checkboxes.forEach(function (checkbox) {
-                const sanphamId = checkbox.value; // Get the value of the checkbox directly
-                checkedIds.push(sanphamId);
-            });
-
-            // Create a JSON object with the correct format
-            const requestBody = {
-                allID: checkedIds,
-            };
-            console.log(requestBody);
-            // Send the JSON object to the controller via an AJAX request
-            fetch("/user/paypage", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(requestBody), // Send the JSON object as the request body
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        // Handle the success response here
-                        console.log("IDs sent successfully.");
-                        window.location.href=`/paypage`
-                    } else {
-                        // Handle any errors that occur during the request
-                        console.error("Error sending IDs.");
-                    }
-                })
-                .catch((error) => {
-                    // Handle network errors here
-                    console.error("Network error:", error);
-                });
-        });
-    </script> -->
     <script type="text/javascript" src="../../assets/js/mdb.min.js"></script>
-    <!-- Custom scripts -->
-    <!-- <script src="../../assets/js/app.js"></script> -->
-    <!-- <script>// 1. Add an event listener to a button or trigger
-        document.getElementById("sendDataButton").addEventListener("click", function () {
-            // 2. Get all the radio inputs with the name "payable"
-            const radioInputs = document.querySelectorAll('input[name="payable"]:checked');
-
-            // 3. Create an array to store the IDs of checked radio inputs
-            const checkedIds = [];
-
-            // 4. Iterate through the checked radio inputs and push their values (IDs) into the array
-            radioInputs.forEach(function (input) {
-                checkedIds.push(input.value);
-            });
-
-            // 5. Send the list of IDs to the controller via AJAX
-            // You can use a library like Axios or the fetch API to send the request to your controller.
-            // Example using fetch API:
-            fetch('/your/controller/endpoint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ checkedIds }),
-            })
-                .then((response) => {
-                    // Handle the response from the controller here
-                })
-                .catch((error) => {
-                    // Handle any errors that occur during the request
-                });
-        });
-    </script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script>
-        var stompClient = Stomp.over(new SockJS('/ws'));
-        stompClient.connect({}, function (frame) {
-            console.log('Connected to WebSocket');
-            stompClient.subscribe('/cart/cartUpdate', function (updatedCartData) {
-                // Handle the updated cart data and update the cart contents in your HTML using JavaScript/Thymeleaf
-                var cartContents = JSON.parse(updatedCartData.body);
-                // Update the cart display using Thymeleaf or JavaScript DOM manipulation
-            });
-        });
-    </script> -->
+        var quantityInputs = document.getElementsByClassName("quantityInput");
+        for (var i = 0; i < quantityInputs.length; i++) {
+            (function () {
+                var quantityInput = quantityInputs[i];
+                var sanphamId = quantityInput.getAttribute("data-sanpham-id");
+
+                quantityInput.addEventListener("change", function () {
+                    var newQuantity = this.value;
+                    // Use sanphamId and newQuantity in the AJAX request
+                    console.log(sanphamId);
+                    // Send an AJAX request to update the quantity in Spring
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/user/cart/updateQuantity?id=" + sanphamId + "&quantity=" + newQuantity, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                // Quantity updated successfully
+                                console.log("Quantity updated successfully");
+                                location.reload();
+                            } else {
+                                // Error occurred while updating quantity
+                                console.log("Error occurred while updating quantity");
+                            }
+                        }
+                    };
+                    xhr.send();
+                });
+            })();
+        }
+    </script>
 </body>
 
 </html>

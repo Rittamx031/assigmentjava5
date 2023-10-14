@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,8 +29,9 @@ public class HoaDonCho {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   int id;
-  @Column(name = "id_hoa_don")
-  UUID idHoaDon;
+  @ManyToOne
+  @JoinColumn(name = "id_hoa_don")
+  HoaDon hoaDon;
   @Column(name = "id_nguoi_tao")
   UUID idNguoiTao;
   @Column(name = "roles")

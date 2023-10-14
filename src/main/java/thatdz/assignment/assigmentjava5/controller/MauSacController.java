@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.MauSac;
@@ -26,52 +27,59 @@ public class MauSacController {
     private MauSac mausac;
     public int rowcount = 10;
     public int[] pagenumbers;
-    public String sortBy="ma", sortDir="asc";
-    //panigation and sort
+    public String sortBy = "ma", sortDir = "asc";
+
+    // panigation and sort
     @GetMapping("/getcountrow")
-    public String handleSubmit(Model model,@RequestParam("selectedValue") String selectedValue) {
+    public String handleSubmit(Model model, @RequestParam("selectedValue") String selectedValue) {
         System.out.println(selectedValue);
-        if (selectedValue.equals("ALL")){
+        if (selectedValue.equals("ALL")) {
             rowcount = Integer.MAX_VALUE;
-        }else{
+        } else {
             rowcount = Integer.parseInt(selectedValue);
         }
-        pagenumbers= service.getPageNumber(rowcount);
-        List<MauSac> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
+        List<MauSac> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/mausac/index.html"; // Redirect back to the form page
-    }   
+    }
+
     @GetMapping("last")
     public String getLastPage(Model model) {
-        List<MauSac> list = service.getLastPage(rowcount,sortBy,sortDir);
+        List<MauSac> list = service.getLastPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         return "manager/mausac/index.html";
     }
+
     @GetMapping("sort")
-    public String getPageSort(Model model,@RequestParam("sortBy") String sortby,@RequestParam("sortDir") String sordir) {
+    public String getPageSort(Model model, @RequestParam("sortBy") String sortby,
+            @RequestParam("sortDir") String sordir) {
         sortBy = sortby;
-        sortDir= sordir;
-        List<MauSac> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        sortDir = sordir;
+        List<MauSac> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/mausac/index.html";
     }
+
     @GetMapping("first")
     public String getFirstPages(Model model) {
-        List<MauSac> list = service.getFirstPage(rowcount,sortBy,sortDir);
-        pagenumbers= service.getPageNumber(rowcount);
+        List<MauSac> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/mausac/index.html";
     }
+
     @GetMapping("/page")
-    public String getPageNo(Model model,@RequestParam("pageno") int pageno) {
-        List<MauSac> list = service.getPageNo(pageno-1,rowcount,sortBy,sortDir);
+    public String getPageNo(Model model, @RequestParam("pageno") int pageno) {
+        List<MauSac> list = service.getPageNo(pageno - 1, rowcount, sortBy, sortDir);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/mausac/index.html";
     }
+
     @GetMapping("index")
     public String getMauSacIndexpages(Model model) {
         List<MauSac> list = service.getMauSacs();
@@ -91,8 +99,12 @@ public class MauSacController {
     }
 
     @GetMapping("delete")
-    public String deleteMauSac(Model model, @RequestParam("id") String id) {
-        service.deleteMauSac(UUID.fromString(id));
+    public String deleteMauSac(Model model, @RequestParam("id") String id, RedirectAttributes redirAttrs) {
+        try {
+            service.deleteMauSac(UUID.fromString(id));
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+        }
         return "redirect:index";
     }
 

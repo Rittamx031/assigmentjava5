@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import thatdz.assignment.assigmentjava5.entity.HoaDonCho;
 
-public interface HoaDonChoIReop extends JpaRepository<HoaDonCho, Integer> {
-  @Query(value = "SELECT hdc FROM HoaDonCho hdc WHERE hdc.idHoaDon = :idHoaDon")
+public interface HoaDonChoIRepository extends JpaRepository<HoaDonCho, Integer> {
+  @Query(value = "SELECT hdc FROM HoaDonCho hdc WHERE hdc.hoaDon.id = :idHoaDon")
   Optional<HoaDonCho> getHoaDonChiTietByIDHoaDon(@Param("idHoaDon") UUID idHoaDon);
 }

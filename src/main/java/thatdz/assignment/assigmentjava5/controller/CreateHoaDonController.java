@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.dto.request.HoaDonRequest;
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
+import thatdz.assignment.assigmentjava5.entity.HoaDonChiTiet;
+import thatdz.assignment.assigmentjava5.repository.NhanVienIRepo;
 import thatdz.assignment.assigmentjava5.service.HoaDonChiTietService;
 import thatdz.assignment.assigmentjava5.service.HoaDonService;
 import thatdz.assignment.assigmentjava5.service.SanPhamOrderService;
@@ -31,7 +36,8 @@ public class CreateHoaDonController {
   private HoaDonService hoaDonService;
   @Autowired
   private HoaDonChiTietService hdctservice;
-
+  @Autowired
+  private NhanVienIRepo nhanVienRepo;
   @Autowired
   HoaDonRequest hoaDonRequest;
   public int rowcount = 10;
@@ -62,6 +68,8 @@ public class CreateHoaDonController {
     model.addAttribute("crpage", pageno);
     model.addAttribute("rowcount", rowcount);
     model.addAttribute("searchtxt", searchtxt);
+    model.addAttribute("listhdc", service.getHoaDonChos());
+    model.addAttribute("totalhdc", service.totalHoaDonCho());
     return "manager/hoadon/createhoadon.html"; // Redirect back to the form page
   }
 
@@ -101,6 +109,8 @@ public class CreateHoaDonController {
     model.addAttribute("crpage", pageno);
     model.addAttribute("rowcount", rowcount);
     model.addAttribute("searchtxt", searchtxt);
+    model.addAttribute("listhdc", service.getHoaDonChos());
+    model.addAttribute("totalhdc", service.totalHoaDonCho());
     return "manager/hoadon/createhoadon.html";
   }
 
@@ -121,6 +131,8 @@ public class CreateHoaDonController {
     model.addAttribute("list", list);
     model.addAttribute("rowcount", rowcount);
     model.addAttribute("searchtxt", searchtxt);
+    model.addAttribute("listhdc", service.getHoaDonChos());
+    model.addAttribute("totalhdc", service.totalHoaDonCho());
     return "manager/hoadon/createhoadon.html";
   }
 
@@ -128,17 +140,26 @@ public class CreateHoaDonController {
   public String getHoaDonIndexpages(Model model) {
     this.pageno = 1;
     this.searchtxt = "";
+    if (hoaDon != null) {
+      List<HoaDonChiTiet> listhdcChiTiets = hdctservice.getHoaDonChiTiets(hoaDon);
+      model.addAttribute("listhdcChiTiets", listhdcChiTiets);
+      model.addAttribute("totalprice", hdctservice.getTotalPrice(hoaDon));
+    } else {
+      hoaDonRequest = new HoaDonRequest();
+    }
     List<ChiTietSanPham> list = service.getPageNo(searchtxt, this.pageno, rowcount, sortBy, sortDir);
     pagenumbers = service.getPanigation(searchtxt, rowcount, pageno);
     totalpage = service.getPageNumber(searchtxt, rowcount);
-    hoaDonRequest = new HoaDonRequest();
     model.addAttribute("totalpage", totalpage);
     model.addAttribute("list", list);
+    model.addAttribute("hoaDonRequest", hoaDonRequest);
     model.addAttribute("pagenumber", pagenumbers);
     model.addAttribute("crpage", pageno);
     model.addAttribute("searchtxt", searchtxt);
     model.addAttribute("rowcount", rowcount);
     model.addAttribute("searchtxt", searchtxt);
+    model.addAttribute("listhdc", service.getHoaDonChos());
+    model.addAttribute("totalhdc", service.totalHoaDonCho());
     return "manager/hoadon/createhoadon.html";
   }
 
@@ -147,26 +168,93 @@ public class CreateHoaDonController {
   @PostMapping("updateQuantity")
   public String updateQuantity(@RequestParam("id") UUID id,
       @RequestParam("quantity") Integer quantity) {
+    System.out.println(id);
+    System.out.println(quantity);
     hdctservice.updateSanPhamInHoaDon(quantity, hoaDon.getId(), id);
     return "redirect:/manager/createhoadon";
   }
 
+  // @PostMapping("/user/cart/updateQuantity")
+  // public String updateQuantity(@RequestParam("id") UUID id,
+  // @RequestParam("quantity") Integer quantity) {
+  // gioHangChiTietService.updateQuality(gioHang, id, quantity);
+  // return "redirect:/user/cart";
+  // }
+
   @GetMapping("addproduct/{idsanpham}")
-  public String addProduct(@PathVariable("idsanpham") UUID id) {
-    hdctservice.addSanPhamInHoaDon(hoaDon.getId(), id);
+  public String addProduct(@PathVariable("idsanpham") UUID id, Model model, RedirectAttributes redirAttrs) {
+    if (hoaDon == null) {
+      redirAttrs.addFlashAttribute("message", "Chưa tạo hóa đơn ?????????????");
+      return "redirect:/manager/createhoadon";
+    } else if (hoaDon.getId() != null) {
+      hdctservice.addSanPhamInHoaDon(hoaDon.getId(), id);
+    }
+    return "redirect:/manager/createhoadon";
+  }
+
+  @GetMapping("removeproduct/{idsanpham}")
+  public String removeprodcut(@PathVariable("idsanpham") UUID id, Model model) {
+    if (hoaDon != null) {
+      hdctservice.deleteHoaDonChiTiet(hoaDon.getId(), id);
+    }
     return "redirect:/manager/createhoadon";
   }
 
   @PostMapping("createorder")
-  public String createOrder(Model model) {
-    return "";
+  public String createOrder(Model model, @Valid @ModelAttribute("hoaDonRequest") HoaDonRequest request,
+      BindingResult theBindingResult) {
+    if (theBindingResult.hasErrors()) {
+      this.pageno = 1;
+      this.searchtxt = "";
+      List<ChiTietSanPham> list = service.getPageNo(searchtxt, this.pageno, rowcount, sortBy, sortDir);
+      pagenumbers = service.getPanigation(searchtxt, rowcount, pageno);
+      totalpage = service.getPageNumber(searchtxt, rowcount);
+      model.addAttribute("totalpage", totalpage);
+      model.addAttribute("list", list);
+      model.addAttribute("pagenumber", pagenumbers);
+      model.addAttribute("crpage", pageno);
+      model.addAttribute("searchtxt", searchtxt);
+      model.addAttribute("rowcount", rowcount);
+      model.addAttribute("searchtxt", searchtxt);
+      model.addAttribute("listhdc", service.getHoaDonChos());
+      model.addAttribute("totalhdc", service.totalHoaDonCho());
+      return "manager/hoadon/createhoadon.html";
+    }
+    String idhoadon = service.createHoaDon(nhanVienRepo.findAll().get(0).getId(), request);
+    hoaDon = hoaDonService.getHoaDonById(UUID.fromString(idhoadon));
+    hoaDonRequest.setId(UUID.fromString(idhoadon));
+    return "redirect:/manager/createhoadon";
   }
 
-  @GetMapping(value = "payMethod")
-  public String getMethodName(Model model) {
-    hoaDonService.thanhToan(hoaDon.getId());
-    model.addAttribute("orderdetail", hoaDonService.getOrderDetail(hoaDon.getId()));
-    return "user/orderdetail.html";
+  @GetMapping(value = "thanhtoanthanhcong")
+  public String getThanhToan(Model model, RedirectAttributes redirAttrs) {
+    if (hoaDon == null) {
+      redirAttrs.addFlashAttribute("message", "Chưa tạo hóa đơn ?????????????");
+      return "redirect:/manager/createhoadon";
+    } else if (hoaDon.getId() != null) {
+      service.thanhToanHoaDon(hoaDon.getId());
+      model.addAttribute("orderdetail", hoaDonService.getOrderDetail(hoaDon.getId()));
+      hoaDon = new HoaDon();
+      hoaDonRequest = new HoaDonRequest();
+      return "user/orderdetail.html";
+    }
+    return "redirect:/manager/createhoadon";
+  }
+
+  @GetMapping("waitingorder/{id}")
+  public String getHoaDonCho(Model model, @PathVariable("id") UUID idHoaDonCho) {
+    System.out.println(idHoaDonCho);
+    hoaDon = hoaDonService.getHoaDonById(idHoaDonCho);
+    System.out.println(hoaDon.getMa());
+    hoaDonRequest = new HoaDonRequest(hoaDon.getId(), hoaDon.getTenNguoiNhan(), hoaDon.getDiaChi(), hoaDon.getSdt());
+    return "redirect:/manager/createhoadon";
+  }
+
+  @GetMapping("new")
+  public String reset() {
+    hoaDonRequest = new HoaDonRequest();
+    hoaDon = new HoaDon();
+    return "redirect:/manager/createhoadon";
   }
 
 }

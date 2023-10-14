@@ -1,162 +1,65 @@
 <html layout:decorate="~{home/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   xmlns:th="http://www.thymeleaf.org">
-<header>
-  <style>
-
-  </style>
-</header>
-
 <body layout:fragment="content" style="background-color: rgb(196, 197, 197);">
+  <div class="alert alert-danger text-center" role="alert" th:text="${message}" th:if="${message}"></div>
   <div class="container-fulid">
-    <h2 class="text-center">TẠO HÓA ĐƠN</h2> 
-    
+    <div class="row">
+      <h2 class="col-6 text-center">HÓA ĐƠN</h2>
+      <div class="col-6 text-center dropdown">
+        <button class="btn  btn-outline-secondary dropdown-toggle position-relative" type="button"
+          id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Hóa đơn chưa thanh toán <span
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            th:text="${totalhdc}">
+            <span class="visually-hidden">unread messages</span>
+          </span>
+          </span>
+        </button>
+        <ul th:if="${listhdc.size()==0}" class="dropdown-menu " aria-labelledby="dropdownMenuButton1"
+          style="width: 500px;">
+          <li class="mx-2">Không có hóa đơn chờ</li>
+        </ul>
+        <ul th:unless="${listhdc.size()==0}" class="dropdown-menu " aria-labelledby="dropdownMenuButton1"
+          style="width: 500px;">
+          <li th:each="hdc : ${listhdc}" class="mx-2"><a
+              th:href="@{'/manager/createhoadon/waitingorder/' + ${hdc.hoaDon.id}}" th:text="${hdc.hoaDon?.ma}"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="row">
       <div class="col-6 product-section">
         <div class="container">
           <div style="background-color: rgb(224, 233, 233); width: 100%; height: 379px; overflow: auto;"
             class="rounded-3 p-3 order-product-detail">
-            <div class="row d-flex justify-content-between align-items-center">
+            <div th:if="${listhdcChiTiets}" class="row d-flex justify-content-between align-items-center"
+              th:each="hoadonchitiet : ${listhdcChiTiets}">
               <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
+                <img th:src="@{'../../../assets/img/sanpham/'+${hoadonchitiet?.chiTietSanPham?.image}}"
+                  class="img-fluid rounded-3">
               </div>
               <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
+                <h6 class="text-black mb-0">Tên: <span th:text="${hoadonchitiet?.chiTietSanPham?.sanPham?.ten}"></span>
+                </h6>
               </div>
               <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
+                <h6 class="mb-0">Tổng: <span th:text="${hoadonchitiet.donGia}"></span>
                   Vnd</h6>
               </div>
               <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
+                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number"
+                  th:value="${hoadonchitiet.soLuong}" th:attr="data-sanpham-id=${hoadonchitiet?.chiTietSanPham?.id}" />
               </div>
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
-              </div>
-              <hr class="my-2">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="" class="img-fluid rounded-3">
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <h6 class="text-black mb-0">Tên: <span></span></h6>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2">
-                <h6 class="mb-0">Tổng: <span></span>
-                  Vnd</h6>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <input class="quantityInput form-control form-control-sm" min="0" name="quantity" type="number" />
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a class="text-muted"><i class="fas fa-times"></i></a>
+                <a th:href="@{'/manager/createhoadon/removeproduct/' + ${hoadonchitiet?.chiTietSanPham?.id}}"
+                  class="text-muted"><i class="fas fa-times"></i></a>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-6 order-section">
-        <form th:action="@{/user/pay}" th:object="${hoaDonRequest}" method="post">
+        <form th:action="@{/manager/createhoadon/createorder}" th:object="${hoaDonRequest}" method="post">
           <div class="card bg-primary text-white rounded-3">
             <div class="card-body">
               <div class="d-flex justify-content-center align-items-center mb-4">
@@ -183,14 +86,26 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <button type="submit" class="btn btn-info btn-block btn-lg">
+                  <button th:unless="${hoaDonRequest.id}" type="submit" class="btn btn-info btn-block btn-lg">
                     <div class="d-flex justify-content-between">
-                      <span class="text-white">Save Thông tin</span>
+                      <span class="text-white">Tạo Hóa Đơn</span>
                     </div>
                   </button>
-                  <a th:href="@{/}" class="btn btn-info btn-block btn-lg">
+                  <div th:if="${hoaDonRequest.id}">
+                    <button type="submit" class="btn btn-info btn-block btn-lg">
+                      <div class="d-flex justify-content-between">
+                        <span class="text-white">Update Thông tin</span>
+                      </div>
+                    </button>
+                    <a th:href="@{/manager/createhoadon/new}" class="btn btn-info btn-block btn-lg">
+                      <div class="d-flex justify-content-between">
+                        <span class="text-white">New</span>
+                      </div>
+                    </a>
+                  </div>
+                  <a th:href="@{/manager/createhoadon/thanhtoanthanhcong}" class="btn btn-info btn-block btn-lg">
                     <div class="d-flex justify-content-between">
-                      <span class="text-white">$<span th:text="${totalprice}"></span></span>
+                      <span class="text-white">$<span th:text="${totalprice}" class="mx-2"></span></span>
                       <span class="text-white">Checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                     </div>
                   </a>
@@ -315,6 +230,38 @@
     </div>
   </div>
   </div>
+  <script>
+    var quantityInputs = document.getElementsByClassName("quantityInput");
+    for (var i = 0; i < quantityInputs.length; i++) {
+      (function () {
+        var quantityInput = quantityInputs[i];
+        var sanphamId = quantityInput.getAttribute("data-sanpham-id");
+
+        quantityInput.addEventListener("change", function () {
+          var newQuantity = this.value;
+          // Use sanphamId and newQuantity in the AJAX request
+          console.log(sanphamId);
+          // Send an AJAX request to update the quantity in Spring
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "/manager/createhoadon/updateQuantity?id=" + sanphamId + "&quantity=" + newQuantity, true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                // Quantity updated successfully
+                console.log("Quantity updated successfully");
+                location.reload();
+              } else {
+                // Error occurred while updating quantity
+                console.log("Error occurred while updating quantity");
+              }
+            }
+          };
+          xhr.send();
+        });
+      })();
+    }
+  </script>
 </body>
 
 </html>

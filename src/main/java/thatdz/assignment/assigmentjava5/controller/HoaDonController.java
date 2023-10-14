@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.HoaDon;
@@ -36,6 +37,7 @@ public class HoaDonController {
   public int rowcount() {
     return rowcount;
   }
+
   // panigation and sort
   @GetMapping("/getcountrow")
   public String getCountRow(Model model, @RequestParam("selectedValue") String selectedValue) {
@@ -90,7 +92,7 @@ public class HoaDonController {
   }
 
   // end
-  @GetMapping({"index",""})
+  @GetMapping({ "index", "" })
   public String getHoaDonIndexpages(Model model) {
     this.pageno = 1;
     List<HoaDon> list = service.getPageNo(this.pageno, rowcount, sortBy, sortDir);
@@ -116,23 +118,29 @@ public class HoaDonController {
   }
 
   @GetMapping("delete")
-  public String deleteHoaDon(Model model, @RequestParam("id") String id) {
+  public String deleteHoaDon(Model model, @RequestParam("id") String id, RedirectAttributes redirAttrs) {
+    try {
+      // service.deleteChucVu(UUID.fromString(id));
+    } catch (Exception e) {
+      redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+    }
     // service.deleteHoaDon(UUID.fromString(id));
     return "redirect:index";
   }
 
   // @GetMapping("edit")
   // public String editHoaDon(Model model, @RequestParam("id") UUID id) {
-  //   model.addAttribute("voucherRequest",
-  //       service.getHoaDonRequetById(id));
-  //   return "/admin/pages/voucher/form-voucher.html";
+  // model.addAttribute("voucherRequest",
+  // service.getHoaDonRequetById(id));
+  // return "/admin/pages/voucher/form-voucher.html";
   // }
-@GetMapping("edit")
+  @GetMapping("edit")
   public String editHoaDon(Model model, @RequestParam("id") UUID id) {
     model.addAttribute("voucherRequest",
         service.getHoaDonById(id));
     return "/admin/pages/voucher/update-voucher.html";
   }
+
   @PostMapping("store")
   public String storeHoaDon(Model model, @Valid @ModelAttribute("voucherRequest") HoaDon voucherRequest,
       BindingResult theBindingResult) {

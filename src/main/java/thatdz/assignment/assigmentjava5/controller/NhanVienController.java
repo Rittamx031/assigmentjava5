@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,60 +32,69 @@ public class NhanVienController {
     public CuaHangService chservice;
     @Autowired
     public ChucVuService cvservice;
+
     @GetMapping("index")
     public String getnhanvienHomepage(Model model) {
         List<NhanVien> list = service.getNhanViens();
         model.addAttribute("list", list);
         return "manager/nhanvien/index.html";
     }
+
     public int rowcount = 10;
     public int[] pagenumbers;
-    public String sortBy="ma", sortDir="asc";
-    //panigation and sort
+    public String sortBy = "ma", sortDir = "asc";
+
+    // panigation and sort
     @GetMapping("/getcountrow")
-    public String handleSubmit(Model model,@RequestParam("selectedValue") String selectedValue) {
+    public String handleSubmit(Model model, @RequestParam("selectedValue") String selectedValue) {
         System.out.println(selectedValue);
-        if (selectedValue.equals("ALL")){
+        if (selectedValue.equals("ALL")) {
             rowcount = Integer.MAX_VALUE;
-        }else{
+        } else {
             rowcount = Integer.parseInt(selectedValue);
         }
-        pagenumbers= service.getPageNumber(rowcount);
-        List<NhanVien> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
+        List<NhanVien> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/nhanvien/index.html"; // Redirect back to the form page
-    }   
+    }
+
     @GetMapping("last")
     public String getLastPage(Model model) {
-        List<NhanVien> list = service.getLastPage(rowcount,sortBy,sortDir);
+        List<NhanVien> list = service.getLastPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         return "manager/nhanvien/index.html";
     }
+
     @GetMapping("sort")
-    public String getPageSort(Model model,@RequestParam("sortBy") String sortby,@RequestParam("sortDir") String sordir) {
+    public String getPageSort(Model model, @RequestParam("sortBy") String sortby,
+            @RequestParam("sortDir") String sordir) {
         sortBy = sortby;
-        sortDir= sordir;
-        List<NhanVien> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        sortDir = sordir;
+        List<NhanVien> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/nhanvien/index.html";
     }
+
     @GetMapping("first")
     public String getFirstPages(Model model) {
-        List<NhanVien> list = service.getFirstPage(rowcount,sortBy,sortDir);
-        pagenumbers= service.getPageNumber(rowcount);
+        List<NhanVien> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/nhanvien/index.html";
     }
+
     @GetMapping("/page")
-    public String getPageNo(Model model,@RequestParam("pageno") int pageno) {
-        List<NhanVien> list = service.getPageNo(pageno-1,rowcount,sortBy,sortDir);
+    public String getPageNo(Model model, @RequestParam("pageno") int pageno) {
+        List<NhanVien> list = service.getPageNo(pageno - 1, rowcount, sortBy, sortDir);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/nhanvien/index.html";
     }
+
     @Autowired
     public NhanVien nhanvien;
 
@@ -97,10 +108,12 @@ public class NhanVienController {
     public List<ChucVu> setCboChucVus() {
         return cvservice.getChucVus();
     }
+
     @ModelAttribute("listnv")
     public List<NhanVien> setCboNhanViens() {
         return service.getNhanViens();
     }
+
     @ModelAttribute("listch")
     public List<CuaHang> setCboCuaHang() {
         return chservice.getCuaHangs();
@@ -113,8 +126,12 @@ public class NhanVienController {
     }
 
     @GetMapping("delete")
-    public String deleteNhanVien(Model model, @RequestParam("id") String id) {
-        service.deleteNhanVien(UUID.fromString(id));
+    public String deleteNhanVien(Model model, @RequestParam("id") String id, RedirectAttributes redirAttrs) {
+        try {
+            service.deleteNhanVien(UUID.fromString(id));
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+        }
         return "redirect:index";
     }
 

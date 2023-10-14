@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.ChucVu;
@@ -26,52 +27,59 @@ public class ChucVuController {
     private ChucVu chucvu;
     public int rowcount = 10;
     public int[] pagenumbers;
-    public String sortBy="ma", sortDir="asc";
-    //panigation and sort
+    public String sortBy = "ma", sortDir = "asc";
+
+    // panigation and sort
     @GetMapping("/getcountrow")
-    public String handleSubmit(Model model,@RequestParam("selectedValue") String selectedValue) {
+    public String handleSubmit(Model model, @RequestParam("selectedValue") String selectedValue) {
         System.out.println(selectedValue);
-        if (selectedValue.equals("ALL")){
+        if (selectedValue.equals("ALL")) {
             rowcount = Integer.MAX_VALUE;
-        }else{
+        } else {
             rowcount = Integer.parseInt(selectedValue);
         }
-        pagenumbers= service.getPageNumber(rowcount);
-        List<ChucVu> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
+        List<ChucVu> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/chucvu/index.html"; // Redirect back to the form page
-    }   
+    }
+
     @GetMapping("last")
     public String getLastPage(Model model) {
-        List<ChucVu> list = service.getLastPage(rowcount,sortBy,sortDir);
+        List<ChucVu> list = service.getLastPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         return "manager/chucvu/index.html";
     }
+
     @GetMapping("sort")
-    public String getPageSort(Model model,@RequestParam("sortBy") String sortby,@RequestParam("sortDir") String sordir) {
+    public String getPageSort(Model model, @RequestParam("sortBy") String sortby,
+            @RequestParam("sortDir") String sordir) {
         sortBy = sortby;
-        sortDir= sordir;
-        List<ChucVu> list = service.getFirstPage(rowcount,sortBy,sortDir);
+        sortDir = sordir;
+        List<ChucVu> list = service.getFirstPage(rowcount, sortBy, sortDir);
         model.addAttribute("list", list);
         model.addAttribute("pagenumber", pagenumbers);
         return "manager/chucvu/index.html";
     }
+
     @GetMapping("first")
     public String getFirstPages(Model model) {
-        List<ChucVu> list = service.getFirstPage(rowcount,sortBy,sortDir);
-        pagenumbers= service.getPageNumber(rowcount);
+        List<ChucVu> list = service.getFirstPage(rowcount, sortBy, sortDir);
+        pagenumbers = service.getPageNumber(rowcount);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/chucvu/index.html";
     }
+
     @GetMapping("/page")
-    public String getPageNo(Model model,@RequestParam("pageno") int pageno) {
-        List<ChucVu> list = service.getPageNo(pageno-1,rowcount,sortBy,sortDir);
+    public String getPageNo(Model model, @RequestParam("pageno") int pageno) {
+        List<ChucVu> list = service.getPageNo(pageno - 1, rowcount, sortBy, sortDir);
         model.addAttribute("pagenumber", pagenumbers);
         model.addAttribute("list", list);
         return "manager/chucvu/index.html";
     }
+
     @GetMapping("index")
     public String getChucVuIndexpages(Model model) {
         List<ChucVu> list = service.getChucVus();
@@ -91,8 +99,12 @@ public class ChucVuController {
     }
 
     @GetMapping("delete")
-    public String deleteChucVu(Model model, @RequestParam("id") String id) {
-        service.deleteChucVu(UUID.fromString(id));
+    public String deleteChucVu(Model model, @RequestParam("id") String id, RedirectAttributes redirAttrs) {
+        try {
+            service.deleteChucVu(UUID.fromString(id));
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+        }
         return "redirect:index";
     }
 
@@ -116,7 +128,8 @@ public class ChucVuController {
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("chucvu") ChucVu chucvuud, BindingResult theBindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("chucvu") ChucVu chucvuud, BindingResult theBindingResult,
+            Model model) {
         if (theBindingResult.hasErrors()) {
             return "redirect:index";
         }

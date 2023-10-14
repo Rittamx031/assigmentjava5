@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import thatdz.assignment.assigmentjava5.entity.ChiTietSanPham;
@@ -44,7 +45,7 @@ public class ChiTietSanPhamController {
     @Autowired
     private ChiTietSanPham chitietsanpham;
     File file2 = new File("");
-    public String pathCopyF = file2.getAbsolutePath()+"\\src\\main\\webapp\\assets\\img\\sanpham\\";
+    public String pathCopyF = file2.getAbsolutePath() + "\\src\\main\\webapp\\assets\\img\\sanpham\\";
     // sort and panigation
     public int rowcount = 10;
     public int[] pagenumbers;
@@ -121,7 +122,7 @@ public class ChiTietSanPhamController {
         return dspservice.getDongSPs();
     }
 
-    @GetMapping({"index",""})
+    @GetMapping({ "index", "" })
     public String getChiTietSanPhamIndexpages(Model model) {
         List<ChiTietSanPham> list = service.getChiTietSanPhams();
         model.addAttribute("list", list);
@@ -140,8 +141,12 @@ public class ChiTietSanPhamController {
     }
 
     @GetMapping("delete")
-    public String deleteChiTietSanPham(Model model, @RequestParam("id") String id) {
-        service.deleteChiTietSanPham(UUID.fromString(id));
+    public String deleteChiTietSanPham(Model model, @RequestParam("id") String id, RedirectAttributes redirAttrs) {
+        try {
+            service.deleteChiTietSanPham(UUID.fromString(id));
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("message", "Không thể xóa thực thể này" + e);
+        }
         return "redirect:index";
     }
 
@@ -155,12 +160,13 @@ public class ChiTietSanPhamController {
 
     @PostMapping("store")
     public String storeChiTietSanPham(Model model,
-            @Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamst,@RequestParam("imageFile") MultipartFile file,
+            @Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamst,
+            @RequestParam("imageFile") MultipartFile file,
             BindingResult theBindingResult) {
         if (theBindingResult.hasErrors()) {
             return "manager/chitietsanpham/form.html";
         } else {
-            chitietsanphamst.setImage(UUID.randomUUID()+".png");
+            chitietsanphamst.setImage(UUID.randomUUID() + ".png");
             ImageManager.copyFile(pathCopyF + chitietsanphamst.getImage(), file);
             service.saveChiTietSanPham(chitietsanphamst);
             model.addAttribute("list", service.getChiTietSanPhams());
@@ -170,13 +176,14 @@ public class ChiTietSanPhamController {
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud,@RequestParam("imageFile") MultipartFile file,
+    public String update(@Valid @ModelAttribute("chitietsanpham") ChiTietSanPham chitietsanphamud,
+            @RequestParam("imageFile") MultipartFile file,
             BindingResult theBindingResult, Model model) {
         System.out.println(chitietsanphamud.toString());
         if (theBindingResult.hasErrors()) {
             return "manager/chitietsanpham/update.html";
         }
-        chitietsanphamud.setImage(UUID.randomUUID()+".png");
+        chitietsanphamud.setImage(UUID.randomUUID() + ".png");
         System.out.println();
         ImageManager.copyFile(pathCopyF + chitietsanphamud.getImage(), file);
         service.updateChiTietSanPham(chitietsanphamud);

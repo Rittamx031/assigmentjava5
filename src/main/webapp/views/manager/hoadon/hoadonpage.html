@@ -78,21 +78,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="voucher : ${list}">
-              <td class="text-center" th:text="${voucher.ma}"></td>
-              <td class="text-center" th:text="${voucher.khachHang?.getFullName()}"></td>
-              <td class="text-center" th:text="${voucher.nhanVien?.getFullName()}"></td>
-              <td class="text-center" th:text="${voucher.tenNguoiNhan}"></td>
-              <td class="text-center" th:text="${voucher.diaChi}"></td>
-              <td class="text-center" th:text="${voucher.sdt}"></td>
-              <td class="text-center" th:text="${voucher.tinhTrang}"></td>
-              <td class="text-center" th:text="${voucher.ngayTao}"></td>
-              <td class="text-center" th:text="${voucher.ngayThanhToan}"></td>
-              <td class="text-center" th:text="${voucher.ngayShip}"></td>
-              <td class="text-center" th:text="${voucher.ngayNhan}"></td>
+            <tr th:each="hoadon : ${list}">
+              <td class="text-center" th:text="${hoadon.ma}"></td>
+              <td class="text-center" th:text="${hoadon.khachHang?.getFullName()}"></td>
+              <td class="text-center" th:text="${hoadon.nhanVien?.getFullName()}"></td>
+              <td class="text-center" th:text="${hoadon.tenNguoiNhan}"></td>
+              <td class="text-center" th:text="${hoadon.diaChi}"></td>
+              <td class="text-center" th:text="${hoadon.sdt}"></td>
+              <td class="text-center" th:text="${hoadon.tinhTrang}"></td>
+              <td class="text-center" th:text="${hoadon.ngayTao}"></td>
+              <td class="text-center" th:text="${hoadon.ngayThanhToan}"></td>
+              <td class="text-center" th:text="${hoadon.ngayShip}"></td>
+              <td class="text-center" th:text="${hoadon.ngayNhan}"></td>
               <td>
-                <a th:href="@{/manager/hoadon/delete(id=${voucher.id})}" class="btn btn-danger">Delete</a>
-                <a th:href="@{/manager/hoadon/edit(id=${voucher.id})}" class="btn btn-success">Update</a>
+                <a th:href="@{/manager/hoadon/delete(id=${hoadon.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/manager/hoadon/edit(id=${hoadon.id})}" class="btn btn-success">Update</a>
               </td>
             </tr>
           </tbody>
